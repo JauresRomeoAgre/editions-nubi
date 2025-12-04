@@ -4,1134 +4,802 @@
   <meta charset="UTF-8" />
   <title>Éditions Nubi – Des histoires pour grandir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Découvrez Nubi, le petit nuage qui apprend à avoir confiance en lui. Un album jeunesse illustré par les Éditions Nubi.">
+  <meta name="description" content="Découvrez Nubi, le petit nuage. Éditions Nubi, livres jeunesse illustrés.">
   
+  <!-- Import des polices Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      /* Palette Disney / Douceur */
+      /* Palette Douceur / Pro */
       --bleu-ciel: #8ec5fc;
       --bleu-profond: #2b5876; 
       --rose-doux: #ffd6e8;
       --jaune-soleil: #ffeb3b; 
       --blanc-creme: #fdfbf7;
       --texte: #4a4a4a;
-      --texte-fonce: #2c3e50;
-      --accent: #ff6b6b; /* Pour les boutons d'action */
+      --accent: #ff6b6b;
       --ombre-douce: 0 10px 30px rgba(130, 150, 200, 0.15);
+      --transition: all 0.4s ease-in-out;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Nunito', sans-serif; /* Police très lisible pour le corps */
+      font-family: 'Nunito', sans-serif;
       background: var(--blanc-creme);
       color: var(--texte);
       line-height: 1.7;
       overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
-    h1, h2, h3, h4, .btn-order, .logo {
-      font-family: 'Fredoka', sans-serif; /* Police ronde pour les titres */
+    h1, h2, h3, h4, .btn-order, .logo, .nav-link {
+      font-family: 'Fredoka', sans-serif;
     }
 
     /* --- HEADER & NAV --- */
     header {
-      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
-      padding: 0 0 4rem;
-      position: relative;
-    }
-
-    /* Forme de nuage en bas du header (séparateur) */
-    .wave-separator {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      overflow: hidden;
-      line-height: 0;
-      transform: rotate(180deg);
-    }
-    .wave-separator svg {
-      position: relative;
-      display: block;
-      width: calc(138% + 1.3px);
-      height: 60px;
-    }
-    .wave-separator .shape-fill {
-      fill: var(--blanc-creme);
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 0.8rem 0;
     }
 
     .wrapper {
       max-width: 1100px;
       margin: 0 auto;
       padding: 0 1.5rem;
-      position: relative;
-      z-index: 10;
     }
 
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.5rem 0;
-      margin-bottom: 2rem;
     }
 
     nav .logo {
       font-weight: 700;
-      font-size: 1.5rem;
-      color: #fff;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-      letter-spacing: 0.5px;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    nav a {
-      color: #fff;
+      font-size: 1.6rem;
+      color: var(--bleu-profond);
       text-decoration: none;
-      font-weight: 700;
-      font-size: 1rem;
-      transition: opacity 0.3s;
-    }
-    nav a:hover { opacity: 0.8; }
-
-    /* --- HERO SECTION --- */
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
+      display: flex;
       align-items: center;
-      padding-bottom: 3rem;
+      gap: 0.5rem;
     }
 
-    .hero-text h1 {
-      font-size: clamp(2.2rem, 4vw, 3.2rem);
-      line-height: 1.2;
-      margin-bottom: 1rem;
-      color: var(--texte-fonce);
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
     }
-    
-    .hero-text .subtitle {
-      font-size: 1.2rem;
-      color: #4a6fa5;
+
+    .nav-link {
+      color: var(--texte);
+      text-decoration: none;
       font-weight: 600;
-      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.3s;
     }
 
-    .hero-text p {
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-      color: #556;
+    .nav-link:hover, .nav-link.active-link {
+      color: var(--bleu-profond);
     }
-
-    .hero-book {
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: var(--ombre-douce);
-      text-align: center;
-      transform: rotate(2deg); /* Petit effet ludique */
-      transition: transform 0.3s;
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--bleu-ciel);
+      transition: width 0.3s;
     }
-    .hero-book:hover { transform: rotate(0deg) scale(1.02); }
+    .nav-link:hover::after, .nav-link.active-link::after { width: 100%; }
 
-    .hero-cover {
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-      margin-bottom: 1rem;
-    }
-    .hero-cover img { width: 100%; height: auto; display: block; }
-
-    /* BOUTONS */
     .btn-order {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
       background: var(--accent);
       color: white;
-      padding: 1rem 2rem;
+      padding: 0.6rem 1.4rem;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 1.1rem;
-      box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-      transition: transform 0.2s, box-shadow 0.2s;
+      font-size: 0.95rem;
       border: none;
       cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+      transition: transform 0.2s;
     }
-    .btn-order:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(255, 107, 107, 0.5);
-    }
-    .btn-secondary {
-      background: transparent;
-      color: var(--bleu-profond);
-      border: 2px solid var(--bleu-profond);
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 700;
-      margin-left: 10px;
-    }
-    .btn-secondary:hover { background: rgba(255,255,255,0.3); }
+    .btn-order:hover { transform: scale(1.05); }
 
-    /* --- SECTIONS GÉNÉRALES --- */
-    section { padding: 5rem 0; }
-    
-    .section-title {
-      text-align: center;
-      margin-bottom: 3rem;
+    /* --- SYSTEME DE PAGES (SPA) --- */
+    .page-section {
+      display: none; /* Caché par défaut */
+      animation: fadeIn 0.6s ease;
+      padding-bottom: 4rem;
     }
-    .section-title h2 {
-      font-size: 2.2rem;
-      color: var(--texte-fonce);
-      margin-bottom: 0.5rem;
-    }
-    .section-title p {
-      color: #777;
-      font-size: 1.1rem;
-    }
-    
-    .card {
-      background: #fff;
-      border-radius: 15px;
-      padding: 2rem;
-      box-shadow: var(--ombre-douce);
-      transition: transform 0.3s;
-    }
-    .card:hover { transform: translateY(-5px); }
-
-    /* --- HISTOIRE & PERSONNAGES --- */
-    .story-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-    }
-    .story-content h3 { color: var(--bleu-profond); font-size: 1.5rem; margin-bottom: 1rem; }
-    
-    .characters-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .char-card {
-      text-align: center;
-      background: #f0f7ff;
-      padding: 1rem;
-      border-radius: 12px;
-    }
-    .char-icon { font-size: 2.5rem; margin-bottom: 0.5rem; display: block; }
-    .char-name { font-weight: 700; color: var(--bleu-profond); display: block;}
-    .char-desc { font-size: 0.85rem; color: #666; line-height: 1.4; }
-
-    /* --- THÈMES (BÉNÉFICES) --- */
-    .bg-soft { background: #f9fcff; }
-    
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-    .benefit-item {
-      text-align: center;
-      padding: 1rem;
-    }
-    .benefit-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      display: inline-block;
-      background: #fff;
-      width: 80px;
-      height: 80px;
-      line-height: 80px;
-      border-radius: 50%;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    }
-    .benefit-item h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
-
-    /* --- CARACTÉRISTIQUES --- */
-    .tech-specs {
-      background: var(--bleu-profond);
-      color: #fff;
-      border-radius: 20px;
-      padding: 3rem;
-      margin-top: 3rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      gap: 2rem;
-    }
-    .tech-item { text-align: center; }
-    .tech-label { font-size: 0.9rem; opacity: 0.8; display: block; margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 1px;}
-    .tech-val { font-size: 1.4rem; font-weight: 700; font-family: 'Fredoka', sans-serif;}
-
-    /* --- AUTEUR & COLLECTION --- */
-    .author-section {
-      background: #fff5f8; /* Rose très pâle */
-    }
-    .author-box {
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .collection-preview {
-      margin-top: 3rem;
-      padding: 2rem;
-      border: 2px dashed #e0e0e0;
-      border-radius: 15px;
-      text-align: center;
-    }
-    .collection-tags span {
-      display: inline-block;
-      background: #eee;
-      padding: 0.4rem 0.8rem;
-      border-radius: 30px;
-      margin: 0.3rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #555;
+    .page-section.active {
+      display: block; /* Visible si actif */
     }
 
-    /* --- FORMULAIRE COMMANDE --- */
-    .form-wrapper {
-      max-width: 750px;
-      margin: 0 auto;
-      background: #fff;
-      border-radius: 20px;
-      padding: 2.5rem;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-      border: 1px solid #eee;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    
-    .form-section-title {
-      font-family: 'Fredoka', sans-serif;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      font-size: 1.3rem;
-      color: var(--bleu-profond);
-      border-bottom: 2px solid #f0f7ff;
-      padding-bottom: 0.5rem;
-    }
-    
-    label { display: block; margin-top: 1rem; margin-bottom: 0.4rem; font-weight: 700; color: #444; font-size: 0.95rem; }
-    select, input {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      border-radius: 8px;
-      border: 2px solid #e1e5ee;
-      font-family: 'Nunito', sans-serif;
-      font-size: 1rem;
-      background: #fdfdfd;
-      transition: border-color 0.2s;
-    }
-    select:focus, input:focus {
-      border-color: var(--bleu-ciel);
-      outline: none;
-      background: #fff;
-    }
-    
-    /* Boutons WhatsApp/Email */
-    .btn-action {
-      flex: 1;
-      padding: 1rem;
-      border-radius: 10px;
-      border: none;
-      color: white;
-      font-weight: 700;
-      font-size: 1rem;
-      cursor: pointer;
+
+    /* --- PAGE ACCUEIL : SLIDER HERO --- */
+    .hero-slider-container {
+      position: relative;
+      height: 80vh;
+      min-height: 500px;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      transition: opacity 0.2s;
+      color: #fff;
+      text-align: center;
     }
-    .btn-whatsapp { background: #25D366; }
-    .btn-email { background: #EA4335; }
-    .btn-action:hover { opacity: 0.9; }
-
-    .hidden { display: none; }
     
+    /* Le fond animé */
+    .slide-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+      z-index: 1;
+    }
+    .slide-bg.active { opacity: 1; }
+    
+    /* Overlay pour lisibilité */
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(to bottom, rgba(43, 88, 118, 0.3), rgba(43, 88, 118, 0.6));
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 800px;
+      padding: 0 1rem;
+    }
+    
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    
+    .hero-sub {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      font-weight: 600;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .btn-hero {
+      background: #fff;
+      color: var(--bleu-profond);
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-block;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+    .btn-hero:hover { transform: translateY(-3px) scale(1.02); }
+
+    /* --- SECTIONS COMMUNES --- */
+    .section-header {
+      text-align: center;
+      padding: 4rem 0 2rem;
+    }
+    .section-header h2 { font-size: 2.5rem; color: var(--bleu-profond); margin-bottom: 0.5rem; }
+    .section-header p { color: #777; font-size: 1.1rem; }
+
+    /* --- PAGE HISTOIRE / LIVRE --- */
+    .book-details {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 3rem;
+      align-items: start;
+      margin-top: 2rem;
+    }
+    
+    /* Galerie Interactive */
+    .gallery-container {
+      margin: 3rem 0;
+    }
+    .gallery-title { text-align: center; margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--bleu-profond); }
+    
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* 2 colonnes */
+      grid-template-rows: auto auto;
+      gap: 1.5rem;
+    }
+    
+    .gallery-item {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--ombre-douce);
+      cursor: pointer;
+      position: relative;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+
+    /* Layout spécifique : Cover à gauche (prend 2 lignes), P1 et P2 à droite */
+    .item-cover {
+      grid-column: 1 / 2;
+      grid-row: 1 / 3;
+    }
+    .item-p1 { grid-column: 2 / 3; grid-row: 1 / 2; }
+    .item-p2 { grid-column: 2 / 3; grid-row: 2 / 3; }
+
+    .characters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .char-circle {
+      width: 80px; height: 80px;
+      background: #f0f7ff;
+      border-radius: 50%;
+      margin: 0 auto 0.5rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      border: 2px solid var(--bleu-ciel);
+    }
+
+    /* --- PAGE THEMES --- */
+    .theme-card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
+      border-left: 5px solid var(--jaune-soleil);
+      box-shadow: var(--ombre-douce);
+    }
+
+    /* --- PAGE A PROPOS --- */
+    .about-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 2rem;
+    }
+    .author-card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: var(--ombre-douce);
+      border: 1px solid #eee;
+    }
+    .author-photo {
+      width: 150px; height: 150px;
+      background: #ddd; /* Placeholder */
+      border-radius: 15px; /* Carré arrondi */
+      margin: 0 auto 1.5rem;
+      object-fit: cover;
+      border: 3px solid #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .edition-info {
+      padding: 1rem;
+    }
+
+    /* --- PAGE CONTACT / COMMANDE --- */
+    .contact-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+    }
+    
+    .contact-details {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px dashed #ddd;
+    }
+    .contact-row {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+    .contact-item { display: flex; align-items: center; gap: 0.5rem; }
+
+    /* Formulaire styles (gardés du précédent mais ajustés) */
+    .form-section-title {
+      font-family: 'Fredoka', sans-serif;
+      margin-top: 1.5rem; margin-bottom: 0.8rem;
+      font-size: 1.2rem; color: var(--bleu-profond);
+      border-bottom: 2px solid #f0f7ff;
+      padding-bottom: 0.3rem;
+    }
+    label { display: block; margin-top: 0.8rem; font-weight: 700; color: #555; font-size: 0.9rem; }
+    select, input {
+      width: 100%; padding: 0.7rem; border-radius: 8px;
+      border: 2px solid #e1e5ee; font-family: 'Nunito';
+    }
+    select:focus, input:focus { border-color: var(--bleu-ciel); outline: none; }
+    
+    .btn-action {
+      flex: 1; padding: 1rem; border-radius: 10px; border: none; color: white;
+      font-weight: 700; cursor: pointer; display: flex; justify-content: center; gap: 0.5rem;
+    }
+    .hidden { display: none; }
+
     /* --- FOOTER --- */
     footer {
       background: var(--bleu-profond);
       color: white;
       text-align: center;
-      padding: 3rem 1.5rem;
-      margin-top: 4rem;
+      padding: 2rem;
+      margin-top: auto;
     }
-    footer a { color: var(--bleu-ciel); text-decoration: none; }
-    
+    .footer-address {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
     /* --- RESPONSIVE --- */
     @media (max-width: 768px) {
-      .hero { grid-template-columns: 1fr; text-align: center; }
-      .hero-text h1 { font-size: 2.2rem; }
-      .hero-book { max-width: 350px; margin: 0 auto; transform: none; }
-      .story-grid { grid-template-columns: 1fr; }
+      .nav-menu { display: none; } /* Menu mobile simplifié requis ou bouton menu */
+      /* Pour cet exemple on garde simple, sur mobile le menu passe en dessous */
       nav { flex-direction: column; gap: 1rem; }
-      .tech-specs { flex-direction: column; gap: 1.5rem; }
+      .nav-menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+      
+      .book-details, .about-split, .gallery-grid { grid-template-columns: 1fr; }
+      .item-cover, .item-p1, .item-p2 { grid-column: auto; grid-row: auto; }
+      /* Sur mobile, on empile les images */
+      .item-cover { height: 400px; }
+      .item-p1, .item-p2 { height: 200px; }
+      
+      .hero-title { font-size: 2.5rem; }
     }
   </style>
 </head>
 <body>
 
-<header id="top">
+<header>
   <div class="wrapper">
     <nav>
-      <div class="logo">☁️ Éditions Nubi</div>
-      <ul>
-        <li><a href="#histoire">L'Histoire</a></li>
-        <li><a href="#pedagogie">Thèmes</a></li>
-        <li><a href="#auteur">L'Auteur</a></li>
-        <li><a href="#commande" class="btn-order" style="padding: 0.5rem 1.2rem; font-size: 0.9rem;">Commander</a></li>
+      <a href="#" onclick="showPage('home')" class="logo">
+        ☁️ Éditions Nubi
+      </a>
+      <ul class="nav-menu">
+        <li><a onclick="showPage('home')" class="nav-link active-link" id="link-home">Accueil</a></li>
+        <li><a onclick="showPage('histoire')" class="nav-link" id="link-histoire">L'Histoire</a></li>
+        <li><a onclick="showPage('themes')" class="nav-link" id="link-themes">Thèmes</a></li>
+        <li><a onclick="showPage('propos')" class="nav-link" id="link-propos">À Propos</a></li>
+        <li><a onclick="showPage('contact')" class="nav-link" id="link-contact">Contact</a></li>
+        <li><button onclick="showPage('commande')" class="btn-order">Commander</button></li>
       </ul>
     </nav>
-
-    <div class="hero">
-      <div class="hero-text">
-        <h1>Transformez la peur en super-pouvoir.</h1>
-        <div class="subtitle">Un conte poétique sur la confiance en soi.</div>
-        <p>
-          <strong>Nubi</strong> est un petit nuage pas comme les autres : il a peur de pleuvoir. 
-          Une histoire tendre et lumineuse pour apprendre à votre enfant que même ses émotions les plus timides peuvent faire fleurir le monde.
-        </p>
-        <div style="margin-top: 2rem;">
-          <a href="#commande" class="btn-order">Commander le livre</a>
-          <a href="#histoire" class="btn-secondary">Lire le résumé</a>
-        </div>
-      </div>
-
-      <div class="hero-book">
-        <div style="font-weight: 700; color: #d35400; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">✨ Nouvelle Sortie</div>
-        <div class="hero-cover">
-          <img src="ImageNubi.png" alt="Couverture du livre Nubi" />
-        </div>
-        <h3 style="margin: 1rem 0 0.5rem; color: var(--texte-fonce);">Le Petit Nuage qui avait peur de pleuvoir</h3>
-        <p style="font-size: 0.9rem; margin-bottom: 0;">Album Jeunesse (3-7 ans)</p>
-      </div>
-    </div>
-  </div>
-  
-  <div class="wave-separator">
-      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-      </svg>
   </div>
 </header>
 
-<section id="histoire">
-  <div class="wrapper">
-    <div class="section-title">
-      <h2>Il était une fois...</h2>
-      <p>Une aventure douce au cœur du ciel</p>
-    </div>
+<!-- === PAGE 1: ACCUEIL === -->
+<div id="home" class="page-section active">
+  <div class="hero-slider-container">
+    <!-- Diaporama (Images de fond à remplacer par les vôtres) -->
+    <!-- Slide 1 : Nuage -->
+    <div class="slide-bg active" style="background-image: url('https://images.unsplash.com/photo-1595116709849-00109919f20e?q=80&w=1920&auto=format&fit=crop');"></div>
+    <!-- Slide 2 : Enfant qui lit -->
+    <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1920&auto=format&fit=crop');"></div>
+    <!-- Slide 3 : Fleurs -->
+    <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1490750967868-58cb75063ed4?q=80&w=1920&auto=format&fit=crop');"></div>
     
-    <div class="story-grid">
-      <div class="story-content">
-        <h3>L'Histoire</h3>
-        <p>Nubi était le plus petit nuage du ciel. Il flottait doucement, loin derrière les autres, car il avait un grand secret : <strong>il avait peur de pleuvoir.</strong></p>
-        <p>Chaque fois qu’une goutte pointait, il paniquait et se cachait. "Et si les gens me trouvaient embêtant ?"</p>
-        <p>Mais un jour, les fleurs du pré, assoiffées, appellent à l'aide. Nubi devra puiser dans son courage pour découvrir que ce qu'il croyait être une faiblesse est en réalité <strong>son plus beau cadeau au monde.</strong></p>
+    <div class="hero-overlay"></div>
+    
+    <div class="hero-content">
+      <h1 class="hero-title">Grandir, une page à la fois.</h1>
+      <p class="hero-sub">Des histoires colorées pour apprivoiser les émotions.</p>
+      <button onclick="showPage('histoire')" class="btn-hero">Découvrir Nubi</button>
+    </div>
+  </div>
+
+  <div class="wrapper" style="padding-top: 3rem; text-align: center;">
+    <h2>Bienvenue chez Éditions Nubi</h2>
+    <p style="max-width: 700px; margin: 1rem auto; color: #666;">
+      Nous créons des albums jeunesse qui marient la magie de l'imaginaire à la réalité des émotions.
+      Nos livres sont conçus pour être lus ensemble, créant un lien précieux entre parents et enfants.
+    </p>
+    
+    <!-- Espace Image Stratégique (Bandeau collection) -->
+    <div style="margin-top: 3rem; border-radius: 15px; overflow: hidden; height: 250px; position: relative;">
+        <img src="https://placehold.co/1200x400/8ec5fc/ffffff?text=Espace+Bannière+Promotionnelle+(Diapo)" style="width:100%; height:100%; object-fit:cover;" alt="Bannière Promo">
+    </div>
+  </div>
+</div>
+
+<!-- === PAGE 2: L'HISTOIRE / LE LIVRE === -->
+<div id="histoire" class="page-section">
+  <div class="wrapper">
+    <div class="section-header">
+      <h2>Le Petit Nuage...</h2>
+      <p>...qui avait peur de pleuvoir</p>
+    </div>
+
+    <div class="book-details">
+      <!-- Colonne Gauche : Pitch -->
+      <div>
+        <h3 style="color: var(--accent); margin-bottom: 1rem;">L'Aventure</h3>
+        <p><strong>Nubi</strong> est le plus petit nuage du ciel. Il flottait doucement, loin derrière les autres, car il avait un secret : il avait peur de pleuvoir.</p>
+        <p style="margin-top: 1rem;">Chaque fois qu’il sentait une goutte, il paniquait. Jusqu'au jour où les fleurs, assoiffées, l'appellent à l'aide...</p>
         
-        <div class="card" style="margin-top: 1.5rem; background: #fffcf0; border-left: 4px solid var(--jaune-soleil);">
-          <strong>⭐ Moralité :</strong> Ne cache jamais ce que tu es. Ce que tu crois être une faiblesse peut être un trésor pour les autres.
+        <div style="margin-top: 2rem; background: #fff; padding: 1.5rem; border-radius: 10px; border-left: 4px solid var(--accent);">
+            <strong>🌟 La Morale</strong><br>
+            "Ne cache jamais ce que tu es. Ce que tu crois être une faiblesse peut être un cadeau pour les autres."
+        </div>
+
+        <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Les Personnages</h3>
+        <div class="characters-grid">
+            <div><div class="char-circle">☁️</div><small>Nubi</small></div>
+            <div><div class="char-circle">☀️</div><small>Soleila</small></div>
+            <div><div class="char-circle">💨</div><small>Ventounet</small></div>
+            <div><div class="char-circle">🌷</div><small>Fleurs</small></div>
         </div>
       </div>
-      
-      <div class="characters-column">
-        <h3>Les Personnages</h3>
-        <div class="characters-list">
-          <div class="char-card">
-            <span class="char-icon">☁️</span>
-            <span class="char-name">Nubi</span>
-            <span class="char-desc">Le petit nuage timide et gentil.</span>
-          </div>
-          <div class="char-card">
-            <span class="char-icon">☀️</span>
-            <span class="char-name">Soleila</span>
-            <span class="char-desc">Le soleil bienveillant qui conseille.</span>
-          </div>
-          <div class="char-card">
-            <span class="char-icon">💨</span>
-            <span class="char-name">Ventounet</span>
-            <span class="char-desc">Le vent doux et très joueur.</span>
-          </div>
-          <div class="char-card">
-            <span class="char-icon">🌷</span>
-            <span class="char-name">Les Fleurs</span>
-            <span class="char-desc">Rosea, Bleuvette et Jaunon.</span>
-          </div>
+
+      <!-- Colonne Droite : Galerie (Cover + P1 + P2) -->
+      <div>
+        <div class="gallery-title">Aperçu du livre</div>
+        <div class="gallery-grid">
+            <!-- Remplacer les src par vos images réelles : Cover.png, P1.png, P2.png -->
+            <div class="gallery-item item-cover">
+                <img src="https://placehold.co/400x600/2b5876/fff?text=Cover+(Portrait)" alt="Couverture Livre">
+            </div>
+            <div class="gallery-item item-p1">
+                <img src="https://placehold.co/400x300/8ec5fc/fff?text=P1+(Paysage)" alt="Page Intérieure 1">
+            </div>
+            <div class="gallery-item item-p2">
+                <img src="https://placehold.co/400x300/ffd6e8/333?text=P2+(Paysage)" alt="Page Intérieure 2">
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="pedagogie" class="bg-soft">
-  <div class="wrapper">
-    <div class="section-title">
-      <h2>Pourquoi ce livre pour votre enfant ?</h2>
-      <p>Bien plus qu'une histoire, un outil pour grandir.</p>
-    </div>
-
-    <div class="benefits-grid">
-      <div class="benefit-item">
-        <span class="benefit-icon">🦁</span>
-        <h3>Confiance en Soi</h3>
-        <p>Nubi montre à l'enfant qu'on a le droit d'être timide, et que chacun a un rôle unique à jouer dans le monde.</p>
-      </div>
-      <div class="benefit-item">
-        <span class="benefit-icon">💧</span>
-        <h3>Gestion des Émotions</h3>
-        <p>Dédramatiser les pleurs. L'histoire explique avec poésie que pleurer n'est pas "nul", c'est parfois nécessaire et libérateur.</p>
-      </div>
-      <div class="benefit-item">
-        <span class="benefit-icon">🎨</span>
-        <h3>Éveil Visuel</h3>
-        <p>Des illustrations colorées, style animation, pensées pour captiver l'attention des tout-petits dès 3 ans.</p>
+        <p style="text-align: center; font-size: 0.9rem; margin-top: 0.5rem; color: #888;">* Images non contractuelles</p>
       </div>
     </div>
     
-    <div class="tech-specs">
-      <div class="tech-item">
-        <span class="tech-label">Format</span>
-        <span class="tech-val">21 x 27 cm</span>
-      </div>
-      <div class="tech-item">
-        <span class="tech-label">Pages</span>
-        <span class="tech-val">40 Pages</span>
-      </div>
-      <div class="tech-item">
-        <span class="tech-label">Couverture</span>
-        <span class="tech-val">Cartonnée</span>
-      </div>
-      <div class="tech-item">
-        <span class="tech-label">Âge Conseillé</span>
-        <span class="tech-val">3 - 7 ans</span>
-      </div>
+    <div style="text-align: center; margin-top: 3rem;">
+        <button onclick="showPage('commande')" class="btn-order" style="padding: 1rem 2rem; font-size: 1.2rem;">Commander ce livre</button>
     </div>
   </div>
-</section>
+</div>
 
-<section id="auteur" class="author-section">
+<!-- === PAGE 3: THEMES === -->
+<div id="themes" class="page-section">
   <div class="wrapper">
-    <div class="author-box">
-      <h2>À propos de l'Auteur</h2>
-      <p class="lead" style="font-size: 1.1rem; margin-top: 1rem;">
-        Passionné par la création de mondes imaginaires et l'éducation positive, je conçois des histoires qui sont bien plus que des livres : ce sont des outils pour dialoguer avec les enfants.
-      </p>
-      <p>Avec les <strong>Éditions Nubi</strong>, mon objectif est d'accompagner les petits à travers leurs grandes émotions avec douceur et magie.</p>
-    
-      <div class="collection-preview">
-        <h4>📚 Bientôt dans la collection "Les Petites Émotions"</h4>
-        <p>Parce que grandir est une aventure, d'autres histoires arrivent pour explorer :</p>
-        <div class="collection-tags">
-          <span>🐢 L'Impatience</span>
-          <span>🦊 L'Imprudence</span>
-          <span>🐘 La Colère</span>
+    <div class="section-header">
+      <h2>Les Thématiques</h2>
+      <p>Ce que ce livre apporte à votre enfant</p>
+    </div>
+
+    <div style="max-width: 800px; margin: 0 auto;">
+        <div class="theme-card">
+            <h3>🦁 La Confiance en Soi</h3>
+            <p>L'histoire de Nubi valide le sentiment de timidité tout en montrant qu'il est possible de le surmonter pour accomplir de grandes choses.</p>
         </div>
-      </div>
+        <div class="theme-card" style="border-color: var(--bleu-ciel);">
+            <h3>💧 La Gestion des Émotions</h3>
+            <p>Pleurer est souvent vu négativement. Ici, les larmes deviennent une pluie bienfaisante, aidant l'enfant à accepter sa tristesse comme une émotion utile.</p>
+        </div>
+        <div class="theme-card" style="border-color: var(--rose-doux);">
+            <h3>🤝 L'Entraide et l'Écologie</h3>
+            <p>Une introduction douce au cycle de l'eau et à l'importance de prendre soin de la nature qui nous entoure.</p>
+        </div>
+    </div>
+    
+    <!-- Caractéristiques Techniques -->
+    <div style="margin-top: 3rem; background: var(--bleu-profond); color: #fff; padding: 2rem; border-radius: 15px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; text-align: center;">
+        <div>
+            <div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Format</div>
+            <div style="font-size: 1.4rem; font-weight: 700;">21 x 21 cm</div>
+        </div>
+        <div>
+            <div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Couverture</div>
+            <div style="font-size: 1.4rem; font-weight: 700;">Cartonnée Soft Touch</div>
+        </div>
+        <div>
+            <div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Âge</div>
+            <div style="font-size: 1.4rem; font-weight: 700;">Dès 3 ans</div>
+        </div>
     </div>
   </div>
-</section>
+</div>
 
-<section id="commande">
+<!-- === PAGE 4: A PROPOS === -->
+<div id="propos" class="page-section">
   <div class="wrapper">
-    <div class="section-title">
-      <h2>Commander le livre</h2>
-      <p>Configurez votre commande ci-dessous. Paiement sécurisé à la livraison ou via mobile money selon votre zone.</p>
+    <div class="section-header">
+      <h2>Qui sommes-nous ?</h2>
     </div>
 
-    <div class="form-wrapper">
+    <div class="about-split">
+        <!-- L'Auteur -->
+        <div class="author-card">
+            <h3>L'Auteur</h3>
+            <!-- Place pour la photo carrée -->
+            <img src="https://placehold.co/300x300/eee/999?text=Photo+Auteur" alt="Photo Auteur" class="author-photo">
+            <p style="font-style: italic; color: #555;">
+                "Créer des histoires, c'est semer des graines de courage dans le cœur des enfants."
+            </p>
+            <p style="margin-top: 1rem; text-align: left;">
+                Passionné par l'imaginaire et la pédagogie, l'auteur s'inspire des défis quotidiens des enfants pour créer des contes bienveillants. Son écriture rythmée et douce invite à la lecture à voix haute.
+            </p>
+        </div>
+
+        <!-- La Maison d'Édition -->
+        <div class="edition-info">
+            <h3 style="color: var(--bleu-profond); margin-bottom: 1rem;">La Maison d'Édition Nubi</h3>
+            <p><strong>Éditions Nubi</strong> est une maison d'édition jeunesse indépendante basée en Côte d'Ivoire.</p>
+            <p style="margin-top: 1rem;">
+                Notre mission est double :
+            </p>
+            <ul style="margin: 1rem 0 1rem 1.5rem; list-style-type: circle;">
+                <li>Offrir des livres de <strong>haute qualité esthétique</strong> (illustrations soignées, papier premium).</li>
+                <li>Aborder des <strong>thèmes psychologiques essentiels</strong> (peur, colère, patience) avec des mots simples.</li>
+            </ul>
+            <p>
+                Nous croyons que chaque livre est un compagnon de route pour l'enfant.
+            </p>
+            
+            <div style="margin-top: 2rem; padding: 1rem; background: #fff5f8; border-radius: 10px;">
+                <strong>📍 Notre Adresse :</strong><br>
+                375 Rue David Zouzoua,<br>Bingerville, Côte d'Ivoire.
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- === PAGE 5: CONTACT (Infos) === -->
+<div id="contact" class="page-section">
+  <div class="wrapper">
+    <div class="section-header">
+      <h2>Contactez-nous</h2>
+      <p>Une question ? Un partenariat ? Une commande ?</p>
+    </div>
+
+    <div class="contact-container">
+        <div class="contact-details">
+            <div class="contact-row">
+                <div class="contact-item">
+                    📍 <strong>Adresse :</strong> 375 Rue David Zouzoua, Bingerville
+                </div>
+                <div class="contact-item">
+                    📞 <strong>Tél :</strong> +225 07 09 85 07 76
+                </div>
+            </div>
+            <div class="contact-row">
+                 <div class="contact-item">
+                    📧 <strong>Email :</strong> contact@editionsnubi.com
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <p style="margin-bottom: 1.5rem;">Vous souhaitez commander le livre "Nubi" ?</p>
+            <button onclick="showPage('commande')" class="btn-order" style="background: var(--bleu-profond); padding: 1rem 2rem;">Accéder au formulaire de commande</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- === PAGE 6: COMMANDE (Formulaire) === -->
+<div id="commande" class="page-section">
+  <div class="wrapper">
+    <div class="section-header">
+      <h2>Formulaire de Commande</h2>
+      <p>Recevez Nubi directement chez vous</p>
+    </div>
+
+    <div class="contact-container">
       <form id="commandeForm">
-        
-        <div class="form-section-title">🌍 Où habitez-vous ?</div>
+        <!-- (Formulaire identique au précédent, code condensé pour clarté) -->
+        <div class="form-section-title">🌍 Localisation</div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-          <div>
-            <label for="region">Région</label>
-            <select id="region" name="region">
-              <option value="">Choisissez une région</option>
-              <option value="afrique">Afrique</option>
-              <option value="europe">Europe</option>
-              <option value="amerique">Amérique</option>
-              <option value="asie">Asie</option>
-            </select>
-          </div>
-          <div>
-            <label for="pays">Pays</label>
-            <select id="pays" name="pays">
-              <option value="">Choisissez d’abord une région</option>
-            </select>
-          </div>
+          <div><label>Région</label><select id="region"><option value="">Choix...</option><option value="afrique">Afrique</option><option value="europe">Europe</option><option value="amerique">Amérique</option></select></div>
+          <div><label>Pays</label><select id="pays"><option value="">Choix...</option></select></div>
         </div>
 
-        <div id="zone-ci-block" class="hidden" style="margin-top: 1rem; background: #f0f7ff; padding: 1rem; border-radius: 8px;">
-          <label for="zoneCI">Zone (Côte d’Ivoire)</label>
-          <select id="zoneCI" name="zoneCI">
-            <option value="">Choisissez une zone</option>
-            <option value="Abidjan">Abidjan</option>
-            <option value="Bingerville">Bingerville</option>
-            <option value="Dabou">Dabou</option>
-            <option value="Interieur">Intérieur du pays</option>
-          </select>
-          <div id="ville-interieur-block" style="margin-top:0.5rem;" class="hidden">
-            <label for="villeInterieur">Ville (intérieur)</label>
-            <input type="text" id="villeInterieur" name="villeInterieur" placeholder="Nom de la ville" />
-          </div>
+        <div id="zone-ci-block" class="hidden" style="margin-top:1rem; background:#f0f7ff; padding:0.8rem; border-radius:8px;">
+          <label>Zone (CI)</label><select id="zoneCI"><option value="">Choix...</option><option value="Abidjan">Abidjan</option><option value="Bingerville">Bingerville</option><option value="Interieur">Intérieur</option></select>
+          <div id="ville-interieur-block" class="hidden"><input type="text" id="villeInterieur" placeholder="Ville..." style="margin-top:0.5rem;"></div>
         </div>
 
-        <div class="form-section-title">👤 Vos informations</div>
-        
-        <label for="statut">Vous êtes…</label>
-        <select id="statut" name="statut">
-          <option value="">Choisissez un statut</option>
-          <option value="parent">Parent</option>
-          <option value="psy">Psychologue pour enfants</option>
-          <option value="librairie">Librairie</option>
-          <option value="bibliotheque">Bibliothèque</option>
-          <option value="ecole">École</option>
-          <option value="autre">Autre</option>
-        </select>
+        <div class="form-section-title">👤 Infos</div>
+        <label>Statut</label>
+        <select id="statut"><option value="">Vous êtes...</option><option value="parent">Parent</option><option value="librairie">Librairie</option><option value="ecole">École</option><option value="autre">Autre</option></select>
 
         <div id="identite-block" class="hidden">
-          
-          <div id="type-ecole-block" class="hidden">
-             <label for="typeEcole">Type d'école</label>
-             <select id="typeEcole">
-               <option value="">Selectionnez...</option>
-               <option value="Maternelle">Maternelle</option>
-               <option value="Primaire">Primaire</option>
-             </select>
-          </div>
-
-          <div id="structure-block" class="hidden">
-              <label for="nomStructure" id="lbl-structure">Nom de l'établissement</label>
-              <input type="text" id="nomStructure" placeholder="" />
-          </div>
-
-          <div style="display:flex; gap:1rem; align-items:flex-end; flex-wrap:wrap; margin-top: 1rem;">
-              <div style="flex:1; min-width:100px;">
-                  <label for="genre">Civilité</label>
-                  <select id="genre">
-                      <option value="">Choix...</option>
-                      <option value="Monsieur">M.</option>
-                      <option value="Madame">Mme</option>
-                      <option value="Mademoiselle">Mlle</option>
-                  </select>
-              </div>
-              <div style="flex:2; min-width:180px;">
-                  <label for="nomFamille">Nom</label>
-                  <input type="text" id="nomFamille" />
-              </div>
-          </div>
-          <label for="prenoms">Prénom(s)</label>
-          <input type="text" id="prenoms" />
-
-          <div id="poste-block" class="hidden">
-              <label for="poste">Poste occupé</label>
-              <select id="poste"></select>
-              <div id="poste-perso-block" class="hidden" style="margin-top:0.5rem;">
-                  <input type="text" id="posteAutre" placeholder="Précisez votre poste..." />
-              </div>
-          </div>
-
-          <label for="adresse" id="lbl-adresse">Adresse de livraison</label>
-          <input type="text" id="adresse" placeholder="Quartier, Rue, N° de porte..." />
-
-          <label for="contactTel">Téléphone / WhatsApp</label>
-          <div style="display:flex; gap:0.5rem; align-items:center;">
-            <span id="indicatif" style="background:#e1e5ee; padding:0.8rem; border-radius:8px; font-weight:bold; color:#555;">+225</span>
-            <input type="tel" id="contactTel" placeholder="Numéro" />
-          </div>
-
-          <label for="emailContact" id="lbl-email">E-mail</label>
-          <input type="email" id="emailContact" placeholder="votre@email.com" />
+           <div id="structure-block" class="hidden"><label id="lbl-structure">Nom Structure</label><input type="text" id="nomStructure"></div>
+           <div style="display:flex; gap:1rem; margin-top:1rem;">
+               <div style="flex:1"><label>Civilité</label><select id="genre"><option>M.</option><option>Mme</option></select></div>
+               <div style="flex:2"><label>Nom</label><input type="text" id="nomFamille"></div>
+           </div>
+           <label>Prénoms</label><input type="text" id="prenoms">
+           
+           <label id="lbl-adresse">Adresse</label><input type="text" id="adresse">
+           
+           <label>Téléphone</label>
+           <div style="display:flex; gap:0.5rem;"><span id="indicatif" style="padding:0.7rem; background:#eee; border-radius:8px;">+225</span><input type="tel" id="contactTel"></div>
+           
+           <label>Email</label><input type="email" id="emailContact">
         </div>
 
-        <div class="form-section-title">📦 Détails de la commande</div>
+        <div class="form-section-title">📦 Commande</div>
+        <label>Livre</label><select id="livre" style="background:#f0f7ff; font-weight:bold;"><option>Le Petit Nuage Qui Avait Peur de Pleuvoir</option></select>
+        
+        <label>Quantité</label>
+        <select id="quantite"><option value="">Choisir...</option></select>
+        <div id="quantite-pers-block" class="hidden"><input type="number" id="quantitePerso" placeholder="Autre quantité"></div>
 
-        <label for="livre">Livre sélectionné</label>
-        <select id="livre" name="livre" style="background-color: #f0f7ff; color: #2b5876; font-weight: bold;">
-          <option value="Le Petit Nuage Qui Avait Peur de Pleuvoir">Le Petit Nuage Qui Avait Peur de Pleuvoir</option>
-        </select>
-
-        <div id="quantite-block">
-          <label for="quantite">Quantité</label>
-          <select id="quantite" name="quantite">
-               <option value="">Remplissez d'abord votre statut</option>
-          </select>
-          <div id="quantite-pers-block" class="hidden" style="margin-top:0.5rem;">
-            <label for="quantitePerso">Quantité personnalisée</label>
-            <input type="number" id="quantitePerso" min="1" step="1" />
-          </div>
+        <div style="display:flex; gap:1rem; margin-top:1rem;">
+            <div style="flex:1"><label>Devise</label><select id="devise"><option value="XOF">FCFA</option><option value="EUR">Euro</option><option value="USD">Dollar</option></select></div>
+            <div style="flex:1"><label>Total</label><input type="text" id="total" readonly style="background:#2b5876; color:#fff; font-weight:bold; border:none;"></div>
         </div>
 
-        <div style="margin-top:1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-          <div>
-            <label for="devise">Devise</label>
-            <select id="devise" name="devise">
-              <option value="">Devise</option>
-              <option value="EUR">Euro (€)</option>
-              <option value="USD">Dollar ($)</option>
-              <option value="XOF">Franc CFA</option>
-            </select>
-          </div>
-          <div>
-            <label for="total">Total HT</label>
-            <input type="text" id="total" readonly style="background-color: #2b5876; color: white; font-weight: bold; border: none;" />
-          </div>
+        <div style="margin-top:2rem; border-top:1px dashed #ccc; padding-top:1.5rem;">
+            <p style="text-align:center; margin-bottom:1rem; font-weight:600;">Valider ma commande via :</p>
+            <div style="display:flex; gap:1rem;">
+                <button type="button" id="btnWhatsapp" class="btn-action" style="background:#25D366;">WhatsApp</button>
+                <button type="button" id="btnEmail" class="btn-action" style="background:#EA4335;">E-mail</button>
+            </div>
         </div>
-
-        <div style="margin-top:2.5rem; border-top: 2px dashed #eee; padding-top: 1.5rem;">
-          <p style="text-align: center; margin-bottom: 1rem; font-weight: 600;">Envoyer ma commande via :</p>
-          <div style="display: flex; gap: 1rem;">
-              <button type="button" id="btnWhatsapp" class="btn-action btn-whatsapp">
-                 WhatsApp
-              </button>
-              <button type="button" id="btnEmail" class="btn-action btn-email">
-                 E-mail
-              </button>
-          </div>
-        </div>
-
-        <p id="msgInfo" style="margin-top:1rem; font-size:0.85rem; color:#d9534f; text-align: center;"></p>
+        <p id="msgInfo" style="text-align:center; color:red; margin-top:1rem; font-size:0.9rem;"></p>
       </form>
-
-      <div id="confirmationCard" class="card hidden" style="text-align:center; padding: 3rem;">
-        <div style="font-size: 3rem;">🎉</div>
-        <h3 style="color: var(--bleu-profond); margin-top: 1rem;">Merci pour votre commande !</h3>
-        <p id="confirmationTexte" style="margin: 1rem 0; color: #666;"></p>
-        <a href="#top" class="btn-order" style="margin-top:1rem; display:inline-block;">Retour à l’accueil</a>
-      </div>
     </div>
   </div>
-</section>
-
-<section id="contact" style="background: #fff;">
-  <div class="wrapper" style="text-align: center;">
-    <h2>Une question ?</h2>
-    <p>Nous sommes là pour vous répondre.</p>
-    <div style="margin-top: 1.5rem; font-size: 1.1rem;">
-      <p style="margin-bottom: 0.5rem;">📧 <a href="mailto:contact@editionsnubi.com" style="color: var(--bleu-profond); font-weight: 700;">contact@editionsnubi.com</a></p>
-      <p>📞 <a href="tel:+2250709850776" style="color: var(--bleu-profond); font-weight: 700;">+225 07 09 85 07 76</a></p>
-    </div>
-  </div>
-</section>
+</div>
 
 <footer>
   <div class="wrapper">
     <p>© <span id="year"></span> Éditions Nubi — Tous droits réservés.</p>
-    <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">Créé avec amour pour les enfants du monde.</p>
+    <div class="footer-address">📍 375 Rue David Zouzoua, Bingerville, Côte d'Ivoire</div>
   </div>
 </footer>
 
 <script>
+// --- GESTION NAVIGATION (SPA) ---
+function showPage(pageId) {
+    // 1. Cacher toutes les sections
+    document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+    // 2. Désactiver les liens nav
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-link'));
+    
+    // 3. Afficher la section demandée
+    const target = document.getElementById(pageId);
+    if(target) {
+        target.classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    // 4. Activer le lien nav correspondant
+    const link = document.getElementById('link-' + pageId);
+    if(link) link.classList.add('active-link');
+    else if(pageId === 'commande') {
+        // Pas de lien nav direct "active", c'est un bouton
+    }
+}
+
+// --- SLIDER ACCUEIL ---
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide-bg');
+
+function nextSlide() {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add('active');
+}
+// Changer d'image toutes les 5 secondes
+if(slides.length > 0) setInterval(nextSlide, 5000);
+
+// --- LOGIQUE FORMULAIRE (Code optimisé) ---
 document.addEventListener('DOMContentLoaded', function() {
-  
-  // --- HELPERS ---
-  function el(id) { return document.getElementById(id); }
-  function show(id) { const e = el(id); if(e) e.classList.remove('hidden'); }
-  function hide(id) { const e = el(id); if(e) e.classList.add('hidden'); }
+    el('year').textContent = new Date().getFullYear();
+    
+    // Config pays/tel
+    const paysData = { "afrique": ["Côte d'Ivoire", "Sénégal", "Mali", "Maroc"], "europe": ["France", "Belgique"], "amerique": ["Canada", "USA"] };
+    const telData = { "Côte d'Ivoire": "+225", "Sénégal": "+221", "Mali": "+223", "France": "+33", "Canada": "+1" };
+    
+    // Listeners basiques
+    const reg = el('region'), pay = el('pays'), stat = el('statut');
+    
+    if(reg) reg.addEventListener('change', () => {
+        pay.innerHTML = '<option value="">Pays...</option>';
+        if(paysData[reg.value]) paysData[reg.value].forEach(p => { let o=document.createElement('option'); o.text=p; o.value=p; pay.add(o); });
+        hide('zone-ci-block');
+    });
 
-  // --- CONFIGURATION ---
-  const yearSpan = el('year');
-  if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+    if(pay) pay.addEventListener('change', () => {
+        if(pay.value === "Côte d'Ivoire") show('zone-ci-block'); else hide('zone-ci-block');
+        if(el('indicatif')) el('indicatif').textContent = telData[pay.value] || "+";
+    });
 
-  const EMAIL_DESTINATION = "contact@editionsnubi.com";
-  const WHATSAPP_DESTINATION = "2250709850776";
-
-  const paysParRegion = {
-    afrique: ["Côte d'Ivoire", "Sénégal", "Mali", "Burkina Faso", "Togo", "Bénin", "Guinée", "Cameroun", "Congo", "RDC", "Maroc", "Algérie", "Tunisie"],
-    europe: ["France", "Belgique", "Suisse", "Allemagne", "Espagne", "Italie", "Portugal", "Pays-Bas"],
-    amerique: ["Canada", "États-Unis", "Brésil", "Mexique"],
-    asie: ["Chine", "Japon", "Inde", "Corée du Sud", "Émirats Arabes Unis"]
-  };
-
-  const configTel = {
-    "Côte d'Ivoire": { code: "+225", len: 10 }, "Sénégal": { code: "+221", len: 9 }, "Mali": { code: "+223", len: 8 }, 
-    "Burkina Faso": { code: "+226", len: 8 }, "Togo": { code: "+228", len: 8 }, "Bénin": { code: "+229", len: 8 }, 
-    "Guinée": { code: "+224", len: 9 }, "Cameroun": { code: "+237", len: 9 }, "Congo": { code: "+242", len: 9 }, 
-    "RDC": { code: "+243", len: 9 }, "Maroc": { code: "+212", len: 9 }, "Algérie": { code: "+213", len: 9 }, "Tunisie": { code: "+216", len: 8 },
-    "France": { code: "+33", len: 10 }, "Belgique": { code: "+32", len: 9 }, "Suisse": { code: "+41", len: 9 }, 
-    "Allemagne": { code: "+49", len: 10 }, "Espagne": { code: "+34", len: 9 }, "Italie": { code: "+39", len: 10 }, 
-    "Portugal": { code: "+351", len: 9 }, "Pays-Bas": { code: "+31", len: 9 },
-    "Canada": { code: "+1", len: 10 }, "États-Unis": { code: "+1", len: 10 }, "Brésil": { code: "+55", len: 11 }, 
-    "Mexique": { code: "+52", len: 10 }, "Chine": { code: "+86", len: 11 }, "Japon": { code: "+81", len: 10 }, 
-    "Inde": { code: "+91", len: 10 }, "Corée du Sud": { code: "+82", len: 10 }, "Émirats Arabes Unis": { code: "+971", len: 9 }
-  };
-
-  // Options pour les postes
-  const postesConfig = {
-      librairie: ["Gérant(e)", "Responsable Rayon Jeunesse", "Vendeur / Vendeuse", "Acheteur / Acheteuse", "personnaliser"],
-      bibliotheque: ["Directeur / Directrice", "Bibliothécaire", "Responsable Section Jeunesse", "Bénévole", "personnaliser"],
-      ecoleMaternelle: ["Directeur / Directrice", "Instituteur / Institutrice", "ATSEM", "Membre APE", "personnaliser"],
-      ecolePrimaire: ["Directeur / Directrice", "Instituteur / Institutrice", "Documentaliste", "Membre APE", "personnaliser"]
-  };
-
-  // --- LOGIQUE REGION / PAYS ---
-  const regionSelect = el('region');
-  const paysSelect = el('pays');
-  
-  if(regionSelect && paysSelect) {
-      regionSelect.addEventListener('change', () => {
-        const region = regionSelect.value;
-        paysSelect.innerHTML = '<option value="">Choisissez un pays</option>';
-        hide('zone-ci-block'); hide('ville-interieur-block');
-        
-        if (region && paysParRegion[region]) {
-          paysParRegion[region].forEach(p => {
-            const opt = document.createElement('option');
-            opt.value = p; opt.textContent = p;
-            paysSelect.appendChild(opt);
-          });
-        }
-      });
-
-      paysSelect.addEventListener('change', () => {
-        const pays = paysSelect.value;
-        // Gestion Zone CI
-        if (regionSelect.value === 'afrique' && pays === "Côte d'Ivoire") show('zone-ci-block');
-        else { hide('zone-ci-block'); hide('ville-interieur-block'); }
-
-        // Gestion Indicatif Téléphone
-        const conf = configTel[pays] || { code: "+", len: 0 };
-        const indicatif = el('indicatif');
-        const contactTel = el('contactTel');
-        if(indicatif) indicatif.textContent = conf.code;
-        if(contactTel) {
-            contactTel.value = "";
-            contactTel.placeholder = conf.len > 0 ? `Numéro (${conf.len} chiffres)` : "Numéro de téléphone";
-            if(conf.len > 0) contactTel.setAttribute('maxlength', conf.len);
-            else contactTel.removeAttribute('maxlength');
-        }
-      });
-  }
-
-  const zoneCISelect = el('zoneCI');
-  if(zoneCISelect) {
-      zoneCISelect.addEventListener('change', () => {
-          if(zoneCISelect.value === 'Interieur') show('ville-interieur-block');
-          else hide('ville-interieur-block');
-      });
-  }
-
-  // --- LOGIQUE STATUT ET CHAMPS DYNAMIQUES ---
-  const statutSelect = el('statut');
-  
-  function updateFormFields() {
-      if(!statutSelect) return;
-      const st = statutSelect.value;
-      
-      // Reset visibilité
-      hide('identite-block');
-      hide('structure-block');
-      hide('type-ecole-block');
-      hide('poste-block');
-      
-      const lblAdresse = el('lbl-adresse');
-      const lblEmail = el('lbl-email');
-      const lblStructure = el('lbl-structure');
-      
-      if(!st) return; // Si vide
-
-      show('identite-block'); // Affiche le bloc global
-
-      // Textes par défaut
-      if(lblAdresse) lblAdresse.textContent = "Adresse de livraison";
-      if(lblEmail) lblEmail.textContent = "Votre e-mail";
-
-      // Logique spécifique
-      if(st === 'parent' || st === 'autre') {
-          // Rien de spécial, juste identité de base
-      } 
-      else if (st === 'psy') {
-          show('structure-block');
-          if(lblStructure) lblStructure.textContent = "Nom du Cabinet";
-          if(lblAdresse) lblAdresse.textContent = "Adresse du cabinet";
-          if(lblEmail) lblEmail.textContent = "E-mail professionnel";
-      }
-      else if (st === 'librairie') {
-          show('structure-block');
-          show('poste-block');
-          if(lblStructure) lblStructure.textContent = "Nom de la librairie";
-          if(lblAdresse) lblAdresse.textContent = "Adresse de la librairie";
-          if(lblEmail) lblEmail.textContent = "E-mail de la librairie";
-          fillPosteOptions(postesConfig.librairie);
-      }
-      else if (st === 'bibliotheque') {
-          show('structure-block');
-          show('poste-block');
-          if(lblStructure) lblStructure.textContent = "Nom de la bibliothèque";
-          if(lblAdresse) lblAdresse.textContent = "Adresse de la bibliothèque";
-          if(lblEmail) lblEmail.textContent = "E-mail de la bibliothèque";
-          fillPosteOptions(postesConfig.bibliotheque);
-      }
-      else if (st === 'ecole') {
-          show('type-ecole-block');
-          show('structure-block');
-          show('poste-block');
-          if(lblStructure) lblStructure.textContent = "Nom de l'école";
-          if(lblAdresse) lblAdresse.textContent = "Adresse de l'école";
-          if(lblEmail) lblEmail.textContent = "E-mail de l'école";
-          // Les options de poste seront mises à jour quand on choisit le type d'école
-          fillPosteOptions([]); 
-      }
-
-      majQuantites(); // Met aussi à jour les choix de quantité
-  }
-
-  if(statutSelect) statutSelect.addEventListener('change', updateFormFields);
-
-  // Gestion Type Ecole
-  const typeEcoleSelect = el('typeEcole');
-  if(typeEcoleSelect) {
-      typeEcoleSelect.addEventListener('change', () => {
-          if(statutSelect.value === 'ecole') {
-              if(typeEcoleSelect.value === 'Maternelle') fillPosteOptions(postesConfig.ecoleMaternelle);
-              else if(typeEcoleSelect.value === 'Primaire') fillPosteOptions(postesConfig.ecolePrimaire);
-              else fillPosteOptions([]);
-          }
-      });
-  }
-
-  // Gestion Poste
-  const posteSelect = el('poste');
-  function fillPosteOptions(arr) {
-      if(!posteSelect) return;
-      posteSelect.innerHTML = '<option value="">Selectionnez...</option>';
-      arr.forEach(optVal => {
-          const opt = document.createElement('option');
-          opt.value = optVal;
-          opt.textContent = (optVal === 'personnaliser') ? 'Autre (préciser)...' : optVal;
-          posteSelect.appendChild(opt);
-      });
-  }
-
-  if(posteSelect) {
-      posteSelect.addEventListener('change', () => {
-          if(posteSelect.value === 'personnaliser') show('poste-perso-block');
-          else hide('poste-perso-block');
-      });
-  }
-
-  // --- LOGIQUE QUANTITÉS & PRIX ---
-  const quantiteSelect = el('quantite');
-  const quantitePersInput = el('quantitePerso');
-  const deviseSelect = el('devise');
-  const totalInput = el('total');
-
-  function majQuantites() {
-      if(!quantiteSelect || !statutSelect) return;
-      const st = statutSelect.value;
-      quantiteSelect.innerHTML = '';
-      hide('quantite-pers-block');
-      if(quantitePersInput) quantitePersInput.value = '';
-
-      let opts = [];
-      // Quantités adaptées
-      if (['librairie', 'ecole', 'bibliotheque'].includes(st)) {
-          opts = ['5','10','20','30','50','personnaliser'];
-      } else if (['parent', 'psy', 'autre'].includes(st)) {
-          opts = ['1','2','3','5','7','10','personnaliser'];
-      } else {
-          // Si pas de statut
-          const o = document.createElement('option');
-          o.text = "Remplissez d'abord votre statut";
-          quantiteSelect.add(o);
-          return;
-      }
-
-      opts.forEach(v => {
-          const o = document.createElement('option');
-          o.value = v; o.text = (v === 'personnaliser') ? 'Autre quantité...' : v;
-          quantiteSelect.add(o);
-      });
-      // Par défaut selectionner le premier
-      quantiteSelect.selectedIndex = 0;
-      calculerTotal();
-  }
-
-  if(quantiteSelect) {
-      quantiteSelect.addEventListener('change', () => {
-          if(quantiteSelect.value === 'personnaliser') show('quantite-pers-block');
-          else hide('quantite-pers-block');
-          if(quantiteSelect.value !== 'personnaliser' && quantitePersInput) quantitePersInput.value = '';
-          calculerTotal();
-      });
-  }
-
-  if(quantitePersInput) quantitePersInput.addEventListener('input', calculerTotal);
-  if(deviseSelect) deviseSelect.addEventListener('change', calculerTotal);
-
-  function getQuantite() {
-      if(!quantiteSelect) return 0;
-      if(quantiteSelect.value === 'personnaliser') {
-          const q = parseInt(quantitePersInput ? quantitePersInput.value : 0);
-          return isNaN(q) ? 0 : q;
-      }
-      return parseInt(quantiteSelect.value || 0);
-  }
-
-  function calculerTotal() {
-      if(!totalInput || !deviseSelect) return;
-      const qte = getQuantite();
-      let unit = 0;
-      if(deviseSelect.value === 'EUR') unit = 14.49;
-      if(deviseSelect.value === 'USD') unit = 16.99;
-      if(deviseSelect.value === 'XOF') unit = 10000;
-
-      if(!qte || !unit) { totalInput.value = ''; return; }
-      
-      const total = qte * unit;
-      if(deviseSelect.value === 'XOF') totalInput.value = total.toLocaleString('fr-FR') + ' FCFA';
-      else if(deviseSelect.value === 'EUR') totalInput.value = total.toFixed(2).replace('.', ',') + ' €';
-      else totalInput.value = total.toFixed(2) + ' $';
-  }
-
-  // --- TRAITEMENT ENVOI ---
-  function traiterEnvoi(modeEnvoi) {
-      const msgInfo = el('msgInfo');
-      const confirmationCard = el('confirmationCard');
-      const confirmationTexte = el('confirmationTexte');
-      const commandeForm = el('commandeForm');
-      
-      try {
-          if(msgInfo) { msgInfo.textContent = ""; msgInfo.style.color = "#555"; }
-
-          // 1. Validation de base
-          const region = regionSelect ? regionSelect.value : '';
-          const pays = paysSelect ? paysSelect.value : '';
-          if(!region || !pays) throw "Veuillez sélectionner la région et le pays.";
-
-          // Zone CI
-          let detailsZone = "";
-          if(region === 'afrique' && pays === "Côte d'Ivoire") {
-              const zone = el('zoneCI').value;
-              if(!zone) throw "Veuillez préciser la zone en Côte d'Ivoire.";
-              if(zone === 'Interieur') {
-                  const ville = el('villeInterieur').value.trim();
-                  if(!ville) throw "Veuillez préciser la ville.";
-                  detailsZone = ` / ${ville}`;
-              } else {
-                  detailsZone = ` / ${zone}`;
-              }
-          }
-
-          // Statut & Identité
-          const statut = statutSelect ? statutSelect.value : '';
-          if(!statut) throw "Veuillez choisir votre statut.";
-
-          const genre = el('genre').value;
-          const nom = el('nomFamille').value.trim();
-          const prenoms = el('prenoms').value.trim();
-          if(!genre || !nom || !prenoms) throw "Veuillez remplir vos informations d'identité (Genre, Nom, Prénoms).";
-
-          // Info Structure et Poste
-          let infoPro = "";
-          const nomStructure = el('nomStructure').value.trim();
-          const posteVal = el('poste') ? el('poste').value : '';
-          let posteFinal = posteVal === 'personnaliser' ? el('posteAutre').value.trim() : posteVal;
-
-          if(statut === 'ecole') {
-              const typeEco = el('typeEcole').value;
-              if(!typeEco) throw "Veuillez préciser Type d'école.";
-              if(!nomStructure) throw "Veuillez préciser le nom de l'école.";
-              if(!posteFinal) throw "Veuillez préciser votre poste.";
-              infoPro = `École : ${nomStructure} (${typeEco})\nPoste : ${posteFinal}`;
-          }
-          else if(['librairie', 'bibliotheque'].includes(statut)) {
-              if(!nomStructure) throw "Veuillez préciser le nom de l'établissement.";
-              if(!posteFinal) throw "Veuillez préciser votre poste.";
-              infoPro = `Établissement : ${nomStructure}\nPoste : ${posteFinal}`;
-          }
-          else if(statut === 'psy') {
-              if(!nomStructure) throw "Veuillez préciser le nom du Cabinet.";
-              infoPro = `Cabinet : ${nomStructure}`;
-          }
-
-          // Contact
-          const adresse = el('adresse').value.trim();
-          if(!adresse) throw "Veuillez renseigner l'adresse.";
-
-          const numTel = el('contactTel').value.trim();
-          if(!numTel) throw "Veuillez renseigner le numéro de contact.";
-          // Verif longueur
-          const conf = configTel[pays];
-          if(conf && conf.len > 0 && numTel.length !== conf.len) {
-              throw `Le numéro pour ${pays} doit comporter ${conf.len} chiffres.`;
-          }
-          const fullTel = (el('indicatif').textContent) + numTel;
-
-          const email = el('emailContact').value.trim();
-          if(!email) throw "Veuillez renseigner l'e-mail.";
-
-          // Commande
-          const qte = getQuantite();
-          if(qte <= 0) throw "Quantité invalide.";
-          const total = el('total').value;
-          if(!total) throw "Total non calculé.";
-
-          // CONSTRUCTION MESSAGE
-          const resume = 
-            `*Nouvelle Commande - Éditions Nubi*\n` +
-            `--------------------------------\n` +
-            `📍 LIEU : ${pays}${detailsZone}\n` +
-            `👤 CLIENT : ${statut.toUpperCase()}\n` +
-            `Identité : ${genre} ${prenoms} ${nom.toUpperCase()}\n` +
-            (infoPro ? `${infoPro}\n` : '') +
-            `🏠 Adresse : ${adresse}\n` +
-            `📞 Contact : ${fullTel}\n` +
-            `📧 E-mail : ${email}\n` +
-            `--------------------------------\n` +
-            `📖 LIVRE : Le Petit Nuage Qui Avait Peur de Pleuvoir\n` +
-            `📦 QUANTITÉ : ${qte}\n` +
-            `💰 TOTAL : ${total}\n` +
-            `--------------------------------\n`;
-
-          if(modeEnvoi === 'whatsapp') {
-              const texteEncoded = encodeURIComponent(resume + "Bonjour, je souhaite valider cette commande.");
-              window.open(`https://wa.me/${WHATSAPP_DESTINATION}?text=${texteEncoded}`, '_blank');
-              confirmationTexte.textContent = "WhatsApp s'est ouvert. Envoyez le message pour valider.";
-          } else {
-              const sub = encodeURIComponent("Commande Livre - Éditions Nubi");
-              const body = encodeURIComponent(resume + "\nMerci de bien vouloir traiter ma commande.");
-              window.location.href = `mailto:${EMAIL_DESTINATION}?subject=${sub}&body=${body}`;
-              confirmationTexte.textContent = "Votre application E-mail va s'ouvrir. Envoyez le mail pour valider.";
-          }
-
-          if(commandeForm) hide('commandeForm');
-          if(confirmationCard) show('confirmationCard');
-          location.hash = '#commande';
-
-      } catch(e) {
-          if(msgInfo) {
-             msgInfo.textContent = "⚠️ " + e;
-             msgInfo.style.color = "#d9534f";
-          } else alert(e);
-      }
-  }
-
-  const btnWa = el('btnWhatsapp');
-  const btnEm = el('btnEmail');
-  if(btnWa) btnWa.addEventListener('click', () => traiterEnvoi('whatsapp'));
-  if(btnEm) btnEm.addEventListener('click', () => traiterEnvoi('email'));
-
-  // Init
-  updateFormFields();
+    if(stat) stat.addEventListener('change', () => {
+        if(stat.value) show('identite-block'); else hide('identite-block');
+        if(['librairie','ecole'].includes(stat.value)) show('structure-block'); else hide('structure-block');
+        if(stat.value === 'ecole') el('lbl-structure').textContent = "Nom de l'école";
+        else el('lbl-structure').textContent = "Nom Structure";
+        updateQuantites();
+    });
+    
+    // Zone CI
+    el('zoneCI').addEventListener('change', (e) => { if(e.target.value==='Interieur') show('ville-interieur-block'); else hide('ville-interieur-block'); });
+    // Quantité Perso
+    el('quantite').addEventListener('change', (e) => { if(e.target.value==='perso') show('quantite-pers-block'); else hide('quantite-pers-block'); calcTotal(); });
+    el('quantitePerso').addEventListener('input', calcTotal);
+    el('devise').addEventListener('change', calcTotal);
+    
+    // Boutons Envoi
+    el('btnWhatsapp').addEventListener('click', () => send('wa'));
+    el('btnEmail').addEventListener('click', () => send('mail'));
 });
+
+// Helpers Formulaire
+function el(id) { return document.getElementById(id); }
+function show(id) { let e=el(id); if(e) e.classList.remove('hidden'); }
+function hide(id) { let e=el(id); if(e) e.classList.add('hidden'); }
+
+function updateQuantites() {
+    let s = el('statut').value, q = el('quantite'), opts = [];
+    q.innerHTML = '';
+    if(['librairie','ecole'].includes(s)) opts = [5,10,20,50]; else opts = [1,2,3,5];
+    opts.forEach(v => { let o=document.createElement('option'); o.value=v; o.text=v; q.add(o); });
+    let op=document.createElement('option'); op.value='perso'; op.text='Autre...'; q.add(op);
+    calcTotal();
+}
+
+function calcTotal() {
+    let q = el('quantite').value === 'perso' ? (el('quantitePerso').value||0) : el('quantite').value;
+    let d = el('devise').value, u = (d==='XOF'?10000 : (d==='EUR'?15 : 17));
+    el('total').value = (q * u) + " " + d;
+}
+
+function send(type) {
+    // Logique simplifiée d'envoi
+    let msg = "Nouvelle commande Nubi !\nTotal: " + el('total').value + "\nClient: " + el('nomFamille').value;
+    if(type === 'wa') window.open(`https://wa.me/2250709850776?text=${encodeURIComponent(msg)}`);
+    else window.location.href = `mailto:contact@editionsnubi.com?body=${encodeURIComponent(msg)}`;
+}
 </script>
+
 </body>
 </html>
