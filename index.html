@@ -562,14 +562,22 @@ document.addEventListener('DOMContentLoaded', function() {
   btnEnvoyer.addEventListener('click', () => {
     try {
       msgInfo.textContent = '';
-      
+      msgInfo.style.color = '#555';
+
       const region = regionSelect.value;
       const pays = paysSelect.value;
       const statut = statutSelect.value;
       const qte = getQuantite();
       const devise = deviseSelect.value;
       const total = totalInput.value || '(à calculer)';
-      const modeEnvoi = document.querySelector('input[name="envoi"]:checked').value;
+
+      // Sécuriser la récupération du mode d’envoi
+      const radioEnvoi = document.querySelector('input[name="envoi"]:checked');
+      if (!radioEnvoi) {
+        throw "Merci de choisir un mode d’envoi (E-mail ou WhatsApp).";
+      }
+      const modeEnvoi = radioEnvoi.value;
+
       const livreTexte = livreSelect.options[livreSelect.selectedIndex].text;
 
       // Validation
@@ -638,10 +646,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
     } catch (erreur) {
-      // Affichage de l'erreur
       msgInfo.textContent = typeof erreur === 'string' ? erreur : "Une erreur est survenue.";
       msgInfo.style.color = 'red';
-      // Alerte de secours si le texte n'est pas vu
       if (typeof erreur !== 'string') alert("Erreur technique : " + erreur);
     }
   });
