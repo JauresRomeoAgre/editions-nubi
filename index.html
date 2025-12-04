@@ -679,19 +679,10 @@
 <script>
 // --- GESTION NAVIGATION (SPA) ---
 function showPage(pageId) {
-    // 1. Cacher toutes les sections
     document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
-    // 2. Désactiver les liens nav
     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-link'));
-    
-    // 3. Afficher la section demandée
     const target = document.getElementById(pageId);
-    if(target) {
-        target.classList.add('active');
-        window.scrollTo(0,0);
-    }
-
-    // 4. Activer le lien nav correspondant
+    if(target) { target.classList.add('active'); window.scrollTo(0,0); }
     const link = document.getElementById('link-' + pageId);
     if(link) link.classList.add('active-link');
 }
@@ -699,16 +690,14 @@ function showPage(pageId) {
 // --- SLIDER ACCUEIL ---
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide-bg');
-
 function nextSlide() {
     slides[currentSlide].classList.remove('active');
     currentSlide = (currentSlide + 1) % slides.length;
     slides[currentSlide].classList.add('active');
 }
-// Changer d'image toutes les 5 secondes
 if(slides.length > 0) setInterval(nextSlide, 5000);
 
-// --- LOGIQUE FORMULAIRE (Code optimisé) ---
+// --- LOGIQUE FORMULAIRE OPTIMISÉE ---
 document.addEventListener('DOMContentLoaded', function() {
     el('year').textContent = new Date().getFullYear();
     
@@ -716,7 +705,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const paysData = { "afrique": ["Côte d'Ivoire", "Sénégal", "Mali", "Maroc"], "europe": ["France", "Belgique"], "amerique": ["Canada", "USA"] };
     const telData = { "Côte d'Ivoire": "+225", "Sénégal": "+221", "Mali": "+223", "France": "+33", "Canada": "+1" };
     
-    // Listeners basiques
     const reg = el('region'), pay = el('pays'), stat = el('statut');
     
     if(reg) reg.addEventListener('change', () => {
@@ -738,19 +726,16 @@ document.addEventListener('DOMContentLoaded', function() {
         updateQuantites();
     });
     
-    // Zone CI
     el('zoneCI').addEventListener('change', (e) => { if(e.target.value==='Interieur') show('ville-interieur-block'); else hide('ville-interieur-block'); });
-    // Quantité Perso
     el('quantite').addEventListener('change', (e) => { if(e.target.value==='perso') show('quantite-pers-block'); else hide('quantite-pers-block'); calcTotal(); });
     el('quantitePerso').addEventListener('input', calcTotal);
     el('devise').addEventListener('change', calcTotal);
     
-    // Boutons Envoi
     el('btnWhatsapp').addEventListener('click', () => send('wa'));
     el('btnEmail').addEventListener('click', () => send('mail'));
 });
 
-// Helpers Formulaire
+// Helpers
 function el(id) { return document.getElementById(id); }
 function show(id) { let e=el(id); if(e) e.classList.remove('hidden'); }
 function hide(id) { let e=el(id); if(e) e.classList.add('hidden'); }
@@ -771,7 +756,7 @@ function calcTotal() {
 }
 
 function send(type) {
-    // Récupération des données pour le message (Pour être sûr d'avoir toutes les infos)
+    // Récupération des données
     const nom = el('nomFamille').value || "Client Inconnu";
     const prenom = el('prenoms').value || "";
     const tel = el('contactTel').value || "";
@@ -781,7 +766,6 @@ function send(type) {
     const total = el('total').value;
     const pays = el('pays').value;
 
-    // Construction du message
     let msg = `*Nouvelle Commande Nubi*\n`;
     msg += `--------------------------------\n`;
     msg += `👤 Client : ${nom} ${prenom}\n`;
@@ -796,19 +780,24 @@ function send(type) {
         const url = `https://wa.me/2250709850776?text=${encodeURIComponent(msg)}`;
         window.open(url, '_blank');
     } else {
-        // Envoi E-mail: Méthode simulée par un lien caché (plus robuste)
+        // Logique "Intelligente" pour Email
         const subject = encodeURIComponent("Commande Livre - Éditions Nubi");
         const body = encodeURIComponent(msg + "\n\n(Merci de valider ma commande)");
-        const mailtoLink = `mailto:contact@editionsnubi.com?subject=${subject}&body=${body}`;
         
-        // Création temporaire d'un lien et clic dessus (contourne certains blocages)
-        const tempLink = document.createElement('a');
-        tempLink.href = mailtoLink;
-        tempLink.click();
+        // 1. On essaie d'ouvrir l'app (standard)
+        window.location.href = `mailto:contact@editionsnubi.com?subject=${subject}&body=${body}`;
         
-        // Feedback visuel pour l'utilisateur
-        el('msgInfo').textContent = "L'application E-mail de votre appareil va s'ouvrir...";
-        el('msgInfo').style.color = "#2b5876";
+        // 2. On propose immédiatement une solution de secours (C'est ÇA le secret pour les PC sans app)
+        setTimeout(() => {
+            if(confirm("Si votre messagerie ne s'est pas ouverte automatiquement :\n\nCliquez sur OK pour COPIER le résumé de la commande.\n\nEnsuite, collez-le simplement dans votre boîte mail (Gmail, Yahoo...) et envoyez-le à contact@editionsnubi.com.")) {
+                // Copie dans le presse-papier
+                navigator.clipboard.writeText(msg).then(() => {
+                    alert("✅ Résumé copié !\n\nVous pouvez maintenant ouvrir votre mail et faire 'Coller'.");
+                }).catch(() => {
+                    prompt("Impossible de copier automatiquement. Copiez ce texte manuellement :", msg);
+                });
+            }
+        }, 1000);
     }
 }
 </script>
