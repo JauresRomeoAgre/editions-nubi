@@ -796,10 +796,19 @@ function send(type) {
         const url = `https://wa.me/2250709850776?text=${encodeURIComponent(msg)}`;
         window.open(url, '_blank');
     } else {
+        // Envoi E-mail: Méthode simulée par un lien caché (plus robuste)
         const subject = encodeURIComponent("Commande Livre - Éditions Nubi");
         const body = encodeURIComponent(msg + "\n\n(Merci de valider ma commande)");
-        // Utilisation de window.location pour ouvrir le client mail
-        window.location.href = `mailto:contact@editionsnubi.com?subject=${subject}&body=${body}`;
+        const mailtoLink = `mailto:contact@editionsnubi.com?subject=${subject}&body=${body}`;
+        
+        // Création temporaire d'un lien et clic dessus (contourne certains blocages)
+        const tempLink = document.createElement('a');
+        tempLink.href = mailtoLink;
+        tempLink.click();
+        
+        // Feedback visuel pour l'utilisateur
+        el('msgInfo').textContent = "L'application E-mail de votre appareil va s'ouvrir...";
+        el('msgInfo').style.color = "#2b5876";
     }
 }
 </script>
