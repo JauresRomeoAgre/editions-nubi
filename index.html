@@ -755,8 +755,40 @@ function calcTotal() {
     el('total').value = (q * u) + " " + d;
 }
 
+// Fonction Spéciale "Force Copy" (Fonctionne partout)
+function copierContenu(texte) {
+    // Crée une zone de texte temporaire invisible mais sélectionnable
+    var textArea = document.createElement("textarea");
+    textArea.style.position = 'fixed';
+    textArea.style.top = '0';
+    textArea.style.left = '0';
+    textArea.style.width = '2em';
+    textArea.style.height = '2em';
+    textArea.style.padding = '0';
+    textArea.style.border = 'none';
+    textArea.style.outline = 'none';
+    textArea.style.boxShadow = 'none';
+    textArea.style.background = 'transparent';
+    textArea.value = texte;
+    
+    document.body.appendChild(textArea);
+    textArea.select();
+    
+    try {
+        var successful = document.execCommand('copy');
+        if(successful) {
+            alert("✅ Résumé copié !\n\nOuvrez votre boîte mail et faites 'Coller'.");
+        } else {
+            prompt("Copie automatique impossible. Copiez ce texte manuellement :", texte);
+        }
+    } catch (err) {
+        prompt("Copie automatique impossible. Copiez ce texte manuellement :", texte);
+    }
+    
+    document.body.removeChild(textArea);
+}
+
 function send(type) {
-    // Récupération des données
     const nom = el('nomFamille').value || "Client Inconnu";
     const prenom = el('prenoms').value || "";
     const tel = el('contactTel').value || "";
@@ -780,22 +812,16 @@ function send(type) {
         const url = `https://wa.me/2250709850776?text=${encodeURIComponent(msg)}`;
         window.open(url, '_blank');
     } else {
-        // Logique "Intelligente" pour Email
         const subject = encodeURIComponent("Commande Livre - Éditions Nubi");
         const body = encodeURIComponent(msg + "\n\n(Merci de valider ma commande)");
         
-        // 1. On essaie d'ouvrir l'app (standard)
+        // Tentative d'ouverture mail
         window.location.href = `mailto:contact@editionsnubi.com?subject=${subject}&body=${body}`;
         
-        // 2. On propose immédiatement une solution de secours (C'est ÇA le secret pour les PC sans app)
+        // Solution de secours immédiate
         setTimeout(() => {
-            if(confirm("Si votre messagerie ne s'est pas ouverte automatiquement :\n\nCliquez sur OK pour COPIER le résumé de la commande.\n\nEnsuite, collez-le simplement dans votre boîte mail (Gmail, Yahoo...) et envoyez-le à contact@editionsnubi.com.")) {
-                // Copie dans le presse-papier
-                navigator.clipboard.writeText(msg).then(() => {
-                    alert("✅ Résumé copié !\n\nVous pouvez maintenant ouvrir votre mail et faire 'Coller'.");
-                }).catch(() => {
-                    prompt("Impossible de copier automatiquement. Copiez ce texte manuellement :", msg);
-                });
+            if(confirm("Si l'application mail ne s'est pas ouverte, cliquez sur OK pour copier le texte et l'envoyer manuellement.")) {
+                copierContenu(msg);
             }
         }, 1000);
     }
