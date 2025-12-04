@@ -337,7 +337,7 @@
     }
     .contact-item { display: flex; align-items: center; gap: 0.5rem; }
 
-    /* Formulaire styles */
+    /* Formulaire styles (gardés du précédent mais ajustés) */
     .form-section-title {
       font-family: 'Fredoka', sans-serif;
       margin-top: 1.5rem; margin-bottom: 0.8rem;
@@ -379,7 +379,8 @@
 
     /* --- RESPONSIVE --- */
     @media (max-width: 768px) {
-      .nav-menu { display: none; } /* Pour cet exemple sur mobile le menu passe en dessous */
+      .nav-menu { display: none; } /* Menu mobile simplifié requis ou bouton menu */
+      /* Pour cet exemple on garde simple, sur mobile le menu passe en dessous */
       nav { flex-direction: column; gap: 1rem; }
       .nav-menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
       
@@ -437,7 +438,7 @@
     </p>
     
     <div style="margin-top: 3rem; border-radius: 15px; overflow: hidden; height: 250px; position: relative;">
-        <img src="https://placehold.co/1200x400/8ec5fc/ffffff?text=Découvrez+notre+collection" style="width:100%; height:100%; object-fit:cover;" alt="Bannière Promo">
+        <img src="https://placehold.co/1200x400/8ec5fc/ffffff?text=Espace+Bannière+Promotionnelle" style="width:100%; height:100%; object-fit:cover;" alt="Bannière Promo">
     </div>
   </div>
 </div>
@@ -558,6 +559,10 @@
                 <li>Offrir des livres de <strong>haute qualité esthétique</strong> (illustrations soignées, papier premium).</li>
                 <li>Aborder des <strong>thèmes psychologiques essentiels</strong> (peur, colère, patience) avec des mots simples.</li>
             </ul>
+            <p>
+                Nous croyons que chaque livre est un compagnon de route pour l'enfant.
+            </p>
+            
             <div style="margin-top: 2rem; padding: 1rem; background: #fff5f8; border-radius: 10px;">
                 <strong>📍 Notre Adresse :</strong><br>
                 375 Rue David Zouzoua,<br>Bingerville, Côte d'Ivoire.
@@ -658,15 +663,8 @@
                 <button type="button" id="btnEmail" class="btn-action" style="background:#EA4335;">E-mail</button>
             </div>
         </div>
-        <p id="msgInfo" style="text-align:center; color:#d9534f; margin-top:1rem; font-size:0.9rem; font-weight: bold;"></p>
+        <p id="msgInfo" style="text-align:center; color:red; margin-top:1rem; font-size:0.9rem;"></p>
       </form>
-
-      <div id="confirmationCard" class="card hidden" style="text-align:center; padding: 3rem;">
-        <div style="font-size: 3rem;">🎉</div>
-        <h3 style="color: var(--bleu-profond); margin-top: 1rem;">Merci pour votre commande !</h3>
-        <p id="confirmationTexte" style="margin: 1rem 0; color: #666;"></p>
-        <button onclick="window.location.reload()" class="btn-order" style="margin-top:1rem;">Retour à l’accueil</button>
-      </div>
     </div>
   </div>
 </div>
@@ -681,14 +679,19 @@
 <script>
 // --- GESTION NAVIGATION (SPA) ---
 function showPage(pageId) {
+    // 1. Cacher toutes les sections
     document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+    // 2. Désactiver les liens nav
     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-link'));
     
+    // 3. Afficher la section demandée
     const target = document.getElementById(pageId);
     if(target) {
         target.classList.add('active');
         window.scrollTo(0,0);
     }
+
+    // 4. Activer le lien nav correspondant
     const link = document.getElementById('link-' + pageId);
     if(link) link.classList.add('active-link');
 }
@@ -696,45 +699,37 @@ function showPage(pageId) {
 // --- SLIDER ACCUEIL ---
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide-bg');
+
 function nextSlide() {
     slides[currentSlide].classList.remove('active');
     currentSlide = (currentSlide + 1) % slides.length;
     slides[currentSlide].classList.add('active');
 }
+// Changer d'image toutes les 5 secondes
 if(slides.length > 0) setInterval(nextSlide, 5000);
 
-// --- LOGIQUE FORMULAIRE ROBUSTE ---
+// --- LOGIQUE FORMULAIRE (Code optimisé) ---
 document.addEventListener('DOMContentLoaded', function() {
-    // Config Initiale
     el('year').textContent = new Date().getFullYear();
-    const EMAIL_DESTINATION = "contact@editionsnubi.com";
-    const WHATSAPP_DESTINATION = "2250709850776";
     
-    // Données Pays / Tél
-    const paysData = { "afrique": ["Côte d'Ivoire", "Sénégal", "Mali", "Maroc", "Cameroun", "Burkina Faso"], "europe": ["France", "Belgique", "Suisse"], "amerique": ["Canada", "USA"] };
-    const telData = { "Côte d'Ivoire": "+225", "Sénégal": "+221", "Mali": "+223", "France": "+33", "Canada": "+1", "Maroc": "+212", "Cameroun": "+237", "Burkina Faso": "+226" };
+    // Config pays/tel
+    const paysData = { "afrique": ["Côte d'Ivoire", "Sénégal", "Mali", "Maroc"], "europe": ["France", "Belgique"], "amerique": ["Canada", "USA"] };
+    const telData = { "Côte d'Ivoire": "+225", "Sénégal": "+221", "Mali": "+223", "France": "+33", "Canada": "+1" };
     
-    // --- LISTENERS ---
-    // 1. Région / Pays
-    const reg = el('region'), pay = el('pays');
+    // Listeners basiques
+    const reg = el('region'), pay = el('pays'), stat = el('statut');
+    
     if(reg) reg.addEventListener('change', () => {
         pay.innerHTML = '<option value="">Pays...</option>';
         if(paysData[reg.value]) paysData[reg.value].forEach(p => { let o=document.createElement('option'); o.text=p; o.value=p; pay.add(o); });
-        hide('zone-ci-block'); hide('ville-interieur-block');
+        hide('zone-ci-block');
     });
 
     if(pay) pay.addEventListener('change', () => {
-        if(pay.value === "Côte d'Ivoire") show('zone-ci-block'); else { hide('zone-ci-block'); hide('ville-interieur-block'); }
+        if(pay.value === "Côte d'Ivoire") show('zone-ci-block'); else hide('zone-ci-block');
         if(el('indicatif')) el('indicatif').textContent = telData[pay.value] || "+";
     });
 
-    // 2. Zone CI
-    el('zoneCI').addEventListener('change', (e) => { 
-        if(e.target.value==='Interieur') show('ville-interieur-block'); else hide('ville-interieur-block'); 
-    });
-
-    // 3. Statut
-    const stat = el('statut');
     if(stat) stat.addEventListener('change', () => {
         if(stat.value) show('identite-block'); else hide('identite-block');
         if(['librairie','ecole'].includes(stat.value)) show('structure-block'); else hide('structure-block');
@@ -742,97 +737,71 @@ document.addEventListener('DOMContentLoaded', function() {
         else el('lbl-structure').textContent = "Nom Structure";
         updateQuantites();
     });
-
-    // 4. Quantités et Prix
-    el('quantite').addEventListener('change', (e) => { 
-        if(e.target.value==='perso') show('quantite-pers-block'); else hide('quantite-pers-block'); 
-        calcTotal(); 
-    });
+    
+    // Zone CI
+    el('zoneCI').addEventListener('change', (e) => { if(e.target.value==='Interieur') show('ville-interieur-block'); else hide('ville-interieur-block'); });
+    // Quantité Perso
+    el('quantite').addEventListener('change', (e) => { if(e.target.value==='perso') show('quantite-pers-block'); else hide('quantite-pers-block'); calcTotal(); });
     el('quantitePerso').addEventListener('input', calcTotal);
     el('devise').addEventListener('change', calcTotal);
-
-    // 5. BOUTONS ENVOI (Avec appel fonction Traiter)
-    el('btnWhatsapp').addEventListener('click', () => traiterEnvoi('wa'));
-    el('btnEmail').addEventListener('click', () => traiterEnvoi('email'));
-
-
-    // --- FONCTIONS ---
-    function updateQuantites() {
-        let s = el('statut').value, q = el('quantite');
-        q.innerHTML = '';
-        let opts = [];
-        if(['librairie','ecole'].includes(s)) opts = [5,10,20,50]; else opts = [1,2,3,5];
-        opts.forEach(v => { let o=document.createElement('option'); o.value=v; o.text=v; q.add(o); });
-        let op=document.createElement('option'); op.value='perso'; op.text='Autre...'; q.add(op);
-        calcTotal();
-    }
-
-    function calcTotal() {
-        let qVal = el('quantite').value;
-        let q = qVal === 'perso' ? (el('quantitePerso').value||0) : qVal;
-        let d = el('devise').value;
-        // Prix unitaire simple
-        let u = 0;
-        if(d === 'XOF') u = 10000; 
-        else if(d === 'EUR') u = 14.49; 
-        else if(d === 'USD') u = 16.99;
-        
-        if(q > 0 && u > 0) el('total').value = (q * u).toLocaleString() + " " + d;
-        else el('total').value = "";
-    }
-
-    function traiterEnvoi(type) {
-        const msgInfo = el('msgInfo');
-        msgInfo.textContent = ""; // Reset erreur
-
-        try {
-            // Validation basique
-            if(!el('pays').value) throw "Veuillez sélectionner votre pays.";
-            if(!el('statut').value) throw "Veuillez sélectionner votre statut.";
-            if(!el('nomFamille').value) throw "Veuillez indiquer votre nom.";
-            if(!el('contactTel').value) throw "Veuillez indiquer votre numéro.";
-            if(!el('total').value) throw "Veuillez sélectionner une quantité valide.";
-
-            // Construction Message
-            let resume = 
-                `*Nouvelle Commande Nubi*\n` +
-                `-------------------------\n` +
-                `Pays: ${el('pays').value}\n` +
-                `Client: ${el('statut').value} / ${el('nomFamille').value}\n` +
-                `Tél: ${el('indicatif').textContent} ${el('contactTel').value}\n` +
-                `Adresse: ${el('adresse').value}\n` +
-                `-------------------------\n` +
-                `Livre: Le Petit Nuage...\n` +
-                `Total: ${el('total').value}\n`;
-
-            if(type === 'wa') {
-                // WhatsApp
-                window.open(`https://wa.me/${WHATSAPP_DESTINATION}?text=${encodeURIComponent(resume)}`, '_blank');
-                el('confirmationTexte').textContent = "WhatsApp s'est ouvert. Envoyez le message pour valider.";
-            } 
-            else {
-                // Email
-                const subject = encodeURIComponent("Commande - Éditions Nubi");
-                const body = encodeURIComponent(resume);
-                // Tentative d'ouverture mail
-                window.location.href = `mailto:${EMAIL_DESTINATION}?subject=${subject}&body=${body}`;
-                el('confirmationTexte').innerHTML = "Votre application mail devrait s'ouvrir.<br>Si ce n'est pas le cas, copiez le récapitulatif et envoyez-le à <b>contact@editionsnubi.com</b>.";
-            }
-
-            // Masquer formulaire et montrer confirmation
-            hide('commandeForm');
-            show('confirmationCard');
-
-        } catch(e) {
-            msgInfo.textContent = "⚠️ " + e;
-        }
-    }
+    
+    // Boutons Envoi
+    el('btnWhatsapp').addEventListener('click', () => send('wa'));
+    el('btnEmail').addEventListener('click', () => send('mail'));
 });
 
-// Helpers
+// Helpers Formulaire
 function el(id) { return document.getElementById(id); }
 function show(id) { let e=el(id); if(e) e.classList.remove('hidden'); }
 function hide(id) { let e=el(id); if(e) e.classList.add('hidden'); }
+
+function updateQuantites() {
+    let s = el('statut').value, q = el('quantite'), opts = [];
+    q.innerHTML = '';
+    if(['librairie','ecole'].includes(s)) opts = [5,10,20,50]; else opts = [1,2,3,5];
+    opts.forEach(v => { let o=document.createElement('option'); o.value=v; o.text=v; q.add(o); });
+    let op=document.createElement('option'); op.value='perso'; op.text='Autre...'; q.add(op);
+    calcTotal();
+}
+
+function calcTotal() {
+    let q = el('quantite').value === 'perso' ? (el('quantitePerso').value||0) : el('quantite').value;
+    let d = el('devise').value, u = (d==='XOF'?10000 : (d==='EUR'?15 : 17));
+    el('total').value = (q * u) + " " + d;
+}
+
+function send(type) {
+    // Récupération des données pour le message (Pour être sûr d'avoir toutes les infos)
+    const nom = el('nomFamille').value || "Client Inconnu";
+    const prenom = el('prenoms').value || "";
+    const tel = el('contactTel').value || "";
+    const adresse = el('adresse').value || "";
+    const livre = el('livre').value;
+    const qte = el('quantite').value === 'perso' ? el('quantitePerso').value : el('quantite').value;
+    const total = el('total').value;
+    const pays = el('pays').value;
+
+    // Construction du message
+    let msg = `*Nouvelle Commande Nubi*\n`;
+    msg += `--------------------------------\n`;
+    msg += `👤 Client : ${nom} ${prenom}\n`;
+    msg += `📞 Tel : ${tel}\n`;
+    msg += `📍 Adresse : ${adresse} (${pays})\n`;
+    msg += `📖 Livre : ${livre}\n`;
+    msg += `📦 Quantité : ${qte}\n`;
+    msg += `💰 TOTAL : ${total}\n`;
+    msg += `--------------------------------`;
+
+    if(type === 'wa') {
+        const url = `https://wa.me/2250709850776?text=${encodeURIComponent(msg)}`;
+        window.open(url, '_blank');
+    } else {
+        const subject = encodeURIComponent("Commande Livre - Éditions Nubi");
+        const body = encodeURIComponent(msg + "\n\n(Merci de valider ma commande)");
+        // Utilisation de window.location pour ouvrir le client mail
+        window.location.href = `mailto:contact@editionsnubi.com?subject=${subject}&body=${body}`;
+    }
+}
 </script>
 
 </body>
