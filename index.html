@@ -2,212 +2,387 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Éditions Nubi – Le Petit Nuage Qui Avait Peur de Pleuvoir</title>
+  <title>Éditions Nubi – Des histoires pour grandir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Éditions Nubi, maison d’édition jeunesse indépendante.">
+  <meta name="description" content="Découvrez Nubi, le petit nuage qui apprend à avoir confiance en lui. Un album jeunesse illustré par les Éditions Nubi.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
+      /* Palette Disney / Douceur */
       --bleu-ciel: #8ec5fc;
-      --bleu-nuit: #152238;
-      --jaune-doux: #ffe3a3;
+      --bleu-profond: #2b5876; 
       --rose-doux: #ffd6e8;
-      --texte: #222;
-      --fond: #f7f9fc;
+      --jaune-soleil: #ffeb3b; 
+      --blanc-creme: #fdfbf7;
+      --texte: #4a4a4a;
+      --texte-fonce: #2c3e50;
+      --accent: #ff6b6b; /* Pour les boutons d'action */
+      --ombre-douce: 0 10px 30px rgba(130, 150, 200, 0.15);
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--fond);
+      font-family: 'Nunito', sans-serif; /* Police très lisible pour le corps */
+      background: var(--blanc-creme);
       color: var(--texte);
-      line-height: 1.6;
+      line-height: 1.7;
+      overflow-x: hidden;
     }
-    /* --- STYLES HEADER & NAV --- */
+
+    h1, h2, h3, h4, .btn-order, .logo {
+      font-family: 'Fredoka', sans-serif; /* Police ronde pour les titres */
+    }
+
+    /* --- HEADER & NAV --- */
     header {
-      background: linear-gradient(135deg, var(--bleu-ciel), var(--rose-doux));
-      color: #fff;
-      padding: 2.5rem 1.5rem 3.5rem;
-      text-align: center;
+      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+      padding: 0 0 4rem;
       position: relative;
-      overflow: hidden;
     }
-    header::after {
-      content: "";
+
+    /* Forme de nuage en bas du header (séparateur) */
+    .wave-separator {
       position: absolute;
-      inset: auto -20% -8rem;
-      height: 10rem;
-      background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.9), transparent 60%);
-      opacity: 0.9;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      transform: rotate(180deg);
     }
-    .wrapper {
-      max-width: 1060px;
-      margin: 0 auto;
+    .wave-separator svg {
       position: relative;
-      z-index: 1;
+      display: block;
+      width: calc(138% + 1.3px);
+      height: 60px;
     }
+    .wave-separator .shape-fill {
+      fill: var(--blanc-creme);
+    }
+
+    .wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 10;
+    }
+
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 1.5rem 0;
       margin-bottom: 2rem;
-      gap: 1rem;
-      flex-wrap: wrap;
     }
+
     nav .logo {
       font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      font-size: 1.5rem;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      letter-spacing: 0.5px;
     }
+
     nav ul {
       list-style: none;
       display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
+      gap: 1.5rem;
     }
+
     nav a {
       color: #fff;
       text-decoration: none;
-      font-size: 0.95rem;
-      opacity: 0.9;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: opacity 0.3s;
     }
-    nav a:hover { opacity: 1; text-decoration: underline; }
+    nav a:hover { opacity: 0.8; }
 
-    /* --- HERO --- */
+    /* --- HERO SECTION --- */
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
-      gap: 2rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
       align-items: center;
-      margin-top: 1.5rem;
+      padding-bottom: 3rem;
     }
+
     .hero-text h1 {
-      font-size: clamp(2rem, 3vw, 2.6rem);
-      margin-bottom: 0.8rem;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: var(--texte-fonce);
     }
-    .hero-text p {
-      font-size: 1rem;
-      max-width: 32rem;
+    
+    .hero-text .subtitle {
+      font-size: 1.2rem;
+      color: #4a6fa5;
+      font-weight: 600;
       margin-bottom: 1.5rem;
     }
-    .tagline {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      opacity: 0.9;
-      margin-bottom: 0.5rem;
+
+    .hero-text p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: #556;
     }
-    .btn-primary, .btn-ghost, .btn-order {
-      display: inline-block;
-      padding: 0.8rem 1.3rem;
-      border-radius: 999px;
-      border: 0;
-      cursor: pointer;
-      font-size: 0.95rem;
-      text-decoration: none;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-      margin-right: 0.5rem;
-    }
-    .btn-primary {
-      background: #fff;
-      color: var(--bleu-nuit);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
-      font-weight: 600;
-    }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 24px rgba(0,0,0,0.22); }
-    .btn-ghost {
-      background: rgba(255,255,255,0.18);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.5);
-    }
-    .btn-ghost:hover { background: rgba(255,255,255,0.3); }
-    .btn-order {
-      background: #2563eb;
-      color: #fff;
-      font-weight: 600;
-      box-shadow: 0 8px 20px rgba(37,99,235,0.35);
-      margin-top: 0.8rem;
-      border: none;
-    }
-    .btn-order:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(37,99,235,0.45); }
 
     .hero-book {
-      background: rgba(255,255,255,0.95);
-      border-radius: 1.5rem;
-      padding: 1.5rem;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.22);
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: var(--ombre-douce);
+      text-align: center;
+      transform: rotate(2deg); /* Petit effet ludique */
+      transition: transform 0.3s;
     }
-    .hero-book .badge {
-      display: inline-block;
-      background: var(--jaune-doux);
-      color: #9a5a00;
-      padding: 0.3rem 0.7rem;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 0.6rem;
-    }
-    .hero-book-title { font-weight: 700; margin-bottom: 0.2rem; }
-    .hero-book-sub { font-size: 0.9rem; margin-bottom: 0.8rem; color: #555; }
-    .hero-cover {
-      margin-top: 0.8rem;
-      border-radius: 1rem;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(15,23,42,0.25);
-    }
-    .hero-cover img { display: block; width: 100%; height: auto; }
+    .hero-book:hover { transform: rotate(0deg) scale(1.02); }
 
-    /* --- SECTIONS --- */
-    section { padding: 3rem 1.5rem; }
-    section:nth-of-type(odd) { background: #ffffff; }
-    section:nth-of-type(even) { background: var(--fond); }
-    section h2 { font-size: 1.6rem; margin-bottom: 1rem; text-align: center; }
-    section p.lead { text-align: center; max-width: 620px; margin: 0 auto 2rem; color: #555; font-size: 0.98rem; }
-    
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1.5rem;
+    .hero-cover {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      margin-bottom: 1rem;
     }
+    .hero-cover img { width: 100%; height: auto; display: block; }
+
+    /* BOUTONS */
+    .btn-order {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-order:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 107, 107, 0.5);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--bleu-profond);
+      border: 2px solid var(--bleu-profond);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      margin-left: 10px;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.3); }
+
+    /* --- SECTIONS GÉNÉRALES --- */
+    section { padding: 5rem 0; }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .section-title h2 {
+      font-size: 2.2rem;
+      color: var(--texte-fonce);
+      margin-bottom: 0.5rem;
+    }
+    .section-title p {
+      color: #777;
+      font-size: 1.1rem;
+    }
+    
     .card {
       background: #fff;
-      border-radius: 1.1rem;
-      padding: 1.4rem;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: var(--ombre-douce);
+      transition: transform 0.3s;
     }
-    .card h3 { font-size: 1.05rem; margin-bottom: 0.6rem; }
-    .meta-list { list-style: none; font-size: 0.95rem; }
-    .meta-list li { margin-bottom: 0.25rem; }
+    .card:hover { transform: translateY(-5px); }
 
-    .contact-block {
-      max-width: 480px; margin: 0 auto; text-align: center; font-size: 0.98rem;
+    /* --- HISTOIRE & PERSONNAGES --- */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
     }
-    .contact-block a { color: var(--bleu-nuit); text-decoration: none; font-weight: 600; }
+    .story-content h3 { color: var(--bleu-profond); font-size: 1.5rem; margin-bottom: 1rem; }
     
-    footer {
-      text-align: center; padding: 1.5rem 1rem 2rem; font-size: 0.85rem; color: #777; background: #ffffff;
+    .characters-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .char-card {
+      text-align: center;
+      background: #f0f7ff;
+      padding: 1rem;
+      border-radius: 12px;
+    }
+    .char-icon { font-size: 2.5rem; margin-bottom: 0.5rem; display: block; }
+    .char-name { font-weight: 700; color: var(--bleu-profond); display: block;}
+    .char-desc { font-size: 0.85rem; color: #666; line-height: 1.4; }
+
+    /* --- THÈMES (BÉNÉFICES) --- */
+    .bg-soft { background: #f9fcff; }
+    
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .benefit-item {
+      text-align: center;
+      padding: 1rem;
+    }
+    .benefit-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      background: #fff;
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
+      border-radius: 50%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    .benefit-item h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+
+    /* --- CARACTÉRISTIQUES --- */
+    .tech-specs {
+      background: var(--bleu-profond);
+      color: #fff;
+      border-radius: 20px;
+      padding: 3rem;
+      margin-top: 3rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 2rem;
+    }
+    .tech-item { text-align: center; }
+    .tech-label { font-size: 0.9rem; opacity: 0.8; display: block; margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 1px;}
+    .tech-val { font-size: 1.4rem; font-weight: 700; font-family: 'Fredoka', sans-serif;}
+
+    /* --- AUTEUR & COLLECTION --- */
+    .author-section {
+      background: #fff5f8; /* Rose très pâle */
+    }
+    .author-box {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .collection-preview {
+      margin-top: 3rem;
+      padding: 2rem;
+      border: 2px dashed #e0e0e0;
+      border-radius: 15px;
+      text-align: center;
+    }
+    .collection-tags span {
+      display: inline-block;
+      background: #eee;
+      padding: 0.4rem 0.8rem;
+      border-radius: 30px;
+      margin: 0.3rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #555;
     }
 
-    /* --- FORMULAIRE --- */
-    form.card label { display:block; margin-top:0.9rem; margin-bottom:0.25rem; font-size:0.9rem; font-weight: 600; color: #333; }
-    form.card select, form.card input {
-      width:100%; padding:0.5rem 0.7rem; border-radius:0.4rem; border:1px solid #cdd2e0; font-size:0.95rem; background: #fff;
-    }
-    form.card select:focus, form.card input:focus {
-        border-color: #2563eb; outline: none; box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    /* --- FORMULAIRE COMMANDE --- */
+    .form-wrapper {
+      max-width: 750px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+      border: 1px solid #eee;
     }
     
-    .hidden { display: none; }
     .form-section-title {
-        margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1rem; font-weight: 700; color: var(--bleu-nuit); border-bottom: 2px solid #f0f0f0; padding-bottom: 0.3rem;
+      font-family: 'Fredoka', sans-serif;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      color: var(--bleu-profond);
+      border-bottom: 2px solid #f0f7ff;
+      padding-bottom: 0.5rem;
     }
     
-    @media (max-width: 780px) {
-      .hero { grid-template-columns: 1fr; }
-      nav { justify-content: center; }
-      nav .logo { width: 100%; text-align: center; }
-      header { padding-bottom: 3rem; }
+    label { display: block; margin-top: 1rem; margin-bottom: 0.4rem; font-weight: 700; color: #444; font-size: 0.95rem; }
+    select, input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      border: 2px solid #e1e5ee;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      background: #fdfdfd;
+      transition: border-color 0.2s;
+    }
+    select:focus, input:focus {
+      border-color: var(--bleu-ciel);
+      outline: none;
+      background: #fff;
+    }
+    
+    /* Boutons WhatsApp/Email */
+    .btn-action {
+      flex: 1;
+      padding: 1rem;
+      border-radius: 10px;
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: opacity 0.2s;
+    }
+    .btn-whatsapp { background: #25D366; }
+    .btn-email { background: #EA4335; }
+    .btn-action:hover { opacity: 0.9; }
+
+    .hidden { display: none; }
+    
+    /* --- FOOTER --- */
+    footer {
+      background: var(--bleu-profond);
+      color: white;
+      text-align: center;
+      padding: 3rem 1.5rem;
+      margin-top: 4rem;
+    }
+    footer a { color: var(--bleu-ciel); text-decoration: none; }
+    
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .hero-text h1 { font-size: 2.2rem; }
+      .hero-book { max-width: 350px; margin: 0 auto; transform: none; }
+      .story-grid { grid-template-columns: 1fr; }
+      nav { flex-direction: column; gap: 1rem; }
+      .tech-specs { flex-direction: column; gap: 1.5rem; }
     }
   </style>
 </head>
@@ -216,56 +391,158 @@
 <header id="top">
   <div class="wrapper">
     <nav>
-      <div class="logo">Éditions Nubi</div>
+      <div class="logo">☁️ Éditions Nubi</div>
       <ul>
-        <li><a href="#livre">Le livre</a></li>
-        <li><a href="#pro">Librairies</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#histoire">L'Histoire</a></li>
+        <li><a href="#pedagogie">Thèmes</a></li>
+        <li><a href="#auteur">L'Auteur</a></li>
+        <li><a href="#commande" class="btn-order" style="padding: 0.5rem 1.2rem; font-size: 0.9rem;">Commander</a></li>
       </ul>
     </nav>
 
     <div class="hero">
       <div class="hero-text">
-        <div class="tagline">Albums jeunesse illustrés</div>
-        <h1>Des histoires douces pour apprivoiser les émotions.</h1>
+        <h1>Transformez la peur en super-pouvoir.</h1>
+        <div class="subtitle">Un conte poétique sur la confiance en soi.</div>
         <p>
-          Éditions Nubi publie des albums jeunesse lumineux, sensibles et rassurants.
-          Notre premier titre, <strong>Le Petit Nuage Qui Avait Peur de Pleuvoir</strong>,
-          accompagne les enfants dans la découverte de leur sensibilité.
+          <strong>Nubi</strong> est un petit nuage pas comme les autres : il a peur de pleuvoir. 
+          Une histoire tendre et lumineuse pour apprendre à votre enfant que même ses émotions les plus timides peuvent faire fleurir le monde.
         </p>
-        <a href="#livre" class="btn-primary">Découvrir l’album</a>
+        <div style="margin-top: 2rem;">
+          <a href="#commande" class="btn-order">Commander le livre</a>
+          <a href="#histoire" class="btn-secondary">Lire le résumé</a>
+        </div>
       </div>
 
       <div class="hero-book">
-        <span class="badge">Nouveauté</span>
-        <div class="hero-book-title">Le Petit Nuage Qui Avait Peur de Pleuvoir</div>
-        <div class="hero-book-sub">Album jeunesse 21×27 cm – 40 pages couleur</div>
+        <div style="font-weight: 700; color: #d35400; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">✨ Nouvelle Sortie</div>
         <div class="hero-cover">
-          <img src="ImageNubi.png" alt="Couverture du livre" />
+          <img src="ImageNubi.png" alt="Couverture du livre Nubi" />
         </div>
-        <a href="#commande" class="btn-order">Commander</a>
+        <h3 style="margin: 1rem 0 0.5rem; color: var(--texte-fonce);">Le Petit Nuage qui avait peur de pleuvoir</h3>
+        <p style="font-size: 0.9rem; margin-bottom: 0;">Album Jeunesse (3-7 ans)</p>
       </div>
     </div>
   </div>
+  
+  <div class="wave-separator">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+      </svg>
+  </div>
 </header>
 
-<section id="livre">
+<section id="histoire">
   <div class="wrapper">
-    <h2>Le Petit Nuage Qui Avait Peur de Pleuvoir</h2>
-    <p class="lead">Un album tendre et poétique pour aider les enfants à apprivoiser leurs émotions.</p>
-    <div class="grid">
-      <div class="card">
-        <h3>L’histoire</h3>
-        <p>Nubi est le plus petit nuage du ciel. Timide et très sensible, il a peur de pleuvoir trop fort...</p>
+    <div class="section-title">
+      <h2>Il était une fois...</h2>
+      <p>Une aventure douce au cœur du ciel</p>
+    </div>
+    
+    <div class="story-grid">
+      <div class="story-content">
+        <h3>L'Histoire</h3>
+        <p>Nubi était le plus petit nuage du ciel. Il flottait doucement, loin derrière les autres, car il avait un grand secret : <strong>il avait peur de pleuvoir.</strong></p>
+        <p>Chaque fois qu’une goutte pointait, il paniquait et se cachait. "Et si les gens me trouvaient embêtant ?"</p>
+        <p>Mais un jour, les fleurs du pré, assoiffées, appellent à l'aide. Nubi devra puiser dans son courage pour découvrir que ce qu'il croyait être une faiblesse est en réalité <strong>son plus beau cadeau au monde.</strong></p>
+        
+        <div class="card" style="margin-top: 1.5rem; background: #fffcf0; border-left: 4px solid var(--jaune-soleil);">
+          <strong>⭐ Moralité :</strong> Ne cache jamais ce que tu es. Ce que tu crois être une faiblesse peut être un trésor pour les autres.
+        </div>
       </div>
-      <div class="card">
-        <h3>Caractéristiques</h3>
-        <ul class="meta-list">
-          <li><strong>Âge :</strong> Dès 3 ans</li>
-          <li><strong>Format :</strong> 21 × 27 cm</li>
-          <li><strong>Prix public :</strong> 14,49 € HT</li>
-        </ul>
-        <a href="#commande" class="btn-order">Commander</a>
+      
+      <div class="characters-column">
+        <h3>Les Personnages</h3>
+        <div class="characters-list">
+          <div class="char-card">
+            <span class="char-icon">☁️</span>
+            <span class="char-name">Nubi</span>
+            <span class="char-desc">Le petit nuage timide et gentil.</span>
+          </div>
+          <div class="char-card">
+            <span class="char-icon">☀️</span>
+            <span class="char-name">Soleila</span>
+            <span class="char-desc">Le soleil bienveillant qui conseille.</span>
+          </div>
+          <div class="char-card">
+            <span class="char-icon">💨</span>
+            <span class="char-name">Ventounet</span>
+            <span class="char-desc">Le vent doux et très joueur.</span>
+          </div>
+          <div class="char-card">
+            <span class="char-icon">🌷</span>
+            <span class="char-name">Les Fleurs</span>
+            <span class="char-desc">Rosea, Bleuvette et Jaunon.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pedagogie" class="bg-soft">
+  <div class="wrapper">
+    <div class="section-title">
+      <h2>Pourquoi ce livre pour votre enfant ?</h2>
+      <p>Bien plus qu'une histoire, un outil pour grandir.</p>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <span class="benefit-icon">🦁</span>
+        <h3>Confiance en Soi</h3>
+        <p>Nubi montre à l'enfant qu'on a le droit d'être timide, et que chacun a un rôle unique à jouer dans le monde.</p>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-icon">💧</span>
+        <h3>Gestion des Émotions</h3>
+        <p>Dédramatiser les pleurs. L'histoire explique avec poésie que pleurer n'est pas "nul", c'est parfois nécessaire et libérateur.</p>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-icon">🎨</span>
+        <h3>Éveil Visuel</h3>
+        <p>Des illustrations colorées, style animation, pensées pour captiver l'attention des tout-petits dès 3 ans.</p>
+      </div>
+    </div>
+    
+    <div class="tech-specs">
+      <div class="tech-item">
+        <span class="tech-label">Format</span>
+        <span class="tech-val">21 x 27 cm</span>
+      </div>
+      <div class="tech-item">
+        <span class="tech-label">Pages</span>
+        <span class="tech-val">40 Pages</span>
+      </div>
+      <div class="tech-item">
+        <span class="tech-label">Couverture</span>
+        <span class="tech-val">Cartonnée</span>
+      </div>
+      <div class="tech-item">
+        <span class="tech-label">Âge Conseillé</span>
+        <span class="tech-val">3 - 7 ans</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="auteur" class="author-section">
+  <div class="wrapper">
+    <div class="author-box">
+      <h2>À propos de l'Auteur</h2>
+      <p class="lead" style="font-size: 1.1rem; margin-top: 1rem;">
+        Passionné par la création de mondes imaginaires et l'éducation positive, je conçois des histoires qui sont bien plus que des livres : ce sont des outils pour dialoguer avec les enfants.
+      </p>
+      <p>Avec les <strong>Éditions Nubi</strong>, mon objectif est d'accompagner les petits à travers leurs grandes émotions avec douceur et magie.</p>
+    
+      <div class="collection-preview">
+        <h4>📚 Bientôt dans la collection "Les Petites Émotions"</h4>
+        <p>Parce que grandir est une aventure, d'autres histoires arrivent pour explorer :</p>
+        <div class="collection-tags">
+          <span>🐢 L'Impatience</span>
+          <span>🦊 L'Imprudence</span>
+          <span>🐘 La Colère</span>
+        </div>
       </div>
     </div>
   </div>
@@ -273,179 +550,192 @@
 
 <section id="commande">
   <div class="wrapper">
-    <h2>Commander un livre</h2>
-    <p class="lead">Remplissez ce formulaire pour configurer votre commande.</p>
+    <div class="section-title">
+      <h2>Commander le livre</h2>
+      <p>Configurez votre commande ci-dessous. Paiement sécurisé à la livraison ou via mobile money selon votre zone.</p>
+    </div>
 
-    <form id="commandeForm" class="card" style="max-width: 700px; margin: 0 auto;">
-      
-      <div class="form-section-title">Localisation</div>
-      <label for="region">Région</label>
-      <select id="region" name="region">
-        <option value="">Choisissez une région</option>
-        <option value="afrique">Afrique</option>
-        <option value="europe">Europe</option>
-        <option value="amerique">Amérique</option>
-        <option value="asie">Asie</option>
-      </select>
-
-      <label for="pays">Pays</label>
-      <select id="pays" name="pays">
-        <option value="">Choisissez d’abord une région</option>
-      </select>
-
-      <div id="zone-ci-block" class="hidden">
-        <label for="zoneCI">Zone (Côte d’Ivoire)</label>
-        <select id="zoneCI" name="zoneCI">
-          <option value="">Choisissez une zone</option>
-          <option value="Abidjan">Abidjan</option>
-          <option value="Bingerville">Bingerville</option>
-          <option value="Dabou">Dabou</option>
-          <option value="Interieur">Intérieur</option>
-        </select>
-        <div id="ville-interieur-block" style="margin-top:0.5rem;" class="hidden">
-          <label for="villeInterieur">Ville (intérieur)</label>
-          <input type="text" id="villeInterieur" name="villeInterieur" placeholder="Nom de la ville" />
-        </div>
-      </div>
-
-      <div class="form-section-title">Vos informations</div>
-      
-      <label for="statut">Vous êtes…</label>
-      <select id="statut" name="statut">
-        <option value="">Choisissez un statut</option>
-        <option value="parent">Parent</option>
-        <option value="psy">Psychologue pour enfants</option>
-        <option value="librairie">Librairie</option>
-        <option value="bibliotheque">Bibliothèque</option>
-        <option value="ecole">École</option>
-        <option value="autre">Autre</option>
-      </select>
-
-      <div id="identite-block" class="hidden">
+    <div class="form-wrapper">
+      <form id="commandeForm">
         
-        <div id="type-ecole-block" class="hidden">
-           <label for="typeEcole">Type d'école</label>
-           <select id="typeEcole">
-             <option value="">Selectionnez...</option>
-             <option value="Maternelle">Maternelle</option>
-             <option value="Primaire">Primaire</option>
-           </select>
+        <div class="form-section-title">🌍 Où habitez-vous ?</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <label for="region">Région</label>
+            <select id="region" name="region">
+              <option value="">Choisissez une région</option>
+              <option value="afrique">Afrique</option>
+              <option value="europe">Europe</option>
+              <option value="amerique">Amérique</option>
+              <option value="asie">Asie</option>
+            </select>
+          </div>
+          <div>
+            <label for="pays">Pays</label>
+            <select id="pays" name="pays">
+              <option value="">Choisissez d’abord une région</option>
+            </select>
+          </div>
         </div>
 
-        <div id="structure-block" class="hidden">
-            <label for="nomStructure" id="lbl-structure">Nom de l'établissement</label>
-            <input type="text" id="nomStructure" placeholder="" />
+        <div id="zone-ci-block" class="hidden" style="margin-top: 1rem; background: #f0f7ff; padding: 1rem; border-radius: 8px;">
+          <label for="zoneCI">Zone (Côte d’Ivoire)</label>
+          <select id="zoneCI" name="zoneCI">
+            <option value="">Choisissez une zone</option>
+            <option value="Abidjan">Abidjan</option>
+            <option value="Bingerville">Bingerville</option>
+            <option value="Dabou">Dabou</option>
+            <option value="Interieur">Intérieur du pays</option>
+          </select>
+          <div id="ville-interieur-block" style="margin-top:0.5rem;" class="hidden">
+            <label for="villeInterieur">Ville (intérieur)</label>
+            <input type="text" id="villeInterieur" name="villeInterieur" placeholder="Nom de la ville" />
+          </div>
         </div>
 
-        <div style="display:flex; gap:1rem; align-items:flex-end; flex-wrap:wrap;">
-            <div style="flex:1; min-width:120px;">
-                <label for="genre">Genre</label>
-                <select id="genre">
-                    <option value="">Choix...</option>
-                    <option value="Monsieur">Monsieur</option>
-                    <option value="Madame">Madame</option>
-                    <option value="Mademoiselle">Mademoiselle</option>
-                    <option value="Autre">Autre</option>
-                </select>
-            </div>
-            <div style="flex:2; min-width:180px;">
-                <label for="nomFamille">Nom</label>
-                <input type="text" id="nomFamille" />
-            </div>
-        </div>
-        <label for="prenoms">Prénom(s)</label>
-        <input type="text" id="prenoms" />
-
-        <div id="poste-block" class="hidden">
-            <label for="poste">Poste occupé</label>
-            <select id="poste"></select>
-            <div id="poste-perso-block" class="hidden" style="margin-top:0.5rem;">
-                <input type="text" id="posteAutre" placeholder="Précisez votre poste..." />
-            </div>
-        </div>
-
-        <label for="adresse" id="lbl-adresse">Adresse</label>
-        <input type="text" id="adresse" placeholder="Quartier, Rue, Porte..." />
-
-        <label for="contactTel">Contact</label>
-        <div style="display:flex; gap:0.5rem; align-items:center;">
-          <span id="indicatif" style="background:#eee; padding:0.5rem; border-radius:0.4rem; font-weight:bold; color:#555;">+225</span>
-          <input type="tel" id="contactTel" placeholder="Numéro" />
-        </div>
-
-        <label for="emailContact" id="lbl-email">E-mail</label>
-        <input type="email" id="emailContact" placeholder="nom@exemple.com" />
-
-      </div>
-
-      <div class="form-section-title">Détails de la commande</div>
-
-      <label for="livre">Livre souhaité</label>
-      <select id="livre" name="livre">
-        <option value="Le Petit Nuage Qui Avait Peur de Pleuvoir">Le Petit Nuage Qui Avait Peur de Pleuvoir</option>
-      </select>
-
-      <div id="quantite-block">
-        <label for="quantite">Quantité</label>
-        <select id="quantite" name="quantite">
-             <option value="">Remplissez d'abord votre statut</option>
+        <div class="form-section-title">👤 Vos informations</div>
+        
+        <label for="statut">Vous êtes…</label>
+        <select id="statut" name="statut">
+          <option value="">Choisissez un statut</option>
+          <option value="parent">Parent</option>
+          <option value="psy">Psychologue pour enfants</option>
+          <option value="librairie">Librairie</option>
+          <option value="bibliotheque">Bibliothèque</option>
+          <option value="ecole">École</option>
+          <option value="autre">Autre</option>
         </select>
-        <div id="quantite-pers-block" class="hidden" style="margin-top:0.5rem;">
-          <label for="quantitePerso">Quantité personnalisée</label>
-          <input type="number" id="quantitePerso" min="1" step="1" />
-        </div>
-      </div>
 
-      <div style="margin-top:1rem;">
-        <label for="devise">Devise</label>
-        <select id="devise" name="devise">
-          <option value="">Choisissez une devise</option>
-          <option value="EUR">Euro (€)</option>
-          <option value="USD">Dollar ($)</option>
-          <option value="XOF">Franc CFA (FCFA)</option>
+        <div id="identite-block" class="hidden">
+          
+          <div id="type-ecole-block" class="hidden">
+             <label for="typeEcole">Type d'école</label>
+             <select id="typeEcole">
+               <option value="">Selectionnez...</option>
+               <option value="Maternelle">Maternelle</option>
+               <option value="Primaire">Primaire</option>
+             </select>
+          </div>
+
+          <div id="structure-block" class="hidden">
+              <label for="nomStructure" id="lbl-structure">Nom de l'établissement</label>
+              <input type="text" id="nomStructure" placeholder="" />
+          </div>
+
+          <div style="display:flex; gap:1rem; align-items:flex-end; flex-wrap:wrap; margin-top: 1rem;">
+              <div style="flex:1; min-width:100px;">
+                  <label for="genre">Civilité</label>
+                  <select id="genre">
+                      <option value="">Choix...</option>
+                      <option value="Monsieur">M.</option>
+                      <option value="Madame">Mme</option>
+                      <option value="Mademoiselle">Mlle</option>
+                  </select>
+              </div>
+              <div style="flex:2; min-width:180px;">
+                  <label for="nomFamille">Nom</label>
+                  <input type="text" id="nomFamille" />
+              </div>
+          </div>
+          <label for="prenoms">Prénom(s)</label>
+          <input type="text" id="prenoms" />
+
+          <div id="poste-block" class="hidden">
+              <label for="poste">Poste occupé</label>
+              <select id="poste"></select>
+              <div id="poste-perso-block" class="hidden" style="margin-top:0.5rem;">
+                  <input type="text" id="posteAutre" placeholder="Précisez votre poste..." />
+              </div>
+          </div>
+
+          <label for="adresse" id="lbl-adresse">Adresse de livraison</label>
+          <input type="text" id="adresse" placeholder="Quartier, Rue, N° de porte..." />
+
+          <label for="contactTel">Téléphone / WhatsApp</label>
+          <div style="display:flex; gap:0.5rem; align-items:center;">
+            <span id="indicatif" style="background:#e1e5ee; padding:0.8rem; border-radius:8px; font-weight:bold; color:#555;">+225</span>
+            <input type="tel" id="contactTel" placeholder="Numéro" />
+          </div>
+
+          <label for="emailContact" id="lbl-email">E-mail</label>
+          <input type="email" id="emailContact" placeholder="votre@email.com" />
+        </div>
+
+        <div class="form-section-title">📦 Détails de la commande</div>
+
+        <label for="livre">Livre sélectionné</label>
+        <select id="livre" name="livre" style="background-color: #f0f7ff; color: #2b5876; font-weight: bold;">
+          <option value="Le Petit Nuage Qui Avait Peur de Pleuvoir">Le Petit Nuage Qui Avait Peur de Pleuvoir</option>
         </select>
-      </div>
-      <div style="margin-top:0.5rem;">
-        <label for="total">Total HT</label>
-        <input type="text" id="total" readonly style="background-color: #f0f0f0; font-weight: bold;" />
-      </div>
 
-      <div style="margin-top:2rem; border-top: 2px solid #f0f0f0; padding-top: 1.5rem;">
-        <strong>Envoyer la commande via :</strong>
-        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-            <button type="button" id="btnWhatsapp" class="btn-order" style="background:#25D366; flex:1;">
-                WhatsApp
-            </button>
-            <button type="button" id="btnEmail" class="btn-order" style="background:#ea4335; flex:1;">
-                E-mail
-            </button>
+        <div id="quantite-block">
+          <label for="quantite">Quantité</label>
+          <select id="quantite" name="quantite">
+               <option value="">Remplissez d'abord votre statut</option>
+          </select>
+          <div id="quantite-pers-block" class="hidden" style="margin-top:0.5rem;">
+            <label for="quantitePerso">Quantité personnalisée</label>
+            <input type="number" id="quantitePerso" min="1" step="1" />
+          </div>
         </div>
+
+        <div style="margin-top:1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <label for="devise">Devise</label>
+            <select id="devise" name="devise">
+              <option value="">Devise</option>
+              <option value="EUR">Euro (€)</option>
+              <option value="USD">Dollar ($)</option>
+              <option value="XOF">Franc CFA</option>
+            </select>
+          </div>
+          <div>
+            <label for="total">Total HT</label>
+            <input type="text" id="total" readonly style="background-color: #2b5876; color: white; font-weight: bold; border: none;" />
+          </div>
+        </div>
+
+        <div style="margin-top:2.5rem; border-top: 2px dashed #eee; padding-top: 1.5rem;">
+          <p style="text-align: center; margin-bottom: 1rem; font-weight: 600;">Envoyer ma commande via :</p>
+          <div style="display: flex; gap: 1rem;">
+              <button type="button" id="btnWhatsapp" class="btn-action btn-whatsapp">
+                 WhatsApp
+              </button>
+              <button type="button" id="btnEmail" class="btn-action btn-email">
+                 E-mail
+              </button>
+          </div>
+        </div>
+
+        <p id="msgInfo" style="margin-top:1rem; font-size:0.85rem; color:#d9534f; text-align: center;"></p>
+      </form>
+
+      <div id="confirmationCard" class="card hidden" style="text-align:center; padding: 3rem;">
+        <div style="font-size: 3rem;">🎉</div>
+        <h3 style="color: var(--bleu-profond); margin-top: 1rem;">Merci pour votre commande !</h3>
+        <p id="confirmationTexte" style="margin: 1rem 0; color: #666;"></p>
+        <a href="#top" class="btn-order" style="margin-top:1rem; display:inline-block;">Retour à l’accueil</a>
       </div>
-
-      <p id="msgInfo" style="margin-top:0.8rem; font-size:0.85rem; color:#555; text-align: center;"></p>
-    </form>
-
-    <div id="confirmationCard" class="card hidden" style="max-width:700px; margin:1.5rem auto 0; text-align:center;">
-      <h3>Merci pour votre commande !</h3>
-      <p id="confirmationTexte" style="margin-top:0.8rem; font-size:0.95rem;"></p>
-      <a href="#top" class="btn-primary" style="margin-top:1rem; display:inline-block;">Retour à l’accueil</a>
     </div>
   </div>
 </section>
 
-<section id="contact">
-  <div class="wrapper">
-    <h2>Contact</h2>
-    <div class="contact-block">
-      <p><strong>Éditions Nubi</strong></p>
-      <p>📧 <a href="mailto:contact@editionsnubi.com">contact@editionsnubi.com</a></p>
-      <p>📞 <a href="tel:+2250709850776">+225 0709850776</a></p>
+<section id="contact" style="background: #fff;">
+  <div class="wrapper" style="text-align: center;">
+    <h2>Une question ?</h2>
+    <p>Nous sommes là pour vous répondre.</p>
+    <div style="margin-top: 1.5rem; font-size: 1.1rem;">
+      <p style="margin-bottom: 0.5rem;">📧 <a href="mailto:contact@editionsnubi.com" style="color: var(--bleu-profond); font-weight: 700;">contact@editionsnubi.com</a></p>
+      <p>📞 <a href="tel:+2250709850776" style="color: var(--bleu-profond); font-weight: 700;">+225 07 09 85 07 76</a></p>
     </div>
   </div>
 </section>
 
 <footer>
-  © <span id="year"></span> Éditions Nubi — Tous droits réservés.
+  <div class="wrapper">
+    <p>© <span id="year"></span> Éditions Nubi — Tous droits réservés.</p>
+    <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">Créé avec amour pour les enfants du monde.</p>
+  </div>
 </footer>
 
 <script>
@@ -560,7 +850,7 @@ document.addEventListener('DOMContentLoaded', function() {
       show('identite-block'); // Affiche le bloc global
 
       // Textes par défaut
-      if(lblAdresse) lblAdresse.textContent = "Adresse";
+      if(lblAdresse) lblAdresse.textContent = "Adresse de livraison";
       if(lblEmail) lblEmail.textContent = "Votre e-mail";
 
       // Logique spécifique
@@ -569,9 +859,9 @@ document.addEventListener('DOMContentLoaded', function() {
       } 
       else if (st === 'psy') {
           show('structure-block');
-          if(lblStructure) lblStructure.textContent = "Cabinet";
+          if(lblStructure) lblStructure.textContent = "Nom du Cabinet";
           if(lblAdresse) lblAdresse.textContent = "Adresse du cabinet";
-          if(lblEmail) lblEmail.textContent = "E-mail du cabinet";
+          if(lblEmail) lblEmail.textContent = "E-mail professionnel";
       }
       else if (st === 'librairie') {
           show('structure-block');
@@ -828,8 +1118,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       } catch(e) {
           if(msgInfo) {
-             msgInfo.textContent = e;
-             msgInfo.style.color = "red";
+             msgInfo.textContent = "⚠️ " + e;
+             msgInfo.style.color = "#d9534f";
           } else alert(e);
       }
   }
