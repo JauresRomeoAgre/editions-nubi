@@ -457,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
     paysSelect.innerHTML = '<option value="">Choisissez un pays</option>';
     zoneCIBlock.style.display = 'none';
     villeInterieurBlock.style.display = 'none';
-    if (paysParRegion[region]) {
+    if (region && paysParRegion[region]) { // Sécurité ajoutée ici
       paysParRegion[region].forEach(p => {
         const opt = document.createElement('option');
         opt.value = p; opt.textContent = p;
@@ -475,11 +475,17 @@ document.addEventListener('DOMContentLoaded', function() {
       zoneCIBlock.style.display = 'none';
       villeInterieurBlock.style.display = 'none';
     }
-    indicatifSpan.textContent = indicatifParPays[pays] || "+";
-    const longueur = longueurTelParPays[pays] || 10;
-    whatsappClientInput.value = "";
-    whatsappClientInput.setAttribute('maxlength', longueur);
-    whatsappClientInput.placeholder = `Numéro (${longueur} chiffres)`;
+    
+    // Mise à jour indicatif et placeholder
+    if (pays && indicatifParPays[pays]) {
+       indicatifSpan.textContent = indicatifParPays[pays];
+       const longueur = longueurTelParPays[pays] || 10;
+       whatsappClientInput.value = "";
+       whatsappClientInput.setAttribute('maxlength', longueur);
+       whatsappClientInput.placeholder = `Numéro (${longueur} chiffres)`;
+    } else {
+       indicatifSpan.textContent = "+";
+    }
   });
 
   zoneCISelect.addEventListener('change', () => {
@@ -558,7 +564,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // --- ENVOI ---
+  // --- ENVOI AVEC SÉCURITÉ RENFORCÉE ---
   btnEnvoyer.addEventListener('click', () => {
     try {
       msgInfo.textContent = '';
@@ -568,30 +574,35 @@ document.addEventListener('DOMContentLoaded', function() {
       const pays = paysSelect.value;
       const statut = statutSelect.value;
       const qte = getQuantite();
-      const devise = deviseSelect.value;
       const total = totalInput.value || '(à calculer)';
 
-      // Sécuriser la récupération du mode d’envoi
+      // 1. Validation de base
+      if (!region) throw "Merci de sélectionner une région.";
+      if (!pays) throw "Merci de sélectionner un pays.";
+      if (!statut) throw "Merci de sélectionner un statut.";
+      if (!qte || qte <= 0) throw "Merci d’indiquer une quantité de livres.";
+
+      // 2. Récupération sécurisée du livre
+      let livreTexte = "Le Petit Nuage Qui Avait Peur de Pleuvoir"; // Valeur par défaut
+      if (livreSelect.selectedIndex >= 0 && livreSelect.options[livreSelect.selectedIndex]) {
+         livreTexte = livreSelect.options[livreSelect.selectedIndex].text;
+      }
+
+      // 3. Récupération sécurisée du mode d'envoi
       const radioEnvoi = document.querySelector('input[name="envoi"]:checked');
       if (!radioEnvoi) {
         throw "Merci de choisir un mode d’envoi (E-mail ou WhatsApp).";
       }
       const modeEnvoi = radioEnvoi.value;
 
-      const livreTexte = livreSelect.options[livreSelect.selectedIndex].text;
-
-      // Validation
-      if (!region) throw "Merci de sélectionner une région.";
-      if (!pays) throw "Merci de sélectionner un pays.";
-      if (!statut) throw "Merci de sélectionner un statut.";
-      if (!qte || qte <= 0) throw "Merci d’indiquer une quantité de livres.";
-
+      // 4. Gestion de la zone Côte d'Ivoire
       let detailsZone = '';
       if (region === 'afrique' && pays === "Côte d'Ivoire") {
         const zone = zoneCISelect.value;
         if (!zone) throw "Veuillez choisir une zone pour la Côte d’Ivoire.";
         if (zone === 'Interieur') {
-           const ville = document.getElementById('villeInterieur').value.trim();
+           const villeInput = document.getElementById('villeInterieur');
+           const ville = villeInput ? villeInput.value.trim() : '';
            if (!ville) throw "Veuillez renseigner le nom de la ville.";
            detailsZone = `Zone CI : Intérieur / Ville : ${ville}\n`;
         } else {
@@ -599,6 +610,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
 
+      // 5. Gestion des coordonnées
       let emailClient = '';
       let numeroComplet = '';
       
@@ -626,29 +638,34 @@ document.addEventListener('DOMContentLoaded', function() {
         `--------------------------------\n`;
 
       if (modeEnvoi === 'email') {
-         const subject = encodeURIComponent('Commande livre – Éditions Nubi');
-         const body = encodeURIComponent(resume + `E-mail client : ${emailClient}\n\nMerci de compléter vos coordonnées :\nNom :\nAdresse :\nTéléphone :`);
-         window.location.href = `mailto:${EMAIL_DESTINATION}?subject=${subject}&body=${body}`;
-         
-         commandeForm.style.display = 'none';
-         confirmationCard.style.display = 'block';
-         confirmationTexte.textContent = "Votre application E-mail va s'ouvrir. Vérifiez et envoyez le message.";
-         location.hash = '#commande';
+          const subject = encodeURIComponent('Commande livre – Éditions Nubi');
+          const body = encodeURIComponent(resume + `E-mail client : ${emailClient}\n\nMerci de compléter vos coordonnées :\nNom :\nAdresse :\nTéléphone :`);
+          window.location.href = `mailto:${EMAIL_DESTINATION}?subject=${subject}&body=${body}`;
+          
+          commandeForm.style.display = 'none';
+          confirmationCard.style.display = 'block';
+          confirmationTexte.textContent = "Votre application E-mail va s'ouvrir. Vérifiez et envoyez le message.";
+          location.hash = '#commande';
 
       } else {
-         const texteWhatsApp = encodeURIComponent(resume + `📞 Contact : ${numeroComplet}\n\nBonjour, je souhaite valider cette commande.\nMon Nom & Prénom : `);
-         window.open(`https://wa.me/${WHATSAPP_DESTINATION}?text=${texteWhatsApp}`, '_blank');
-         
-         commandeForm.style.display = 'none';
-         confirmationCard.style.display = 'block';
-         confirmationTexte.textContent = "WhatsApp s'est ouvert dans un nouvel onglet. Envoyez le message pour commander.";
-         location.hash = '#commande';
+          // WhatsApp
+          const texteWhatsApp = encodeURIComponent(resume + `📞 Contact : ${numeroComplet}\n\nBonjour, je souhaite valider cette commande.\nMon Nom & Prénom : `);
+          window.open(`https://wa.me/${WHATSAPP_DESTINATION}?text=${texteWhatsApp}`, '_blank');
+          
+          commandeForm.style.display = 'none';
+          confirmationCard.style.display = 'block';
+          confirmationTexte.textContent = "WhatsApp s'est ouvert dans un nouvel onglet. Envoyez le message pour commander.";
+          location.hash = '#commande';
       }
 
     } catch (erreur) {
       msgInfo.textContent = typeof erreur === 'string' ? erreur : "Une erreur est survenue.";
       msgInfo.style.color = 'red';
-      if (typeof erreur !== 'string') alert("Erreur technique : " + erreur);
+      // On loggue la vraie erreur dans la console pour toi, le développeur, mais on ne l'affiche plus en popup à l'utilisateur
+      console.error(erreur); 
+      if (typeof erreur !== 'string') {
+        msgInfo.textContent = "Une erreur technique est survenue. Vérifiez que tous les champs sont bien remplis.";
+      }
     }
   });
 
