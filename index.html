@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Découvrez Nubi, le petit nuage. Éditions Nubi, livres jeunesse illustrés.">
   
-  <!-- Import des polices Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -415,16 +414,12 @@
   </div>
 </header>
 
-<!-- === PAGE 1: ACCUEIL === -->
 <div id="home" class="page-section active">
   <div class="hero-slider-container">
-    <!-- Diaporama (Images de fond à remplacer par les vôtres) -->
-    <!-- Slide 1 : Nuage -->
-    <div class="slide-bg active" style="background-image: url('https://images.unsplash.com/photo-1595116709849-00109919f20e?q=80&w=1920&auto=format&fit=crop');"></div>
-    <!-- Slide 2 : Enfant qui lit -->
-    <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1920&auto=format&fit=crop');"></div>
-    <!-- Slide 3 : Fleurs -->
-    <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1490750967868-58cb75063ed4?q=80&w=1920&auto=format&fit=crop');"></div>
+    <div class="slide-bg active" style="background-image: url('TableA.png');"></div>
+    <div class="slide-bg" style="background-image: url('AAA.png');"></div>
+    <div class="slide-bg" style="background-image: url('P1.png');"></div>
+    <div class="slide-bg" style="background-image: url('TableB.png');"></div>
     
     <div class="hero-overlay"></div>
     
@@ -442,14 +437,12 @@
       Nos livres sont conçus pour être lus ensemble, créant un lien précieux entre parents et enfants.
     </p>
     
-    <!-- Espace Image Stratégique (Bandeau collection) -->
     <div style="margin-top: 3rem; border-radius: 15px; overflow: hidden; height: 250px; position: relative;">
-        <img src="https://placehold.co/1200x400/8ec5fc/ffffff?text=Espace+Bannière+Promotionnelle+(Diapo)" style="width:100%; height:100%; object-fit:cover;" alt="Bannière Promo">
+        <img src="https://placehold.co/1200x400/8ec5fc/ffffff?text=Espace+Bannière+Promotionnelle" style="width:100%; height:100%; object-fit:cover;" alt="Bannière Promo">
     </div>
   </div>
 </div>
 
-<!-- === PAGE 2: L'HISTOIRE / LE LIVRE === -->
 <div id="histoire" class="page-section">
   <div class="wrapper">
     <div class="section-header">
@@ -458,7 +451,6 @@
     </div>
 
     <div class="book-details">
-      <!-- Colonne Gauche : Pitch -->
       <div>
         <h3 style="color: var(--accent); margin-bottom: 1rem;">L'Aventure</h3>
         <p><strong>Nubi</strong> est le plus petit nuage du ciel. Il flottait doucement, loin derrière les autres, car il avait un secret : il avait peur de pleuvoir.</p>
@@ -478,22 +470,19 @@
         </div>
       </div>
 
-      <!-- Colonne Droite : Galerie (Cover + P1 + P2) -->
       <div>
         <div class="gallery-title">Aperçu du livre</div>
         <div class="gallery-grid">
-            <!-- Remplacer les src par vos images réelles : Cover.png, P1.png, P2.png -->
             <div class="gallery-item item-cover">
-                <img src="https://placehold.co/400x600/2b5876/fff?text=Cover+(Portrait)" alt="Couverture Livre">
+                <img src="Cover.png" alt="Couverture Livre Nubi">
             </div>
             <div class="gallery-item item-p1">
-                <img src="https://placehold.co/400x300/8ec5fc/fff?text=P1+(Paysage)" alt="Page Intérieure 1">
+                <img src="P1.png" alt="Page Intérieure 1">
             </div>
             <div class="gallery-item item-p2">
-                <img src="https://placehold.co/400x300/ffd6e8/333?text=P2+(Paysage)" alt="Page Intérieure 2">
+                <img src="P2.png" alt="Page Intérieure 2">
             </div>
         </div>
-        <p style="text-align: center; font-size: 0.9rem; margin-top: 0.5rem; color: #888;">* Images non contractuelles</p>
       </div>
     </div>
     
@@ -503,7 +492,6 @@
   </div>
 </div>
 
-<!-- === PAGE 3: THEMES === -->
 <div id="themes" class="page-section">
   <div class="wrapper">
     <div class="section-header">
@@ -526,11 +514,10 @@
         </div>
     </div>
     
-    <!-- Caractéristiques Techniques -->
     <div style="margin-top: 3rem; background: var(--bleu-profond); color: #fff; padding: 2rem; border-radius: 15px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; text-align: center;">
         <div>
             <div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Format</div>
-            <div style="font-size: 1.4rem; font-weight: 700;">21 x 21 cm</div>
+            <div style="font-size: 1.4rem; font-weight: 700;">21 x 27 cm</div>
         </div>
         <div>
             <div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Couverture</div>
@@ -544,7 +531,6 @@
   </div>
 </div>
 
-<!-- === PAGE 4: A PROPOS === -->
 <div id="propos" class="page-section">
   <div class="wrapper">
     <div class="section-header">
@@ -552,10 +538,8 @@
     </div>
 
     <div class="about-split">
-        <!-- L'Auteur -->
         <div class="author-card">
             <h3>L'Auteur</h3>
-            <!-- Place pour la photo carrée -->
             <img src="https://placehold.co/300x300/eee/999?text=Photo+Auteur" alt="Photo Auteur" class="author-photo">
             <p style="font-style: italic; color: #555;">
                 "Créer des histoires, c'est semer des graines de courage dans le cœur des enfants."
@@ -565,7 +549,6 @@
             </p>
         </div>
 
-        <!-- La Maison d'Édition -->
         <div class="edition-info">
             <h3 style="color: var(--bleu-profond); margin-bottom: 1rem;">La Maison d'Édition Nubi</h3>
             <p><strong>Éditions Nubi</strong> est une maison d'édition jeunesse indépendante basée en Côte d'Ivoire.</p>
@@ -589,7 +572,6 @@
   </div>
 </div>
 
-<!-- === PAGE 5: CONTACT (Infos) === -->
 <div id="contact" class="page-section">
   <div class="wrapper">
     <div class="section-header">
@@ -622,7 +604,6 @@
   </div>
 </div>
 
-<!-- === PAGE 6: COMMANDE (Formulaire) === -->
 <div id="commande" class="page-section">
   <div class="wrapper">
     <div class="section-header">
@@ -632,7 +613,6 @@
 
     <div class="contact-container">
       <form id="commandeForm">
-        <!-- (Formulaire identique au précédent, code condensé pour clarté) -->
         <div class="form-section-title">🌍 Localisation</div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
           <div><label>Région</label><select id="region"><option value="">Choix...</option><option value="afrique">Afrique</option><option value="europe">Europe</option><option value="amerique">Amérique</option></select></div>
@@ -714,9 +694,6 @@ function showPage(pageId) {
     // 4. Activer le lien nav correspondant
     const link = document.getElementById('link-' + pageId);
     if(link) link.classList.add('active-link');
-    else if(pageId === 'commande') {
-        // Pas de lien nav direct "active", c'est un bouton
-    }
 }
 
 // --- SLIDER ACCUEIL ---
