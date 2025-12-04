@@ -127,6 +127,7 @@
       font-weight: 600;
       box-shadow: 0 8px 20px rgba(37,99,235,0.35);
       margin-top: 0.8rem;
+      border: none;
     }
     .btn-order:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(37,99,235,0.45); }
 
@@ -178,38 +179,34 @@
     .card h3 { font-size: 1.05rem; margin-bottom: 0.6rem; }
     .meta-list { list-style: none; font-size: 0.95rem; }
     .meta-list li { margin-bottom: 0.25rem; }
-    .pill-list {
-      list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem;
-    }
-    .pill-list li {
-      background: #eef4ff; color: #25315a; border-radius: 999px; padding: 0.25rem 0.7rem; font-size: 0.8rem;
-    }
-    .highlight {
-      background: #fff7e6; border-left: 4px solid #f6a723; padding: 1rem 1.1rem; border-radius: 0.8rem; font-size: 0.95rem;
-    }
-    .two-col {
-      display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 1.8rem; align-items: flex-start; margin-top: 1.5rem;
-    }
+
     .contact-block {
       max-width: 480px; margin: 0 auto; text-align: center; font-size: 0.98rem;
     }
     .contact-block a { color: var(--bleu-nuit); text-decoration: none; font-weight: 600; }
-    .contact-block a:hover { text-decoration: underline; }
+    
     footer {
       text-align: center; padding: 1.5rem 1rem 2rem; font-size: 0.85rem; color: #777; background: #ffffff;
     }
 
     /* --- FORMULAIRE --- */
-    form.card label { display:block; margin-top:0.8rem; margin-bottom:0.2rem; font-size:0.9rem; }
+    form.card label { display:block; margin-top:0.9rem; margin-bottom:0.25rem; font-size:0.9rem; font-weight: 600; color: #333; }
     form.card select, form.card input {
-      width:100%; padding:0.4rem 0.6rem; border-radius:0.4rem; border:1px solid #d0d4e4; font-size:0.9rem;
+      width:100%; padding:0.5rem 0.7rem; border-radius:0.4rem; border:1px solid #cdd2e0; font-size:0.95rem; background: #fff;
+    }
+    form.card select:focus, form.card input:focus {
+        border-color: #2563eb; outline: none; box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+    
+    .hidden { display: none; }
+    .form-section-title {
+        margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1rem; font-weight: 700; color: var(--bleu-nuit); border-bottom: 2px solid #f0f0f0; padding-bottom: 0.3rem;
     }
     
     @media (max-width: 780px) {
       .hero { grid-template-columns: 1fr; }
       nav { justify-content: center; }
       nav .logo { width: 100%; text-align: center; }
-      .two-col { grid-template-columns: 1fr; }
       header { padding-bottom: 3rem; }
     }
   </style>
@@ -222,8 +219,6 @@
       <div class="logo">Éditions Nubi</div>
       <ul>
         <li><a href="#livre">Le livre</a></li>
-        <li><a href="#editeur">La maison d’édition</a></li>
-        <li><a href="#auteur">L’auteur</a></li>
         <li><a href="#pro">Librairies</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -239,7 +234,6 @@
           accompagne les enfants dans la découverte de leur sensibilité.
         </p>
         <a href="#livre" class="btn-primary">Découvrir l’album</a>
-        <a href="#pro" class="btn-ghost">Infos librairies</a>
       </div>
 
       <div class="hero-book">
@@ -280,10 +274,12 @@
 <section id="commande">
   <div class="wrapper">
     <h2>Commander un livre</h2>
-    <p class="lead">Remplissez ce formulaire pour recevoir votre bon de commande.</p>
+    <p class="lead">Remplissez ce formulaire pour configurer votre commande.</p>
 
     <form id="commandeForm" class="card" style="max-width: 700px; margin: 0 auto;">
-      <label for="region"><strong>Région</strong></label>
+      
+      <div class="form-section-title">Localisation</div>
+      <label for="region">Région</label>
       <select id="region" name="region">
         <option value="">Choisissez une région</option>
         <option value="afrique">Afrique</option>
@@ -292,13 +288,13 @@
         <option value="asie">Asie</option>
       </select>
 
-      <label for="pays"><strong>Pays</strong></label>
+      <label for="pays">Pays</label>
       <select id="pays" name="pays">
         <option value="">Choisissez d’abord une région</option>
       </select>
 
-      <div id="zone-ci-block" style="display:none;">
-        <label for="zoneCI"><strong>Zone (Côte d’Ivoire)</strong></label>
+      <div id="zone-ci-block" class="hidden">
+        <label for="zoneCI">Zone (Côte d’Ivoire)</label>
         <select id="zoneCI" name="zoneCI">
           <option value="">Choisissez une zone</option>
           <option value="Abidjan">Abidjan</option>
@@ -306,37 +302,102 @@
           <option value="Dabou">Dabou</option>
           <option value="Interieur">Intérieur</option>
         </select>
-        <div id="ville-interieur-block" style="margin-top:0.5rem; display:none;">
-          <label for="villeInterieur"><strong>Ville (intérieur)</strong></label>
+        <div id="ville-interieur-block" style="margin-top:0.5rem;" class="hidden">
+          <label for="villeInterieur">Ville (intérieur)</label>
           <input type="text" id="villeInterieur" name="villeInterieur" placeholder="Nom de la ville" />
         </div>
       </div>
 
-      <label for="statut"><strong>Vous êtes…</strong></label>
+      <div class="form-section-title">Vos informations</div>
+      
+      <label for="statut">Vous êtes…</label>
       <select id="statut" name="statut">
         <option value="">Choisissez un statut</option>
         <option value="parent">Parent</option>
+        <option value="psy">Psychologue pour enfants</option>
         <option value="librairie">Librairie</option>
-        <option value="ecole">École</option>
         <option value="bibliotheque">Bibliothèque</option>
+        <option value="ecole">École</option>
         <option value="autre">Autre</option>
       </select>
 
-      <label for="livre"><strong>Livre souhaité</strong></label>
+      <div id="identite-block" class="hidden">
+        
+        <div id="type-ecole-block" class="hidden">
+           <label for="typeEcole">Type d'école</label>
+           <select id="typeEcole">
+             <option value="">Selectionnez...</option>
+             <option value="Maternelle">Maternelle</option>
+             <option value="Primaire">Primaire</option>
+           </select>
+        </div>
+
+        <div id="structure-block" class="hidden">
+            <label for="nomStructure" id="lbl-structure">Nom de l'établissement</label>
+            <input type="text" id="nomStructure" placeholder="" />
+        </div>
+
+        <div style="display:flex; gap:1rem; align-items:flex-end; flex-wrap:wrap;">
+            <div style="flex:1; min-width:120px;">
+                <label for="genre">Genre</label>
+                <select id="genre">
+                    <option value="">Choix...</option>
+                    <option value="Monsieur">Monsieur</option>
+                    <option value="Madame">Madame</option>
+                    <option value="Mademoiselle">Mademoiselle</option>
+                    <option value="Autre">Autre</option>
+                </select>
+            </div>
+            <div style="flex:2; min-width:180px;">
+                <label for="nomFamille">Nom</label>
+                <input type="text" id="nomFamille" />
+            </div>
+        </div>
+        <label for="prenoms">Prénom(s)</label>
+        <input type="text" id="prenoms" />
+
+        <div id="poste-block" class="hidden">
+            <label for="poste">Poste occupé</label>
+            <select id="poste"></select>
+            <div id="poste-perso-block" class="hidden" style="margin-top:0.5rem;">
+                <input type="text" id="posteAutre" placeholder="Précisez votre poste..." />
+            </div>
+        </div>
+
+        <label for="adresse" id="lbl-adresse">Adresse</label>
+        <input type="text" id="adresse" placeholder="Quartier, Rue, Porte..." />
+
+        <label for="contactTel">Contact</label>
+        <div style="display:flex; gap:0.5rem; align-items:center;">
+          <span id="indicatif" style="background:#eee; padding:0.5rem; border-radius:0.4rem; font-weight:bold; color:#555;">+225</span>
+          <input type="tel" id="contactTel" placeholder="Numéro" />
+        </div>
+
+        <label for="emailContact" id="lbl-email">E-mail</label>
+        <input type="email" id="emailContact" placeholder="nom@exemple.com" />
+
+      </div>
+
+      <div class="form-section-title">Détails de la commande</div>
+
+      <label for="livre">Livre souhaité</label>
       <select id="livre" name="livre">
         <option value="Le Petit Nuage Qui Avait Peur de Pleuvoir">Le Petit Nuage Qui Avait Peur de Pleuvoir</option>
       </select>
 
       <div id="quantite-block">
-        <label for="quantite"><strong>Quantité</strong></label>
-        <select id="quantite" name="quantite"></select>
-        <div id="quantite-pers-block" style="margin-top:0.5rem; display:none;">
-          <label for="quantitePerso"><strong>Quantité personnalisée</strong></label>
+        <label for="quantite">Quantité</label>
+        <select id="quantite" name="quantite">
+             <option value="">Remplissez d'abord votre statut</option>
+        </select>
+        <div id="quantite-pers-block" class="hidden" style="margin-top:0.5rem;">
+          <label for="quantitePerso">Quantité personnalisée</label>
           <input type="number" id="quantitePerso" min="1" step="1" />
         </div>
       </div>
 
       <div style="margin-top:1rem;">
+        <label for="devise">Devise</label>
         <select id="devise" name="devise">
           <option value="">Choisissez une devise</option>
           <option value="EUR">Euro (€)</option>
@@ -345,37 +406,26 @@
         </select>
       </div>
       <div style="margin-top:0.5rem;">
-        <label for="total"><strong>Total HT</strong></label>
-        <input type="text" id="total" readonly />
+        <label for="total">Total HT</label>
+        <input type="text" id="total" readonly style="background-color: #f0f0f0; font-weight: bold;" />
       </div>
 
-      <div style="margin-top:1.2rem;">
-        <strong>Envoyer la commande via :</strong><br>
-        <label><input type="radio" name="envoi" value="email" checked> E-mail</label>
-        <label style="margin-left:1rem;"><input type="radio" name="envoi" value="whatsapp"> WhatsApp</label>
-      </div>
-
-      <div id="email-block" style="margin-top:0.8rem;">
-        <label for="emailClient"><strong>Votre e-mail</strong></label>
-        <input type="email" id="emailClient" placeholder="votre.email@example.com" />
-      </div>
-
-      <div id="whatsapp-block" style="margin-top:0.8rem; display:none;">
-        <label for="whatsappClient"><strong>Votre numéro WhatsApp</strong></label>
-        <div style="display:flex; gap:0.5rem; align-items:center;">
-          <span id="indicatif">+225</span>
-          <input type="tel" id="whatsappClient" placeholder="0700000000" maxlength="10" />
+      <div style="margin-top:2rem; border-top: 2px solid #f0f0f0; padding-top: 1.5rem;">
+        <strong>Envoyer la commande via :</strong>
+        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+            <button type="button" id="btnWhatsapp" class="btn-order" style="background:#25D366; flex:1;">
+                WhatsApp
+            </button>
+            <button type="button" id="btnEmail" class="btn-order" style="background:#ea4335; flex:1;">
+                E-mail
+            </button>
         </div>
       </div>
 
-      <button type="button" id="btnEnvoyer" class="btn-order" style="margin-top:1.5rem;">
-        Envoyer la commande
-      </button>
-
-      <p id="msgInfo" style="margin-top:0.8rem; font-size:0.85rem; color:#555;"></p>
+      <p id="msgInfo" style="margin-top:0.8rem; font-size:0.85rem; color:#555; text-align: center;"></p>
     </form>
 
-    <div id="confirmationCard" class="card" style="max-width:700px; margin:1.5rem auto 0; text-align:center; display:none;">
+    <div id="confirmationCard" class="card hidden" style="max-width:700px; margin:1.5rem auto 0; text-align:center;">
       <h3>Merci pour votre commande !</h3>
       <p id="confirmationTexte" style="margin-top:0.8rem; font-size:0.95rem;"></p>
       <a href="#top" class="btn-primary" style="margin-top:1rem; display:inline-block;">Retour à l’accueil</a>
@@ -401,8 +451,15 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   
+  // --- HELPERS ---
+  function el(id) { return document.getElementById(id); }
+  function show(id) { const e = el(id); if(e) e.classList.remove('hidden'); }
+  function hide(id) { const e = el(id); if(e) e.classList.add('hidden'); }
+
   // --- CONFIGURATION ---
-  document.getElementById('year').textContent = new Date().getFullYear();
+  const yearSpan = el('year');
+  if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+
   const EMAIL_DESTINATION = "contact@editionsnubi.com";
   const WHATSAPP_DESTINATION = "2250709850776";
 
@@ -413,265 +470,377 @@ document.addEventListener('DOMContentLoaded', function() {
     asie: ["Chine", "Japon", "Inde", "Corée du Sud", "Émirats Arabes Unis"]
   };
 
-  const indicatifParPays = {
-    "Côte d'Ivoire": "+225", "Sénégal": "+221", "Mali": "+223", "Burkina Faso": "+226", "Togo": "+228", "Bénin": "+229", "Guinée": "+224", "Cameroun": "+237", "Congo": "+242", "RDC": "+243", "Maroc": "+212", "Algérie": "+213", "Tunisie": "+216",
-    "France": "+33", "Belgique": "+32", "Suisse": "+41", "Allemagne": "+49", "Espagne": "+34", "Italie": "+39", "Portugal": "+351", "Pays-Bas": "+31",
-    "Canada": "+1", "États-Unis": "+1", "Brésil": "+55", "Mexique": "+52", "Chine": "+86", "Japon": "+81", "Inde": "+91", "Corée du Sud": "+82", "Émirats Arabes Unis": "+971"
+  const configTel = {
+    "Côte d'Ivoire": { code: "+225", len: 10 }, "Sénégal": { code: "+221", len: 9 }, "Mali": { code: "+223", len: 8 }, 
+    "Burkina Faso": { code: "+226", len: 8 }, "Togo": { code: "+228", len: 8 }, "Bénin": { code: "+229", len: 8 }, 
+    "Guinée": { code: "+224", len: 9 }, "Cameroun": { code: "+237", len: 9 }, "Congo": { code: "+242", len: 9 }, 
+    "RDC": { code: "+243", len: 9 }, "Maroc": { code: "+212", len: 9 }, "Algérie": { code: "+213", len: 9 }, "Tunisie": { code: "+216", len: 8 },
+    "France": { code: "+33", len: 10 }, "Belgique": { code: "+32", len: 9 }, "Suisse": { code: "+41", len: 9 }, 
+    "Allemagne": { code: "+49", len: 10 }, "Espagne": { code: "+34", len: 9 }, "Italie": { code: "+39", len: 10 }, 
+    "Portugal": { code: "+351", len: 9 }, "Pays-Bas": { code: "+31", len: 9 },
+    "Canada": { code: "+1", len: 10 }, "États-Unis": { code: "+1", len: 10 }, "Brésil": { code: "+55", len: 11 }, 
+    "Mexique": { code: "+52", len: 10 }, "Chine": { code: "+86", len: 11 }, "Japon": { code: "+81", len: 10 }, 
+    "Inde": { code: "+91", len: 10 }, "Corée du Sud": { code: "+82", len: 10 }, "Émirats Arabes Unis": { code: "+971", len: 9 }
   };
 
-  const longueurTelParPays = {
-    "Côte d'Ivoire": 10, "Sénégal": 9, "Mali": 8, "Burkina Faso": 8, "Togo": 8, "Bénin": 8, "Guinée": 9, "Cameroun": 9, "Congo": 9, "RDC": 9, "Maroc": 9, "Algérie": 9, "Tunisie": 8,
-    "France": 10, "Belgique": 9, "Suisse": 9, "Allemagne": 10, "Espagne": 9, "Italie": 10, "Portugal": 9, "Pays-Bas": 9,
-    "Canada": 10, "États-Unis": 10, "Brésil": 11, "Mexique": 10, "Chine": 11, "Japon": 10, "Inde": 10, "Corée du Sud": 10, "Émirats Arabes Unis": 9
+  // Options pour les postes
+  const postesConfig = {
+      librairie: ["Gérant(e)", "Responsable Rayon Jeunesse", "Vendeur / Vendeuse", "Acheteur / Acheteuse", "personnaliser"],
+      bibliotheque: ["Directeur / Directrice", "Bibliothécaire", "Responsable Section Jeunesse", "Bénévole", "personnaliser"],
+      ecoleMaternelle: ["Directeur / Directrice", "Instituteur / Institutrice", "ATSEM", "Membre APE", "personnaliser"],
+      ecolePrimaire: ["Directeur / Directrice", "Instituteur / Institutrice", "Documentaliste", "Membre APE", "personnaliser"]
   };
 
-  // --- ÉLÉMENTS DOM ---
-  const regionSelect = document.getElementById('region');
-  const paysSelect = document.getElementById('pays');
-  const zoneCIBlock = document.getElementById('zone-ci-block');
-  const zoneCISelect = document.getElementById('zoneCI');
-  const villeInterieurBlock = document.getElementById('ville-interieur-block');
-  const statutSelect = document.getElementById('statut');
-  const livreSelect = document.getElementById('livre');
-  const quantiteSelect = document.getElementById('quantite');
-  const quantitePersBlock = document.getElementById('quantite-pers-block');
-  const quantitePersInput = document.getElementById('quantitePerso');
-  const deviseSelect = document.getElementById('devise');
-  const totalInput = document.getElementById('total');
-  const emailBlock = document.getElementById('email-block');
-  const whatsappBlock = document.getElementById('whatsapp-block');
-  const emailClientInput = document.getElementById('emailClient');
-  const whatsappClientInput = document.getElementById('whatsappClient');
-  const btnEnvoyer = document.getElementById('btnEnvoyer');
-  const msgInfo = document.getElementById('msgInfo');
-  const indicatifSpan = document.getElementById('indicatif');
-  const commandeForm = document.getElementById('commandeForm');
-  const confirmationCard = document.getElementById('confirmationCard');
-  const confirmationTexte = document.getElementById('confirmationTexte');
-
-  // --- LOGIQUE ---
-
-  // Pays selon Région
-  regionSelect.addEventListener('change', () => {
-    const region = regionSelect.value;
-    paysSelect.innerHTML = '<option value="">Choisissez un pays</option>';
-    zoneCIBlock.style.display = 'none';
-    villeInterieurBlock.style.display = 'none';
-    if (region && paysParRegion[region]) { // Sécurité ajoutée ici
-      paysParRegion[region].forEach(p => {
-        const opt = document.createElement('option');
-        opt.value = p; opt.textContent = p;
-        paysSelect.appendChild(opt);
+  // --- LOGIQUE REGION / PAYS ---
+  const regionSelect = el('region');
+  const paysSelect = el('pays');
+  
+  if(regionSelect && paysSelect) {
+      regionSelect.addEventListener('change', () => {
+        const region = regionSelect.value;
+        paysSelect.innerHTML = '<option value="">Choisissez un pays</option>';
+        hide('zone-ci-block'); hide('ville-interieur-block');
+        
+        if (region && paysParRegion[region]) {
+          paysParRegion[region].forEach(p => {
+            const opt = document.createElement('option');
+            opt.value = p; opt.textContent = p;
+            paysSelect.appendChild(opt);
+          });
+        }
       });
-    }
-  });
 
-  // Gestion Côte d'Ivoire
-  paysSelect.addEventListener('change', () => {
-    const pays = paysSelect.value;
-    if (regionSelect.value === 'afrique' && pays === "Côte d'Ivoire") {
-      zoneCIBlock.style.display = 'block';
-    } else {
-      zoneCIBlock.style.display = 'none';
-      villeInterieurBlock.style.display = 'none';
-    }
-    
-    // Mise à jour indicatif et placeholder
-    if (pays && indicatifParPays[pays]) {
-       indicatifSpan.textContent = indicatifParPays[pays];
-       const longueur = longueurTelParPays[pays] || 10;
-       whatsappClientInput.value = "";
-       whatsappClientInput.setAttribute('maxlength', longueur);
-       whatsappClientInput.placeholder = `Numéro (${longueur} chiffres)`;
-    } else {
-       indicatifSpan.textContent = "+";
-    }
-  });
+      paysSelect.addEventListener('change', () => {
+        const pays = paysSelect.value;
+        // Gestion Zone CI
+        if (regionSelect.value === 'afrique' && pays === "Côte d'Ivoire") show('zone-ci-block');
+        else { hide('zone-ci-block'); hide('ville-interieur-block'); }
 
-  zoneCISelect.addEventListener('change', () => {
-    villeInterieurBlock.style.display = (zoneCISelect.value === 'Interieur') ? 'block' : 'none';
-  });
-
-  // Quantités
-  function majQuantites() {
-    const statut = statutSelect.value;
-    quantiteSelect.innerHTML = '';
-    quantitePersBlock.style.display = 'none';
-    quantitePersInput.value = '';
-
-    let options = [];
-    if (statut === 'librairie' || statut === 'ecole' || statut === 'bibliotheque') {
-      options = ['0','5','10','20','30','50','personnaliser'];
-    } else if (statut === 'parent' || statut === 'psychologue' || statut === 'autre') {
-      options = ['0','1','2','3','5','7','10','personnaliser'];
-    } else {
-      const opt = document.createElement('option');
-      opt.value = ''; opt.textContent = "Choisissez d’abord un statut"; opt.disabled = true; opt.selected = true;
-      quantiteSelect.appendChild(opt);
-      return;
-    }
-    options.forEach(val => {
-      const opt = document.createElement('option');
-      opt.value = val;
-      opt.textContent = (val === 'personnaliser') ? 'Personnaliser…' : val;
-      quantiteSelect.appendChild(opt);
-    });
+        // Gestion Indicatif Téléphone
+        const conf = configTel[pays] || { code: "+", len: 0 };
+        const indicatif = el('indicatif');
+        const contactTel = el('contactTel');
+        if(indicatif) indicatif.textContent = conf.code;
+        if(contactTel) {
+            contactTel.value = "";
+            contactTel.placeholder = conf.len > 0 ? `Numéro (${conf.len} chiffres)` : "Numéro de téléphone";
+            if(conf.len > 0) contactTel.setAttribute('maxlength', conf.len);
+            else contactTel.removeAttribute('maxlength');
+        }
+      });
   }
-  statutSelect.addEventListener('change', majQuantites);
 
-  quantiteSelect.addEventListener('change', () => {
-    quantitePersBlock.style.display = (quantiteSelect.value === 'personnaliser') ? 'block' : 'none';
-    if (quantiteSelect.value !== 'personnaliser') quantitePersInput.value = '';
-    calculerTotal();
-  });
+  const zoneCISelect = el('zoneCI');
+  if(zoneCISelect) {
+      zoneCISelect.addEventListener('change', () => {
+          if(zoneCISelect.value === 'Interieur') show('ville-interieur-block');
+          else hide('ville-interieur-block');
+      });
+  }
 
-  deviseSelect.addEventListener('change', calculerTotal);
-  quantitePersInput.addEventListener('input', calculerTotal);
+  // --- LOGIQUE STATUT ET CHAMPS DYNAMIQUES ---
+  const statutSelect = el('statut');
+  
+  function updateFormFields() {
+      if(!statutSelect) return;
+      const st = statutSelect.value;
+      
+      // Reset visibilité
+      hide('identite-block');
+      hide('structure-block');
+      hide('type-ecole-block');
+      hide('poste-block');
+      
+      const lblAdresse = el('lbl-adresse');
+      const lblEmail = el('lbl-email');
+      const lblStructure = el('lbl-structure');
+      
+      if(!st) return; // Si vide
+
+      show('identite-block'); // Affiche le bloc global
+
+      // Textes par défaut
+      if(lblAdresse) lblAdresse.textContent = "Adresse";
+      if(lblEmail) lblEmail.textContent = "Votre e-mail";
+
+      // Logique spécifique
+      if(st === 'parent' || st === 'autre') {
+          // Rien de spécial, juste identité de base
+      } 
+      else if (st === 'psy') {
+          show('structure-block');
+          if(lblStructure) lblStructure.textContent = "Cabinet";
+          if(lblAdresse) lblAdresse.textContent = "Adresse du cabinet";
+          if(lblEmail) lblEmail.textContent = "E-mail du cabinet";
+      }
+      else if (st === 'librairie') {
+          show('structure-block');
+          show('poste-block');
+          if(lblStructure) lblStructure.textContent = "Nom de la librairie";
+          if(lblAdresse) lblAdresse.textContent = "Adresse de la librairie";
+          if(lblEmail) lblEmail.textContent = "E-mail de la librairie";
+          fillPosteOptions(postesConfig.librairie);
+      }
+      else if (st === 'bibliotheque') {
+          show('structure-block');
+          show('poste-block');
+          if(lblStructure) lblStructure.textContent = "Nom de la bibliothèque";
+          if(lblAdresse) lblAdresse.textContent = "Adresse de la bibliothèque";
+          if(lblEmail) lblEmail.textContent = "E-mail de la bibliothèque";
+          fillPosteOptions(postesConfig.bibliotheque);
+      }
+      else if (st === 'ecole') {
+          show('type-ecole-block');
+          show('structure-block');
+          show('poste-block');
+          if(lblStructure) lblStructure.textContent = "Nom de l'école";
+          if(lblAdresse) lblAdresse.textContent = "Adresse de l'école";
+          if(lblEmail) lblEmail.textContent = "E-mail de l'école";
+          // Les options de poste seront mises à jour quand on choisit le type d'école
+          fillPosteOptions([]); 
+      }
+
+      majQuantites(); // Met aussi à jour les choix de quantité
+  }
+
+  if(statutSelect) statutSelect.addEventListener('change', updateFormFields);
+
+  // Gestion Type Ecole
+  const typeEcoleSelect = el('typeEcole');
+  if(typeEcoleSelect) {
+      typeEcoleSelect.addEventListener('change', () => {
+          if(statutSelect.value === 'ecole') {
+              if(typeEcoleSelect.value === 'Maternelle') fillPosteOptions(postesConfig.ecoleMaternelle);
+              else if(typeEcoleSelect.value === 'Primaire') fillPosteOptions(postesConfig.ecolePrimaire);
+              else fillPosteOptions([]);
+          }
+      });
+  }
+
+  // Gestion Poste
+  const posteSelect = el('poste');
+  function fillPosteOptions(arr) {
+      if(!posteSelect) return;
+      posteSelect.innerHTML = '<option value="">Selectionnez...</option>';
+      arr.forEach(optVal => {
+          const opt = document.createElement('option');
+          opt.value = optVal;
+          opt.textContent = (optVal === 'personnaliser') ? 'Autre (préciser)...' : optVal;
+          posteSelect.appendChild(opt);
+      });
+  }
+
+  if(posteSelect) {
+      posteSelect.addEventListener('change', () => {
+          if(posteSelect.value === 'personnaliser') show('poste-perso-block');
+          else hide('poste-perso-block');
+      });
+  }
+
+  // --- LOGIQUE QUANTITÉS & PRIX ---
+  const quantiteSelect = el('quantite');
+  const quantitePersInput = el('quantitePerso');
+  const deviseSelect = el('devise');
+  const totalInput = el('total');
+
+  function majQuantites() {
+      if(!quantiteSelect || !statutSelect) return;
+      const st = statutSelect.value;
+      quantiteSelect.innerHTML = '';
+      hide('quantite-pers-block');
+      if(quantitePersInput) quantitePersInput.value = '';
+
+      let opts = [];
+      // Quantités adaptées
+      if (['librairie', 'ecole', 'bibliotheque'].includes(st)) {
+          opts = ['5','10','20','30','50','personnaliser'];
+      } else if (['parent', 'psy', 'autre'].includes(st)) {
+          opts = ['1','2','3','5','7','10','personnaliser'];
+      } else {
+          // Si pas de statut
+          const o = document.createElement('option');
+          o.text = "Remplissez d'abord votre statut";
+          quantiteSelect.add(o);
+          return;
+      }
+
+      opts.forEach(v => {
+          const o = document.createElement('option');
+          o.value = v; o.text = (v === 'personnaliser') ? 'Autre quantité...' : v;
+          quantiteSelect.add(o);
+      });
+      // Par défaut selectionner le premier
+      quantiteSelect.selectedIndex = 0;
+      calculerTotal();
+  }
+
+  if(quantiteSelect) {
+      quantiteSelect.addEventListener('change', () => {
+          if(quantiteSelect.value === 'personnaliser') show('quantite-pers-block');
+          else hide('quantite-pers-block');
+          if(quantiteSelect.value !== 'personnaliser' && quantitePersInput) quantitePersInput.value = '';
+          calculerTotal();
+      });
+  }
+
+  if(quantitePersInput) quantitePersInput.addEventListener('input', calculerTotal);
+  if(deviseSelect) deviseSelect.addEventListener('change', calculerTotal);
 
   function getQuantite() {
-    if (quantiteSelect.value === 'personnaliser') {
-      const q = parseInt(quantitePersInput.value || '0', 10);
-      return isNaN(q) ? 0 : q;
-    } else {
-      return parseInt(quantiteSelect.value || '0', 10);
-    }
+      if(!quantiteSelect) return 0;
+      if(quantiteSelect.value === 'personnaliser') {
+          const q = parseInt(quantitePersInput ? quantitePersInput.value : 0);
+          return isNaN(q) ? 0 : q;
+      }
+      return parseInt(quantiteSelect.value || 0);
   }
 
   function calculerTotal() {
-    const qte = getQuantite();
-    let unit = 0;
-    if (deviseSelect.value === 'EUR') unit = 14.49;
-    if (deviseSelect.value === 'USD') unit = 16.99;
-    if (deviseSelect.value === 'XOF') unit = 10000;
-    
-    if (!qte || !unit) { totalInput.value = ''; return; }
-    
-    const total = qte * unit;
-    if (deviseSelect.value === 'XOF') totalInput.value = total.toLocaleString('fr-FR') + ' FCFA';
-    else if (deviseSelect.value === 'EUR') totalInput.value = total.toFixed(2).replace('.', ',') + ' €';
-    else totalInput.value = total.toFixed(2) + ' $';
+      if(!totalInput || !deviseSelect) return;
+      const qte = getQuantite();
+      let unit = 0;
+      if(deviseSelect.value === 'EUR') unit = 14.49;
+      if(deviseSelect.value === 'USD') unit = 16.99;
+      if(deviseSelect.value === 'XOF') unit = 10000;
+
+      if(!qte || !unit) { totalInput.value = ''; return; }
+      
+      const total = qte * unit;
+      if(deviseSelect.value === 'XOF') totalInput.value = total.toLocaleString('fr-FR') + ' FCFA';
+      else if(deviseSelect.value === 'EUR') totalInput.value = total.toFixed(2).replace('.', ',') + ' €';
+      else totalInput.value = total.toFixed(2) + ' $';
   }
 
-  // Toggle Email/WhatsApp
-  document.querySelectorAll('input[name="envoi"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-      if (radio.value === 'email' && radio.checked) {
-        emailBlock.style.display = 'block'; whatsappBlock.style.display = 'none';
-      }
-      if (radio.value === 'whatsapp' && radio.checked) {
-        emailBlock.style.display = 'none'; whatsappBlock.style.display = 'block';
-      }
-    });
-  });
-
-  // --- ENVOI AVEC SÉCURITÉ RENFORCÉE ---
-  btnEnvoyer.addEventListener('click', () => {
-    try {
-      msgInfo.textContent = '';
-      msgInfo.style.color = '#555';
-
-      const region = regionSelect.value;
-      const pays = paysSelect.value;
-      const statut = statutSelect.value;
-      const qte = getQuantite();
-      const total = totalInput.value || '(à calculer)';
-
-      // 1. Validation de base
-      if (!region) throw "Merci de sélectionner une région.";
-      if (!pays) throw "Merci de sélectionner un pays.";
-      if (!statut) throw "Merci de sélectionner un statut.";
-      if (!qte || qte <= 0) throw "Merci d’indiquer une quantité de livres.";
-
-      // 2. Récupération sécurisée du livre
-      let livreTexte = "Le Petit Nuage Qui Avait Peur de Pleuvoir"; // Valeur par défaut
-      if (livreSelect.selectedIndex >= 0 && livreSelect.options[livreSelect.selectedIndex]) {
-         livreTexte = livreSelect.options[livreSelect.selectedIndex].text;
-      }
-
-      // 3. Récupération sécurisée du mode d'envoi
-      const radioEnvoi = document.querySelector('input[name="envoi"]:checked');
-      if (!radioEnvoi) {
-        throw "Merci de choisir un mode d’envoi (E-mail ou WhatsApp).";
-      }
-      const modeEnvoi = radioEnvoi.value;
-
-      // 4. Gestion de la zone Côte d'Ivoire
-      let detailsZone = '';
-      if (region === 'afrique' && pays === "Côte d'Ivoire") {
-        const zone = zoneCISelect.value;
-        if (!zone) throw "Veuillez choisir une zone pour la Côte d’Ivoire.";
-        if (zone === 'Interieur') {
-           const villeInput = document.getElementById('villeInterieur');
-           const ville = villeInput ? villeInput.value.trim() : '';
-           if (!ville) throw "Veuillez renseigner le nom de la ville.";
-           detailsZone = `Zone CI : Intérieur / Ville : ${ville}\n`;
-        } else {
-           detailsZone = `Zone CI : ${zone}\n`;
-        }
-      }
-
-      // 5. Gestion des coordonnées
-      let emailClient = '';
-      let numeroComplet = '';
+  // --- TRAITEMENT ENVOI ---
+  function traiterEnvoi(modeEnvoi) {
+      const msgInfo = el('msgInfo');
+      const confirmationCard = el('confirmationCard');
+      const confirmationTexte = el('confirmationTexte');
+      const commandeForm = el('commandeForm');
       
-      if (modeEnvoi === 'email') {
-        emailClient = emailClientInput.value.trim();
-        if (!emailClient) throw "Merci de renseigner votre adresse e-mail.";
-      } else {
-        const numSaisi = whatsappClientInput.value.trim();
-        if (!numSaisi) throw "Merci de renseigner votre numéro WhatsApp.";
-        const longueurAttendue = longueurTelParPays[pays] || 10;
-        if (numSaisi.length !== longueurAttendue) throw `Le numéro pour ${pays} doit comporter ${longueurAttendue} chiffres.`;
-        numeroComplet = (indicatifSpan.textContent || '+') + numSaisi;
-      }
+      try {
+          if(msgInfo) { msgInfo.textContent = ""; msgInfo.style.color = "#555"; }
 
-      // Construction message
-      const resume = 
-        `*Nouvelle commande Éditions Nubi*\n` +
-        `--------------------------------\n` +
-        `📍 Pays : ${pays}\n` +
-        detailsZone +
-        `👤 Statut : ${statut}\n` +
-        `📖 Livre : ${livreTexte}\n` +
-        `📦 Quantité : ${qte}\n` +
-        `💰 Total : ${total}\n` +
-        `--------------------------------\n`;
+          // 1. Validation de base
+          const region = regionSelect ? regionSelect.value : '';
+          const pays = paysSelect ? paysSelect.value : '';
+          if(!region || !pays) throw "Veuillez sélectionner la région et le pays.";
 
-      if (modeEnvoi === 'email') {
-          const subject = encodeURIComponent('Commande livre – Éditions Nubi');
-          const body = encodeURIComponent(resume + `E-mail client : ${emailClient}\n\nMerci de compléter vos coordonnées :\nNom :\nAdresse :\nTéléphone :`);
-          window.location.href = `mailto:${EMAIL_DESTINATION}?subject=${subject}&body=${body}`;
-          
-          commandeForm.style.display = 'none';
-          confirmationCard.style.display = 'block';
-          confirmationTexte.textContent = "Votre application E-mail va s'ouvrir. Vérifiez et envoyez le message.";
+          // Zone CI
+          let detailsZone = "";
+          if(region === 'afrique' && pays === "Côte d'Ivoire") {
+              const zone = el('zoneCI').value;
+              if(!zone) throw "Veuillez préciser la zone en Côte d'Ivoire.";
+              if(zone === 'Interieur') {
+                  const ville = el('villeInterieur').value.trim();
+                  if(!ville) throw "Veuillez préciser la ville.";
+                  detailsZone = ` / ${ville}`;
+              } else {
+                  detailsZone = ` / ${zone}`;
+              }
+          }
+
+          // Statut & Identité
+          const statut = statutSelect ? statutSelect.value : '';
+          if(!statut) throw "Veuillez choisir votre statut.";
+
+          const genre = el('genre').value;
+          const nom = el('nomFamille').value.trim();
+          const prenoms = el('prenoms').value.trim();
+          if(!genre || !nom || !prenoms) throw "Veuillez remplir vos informations d'identité (Genre, Nom, Prénoms).";
+
+          // Info Structure et Poste
+          let infoPro = "";
+          const nomStructure = el('nomStructure').value.trim();
+          const posteVal = el('poste') ? el('poste').value : '';
+          let posteFinal = posteVal === 'personnaliser' ? el('posteAutre').value.trim() : posteVal;
+
+          if(statut === 'ecole') {
+              const typeEco = el('typeEcole').value;
+              if(!typeEco) throw "Veuillez préciser Type d'école.";
+              if(!nomStructure) throw "Veuillez préciser le nom de l'école.";
+              if(!posteFinal) throw "Veuillez préciser votre poste.";
+              infoPro = `École : ${nomStructure} (${typeEco})\nPoste : ${posteFinal}`;
+          }
+          else if(['librairie', 'bibliotheque'].includes(statut)) {
+              if(!nomStructure) throw "Veuillez préciser le nom de l'établissement.";
+              if(!posteFinal) throw "Veuillez préciser votre poste.";
+              infoPro = `Établissement : ${nomStructure}\nPoste : ${posteFinal}`;
+          }
+          else if(statut === 'psy') {
+              if(!nomStructure) throw "Veuillez préciser le nom du Cabinet.";
+              infoPro = `Cabinet : ${nomStructure}`;
+          }
+
+          // Contact
+          const adresse = el('adresse').value.trim();
+          if(!adresse) throw "Veuillez renseigner l'adresse.";
+
+          const numTel = el('contactTel').value.trim();
+          if(!numTel) throw "Veuillez renseigner le numéro de contact.";
+          // Verif longueur
+          const conf = configTel[pays];
+          if(conf && conf.len > 0 && numTel.length !== conf.len) {
+              throw `Le numéro pour ${pays} doit comporter ${conf.len} chiffres.`;
+          }
+          const fullTel = (el('indicatif').textContent) + numTel;
+
+          const email = el('emailContact').value.trim();
+          if(!email) throw "Veuillez renseigner l'e-mail.";
+
+          // Commande
+          const qte = getQuantite();
+          if(qte <= 0) throw "Quantité invalide.";
+          const total = el('total').value;
+          if(!total) throw "Total non calculé.";
+
+          // CONSTRUCTION MESSAGE
+          const resume = 
+            `*Nouvelle Commande - Éditions Nubi*\n` +
+            `--------------------------------\n` +
+            `📍 LIEU : ${pays}${detailsZone}\n` +
+            `👤 CLIENT : ${statut.toUpperCase()}\n` +
+            `Identité : ${genre} ${prenoms} ${nom.toUpperCase()}\n` +
+            (infoPro ? `${infoPro}\n` : '') +
+            `🏠 Adresse : ${adresse}\n` +
+            `📞 Contact : ${fullTel}\n` +
+            `📧 E-mail : ${email}\n` +
+            `--------------------------------\n` +
+            `📖 LIVRE : Le Petit Nuage Qui Avait Peur de Pleuvoir\n` +
+            `📦 QUANTITÉ : ${qte}\n` +
+            `💰 TOTAL : ${total}\n` +
+            `--------------------------------\n`;
+
+          if(modeEnvoi === 'whatsapp') {
+              const texteEncoded = encodeURIComponent(resume + "Bonjour, je souhaite valider cette commande.");
+              window.open(`https://wa.me/${WHATSAPP_DESTINATION}?text=${texteEncoded}`, '_blank');
+              confirmationTexte.textContent = "WhatsApp s'est ouvert. Envoyez le message pour valider.";
+          } else {
+              const sub = encodeURIComponent("Commande Livre - Éditions Nubi");
+              const body = encodeURIComponent(resume + "\nMerci de bien vouloir traiter ma commande.");
+              window.location.href = `mailto:${EMAIL_DESTINATION}?subject=${sub}&body=${body}`;
+              confirmationTexte.textContent = "Votre application E-mail va s'ouvrir. Envoyez le mail pour valider.";
+          }
+
+          if(commandeForm) hide('commandeForm');
+          if(confirmationCard) show('confirmationCard');
           location.hash = '#commande';
 
-      } else {
-          // WhatsApp
-          const texteWhatsApp = encodeURIComponent(resume + `📞 Contact : ${numeroComplet}\n\nBonjour, je souhaite valider cette commande.\nMon Nom & Prénom : `);
-          window.open(`https://wa.me/${WHATSAPP_DESTINATION}?text=${texteWhatsApp}`, '_blank');
-          
-          commandeForm.style.display = 'none';
-          confirmationCard.style.display = 'block';
-          confirmationTexte.textContent = "WhatsApp s'est ouvert dans un nouvel onglet. Envoyez le message pour commander.";
-          location.hash = '#commande';
+      } catch(e) {
+          if(msgInfo) {
+             msgInfo.textContent = e;
+             msgInfo.style.color = "red";
+          } else alert(e);
       }
+  }
 
-    } catch (erreur) {
-      msgInfo.textContent = typeof erreur === 'string' ? erreur : "Une erreur est survenue.";
-      msgInfo.style.color = 'red';
-      // On loggue la vraie erreur dans la console pour toi, le développeur, mais on ne l'affiche plus en popup à l'utilisateur
-      console.error(erreur); 
-      if (typeof erreur !== 'string') {
-        msgInfo.textContent = "Une erreur technique est survenue. Vérifiez que tous les champs sont bien remplis.";
-      }
-    }
-  });
+  const btnWa = el('btnWhatsapp');
+  const btnEm = el('btnEmail');
+  if(btnWa) btnWa.addEventListener('click', () => traiterEnvoi('whatsapp'));
+  if(btnEm) btnEm.addEventListener('click', () => traiterEnvoi('email'));
 
   // Init
-  majQuantites();
-  calculerTotal();
+  updateFormFields();
 });
 </script>
 </body>
