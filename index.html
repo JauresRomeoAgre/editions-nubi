@@ -50,7 +50,6 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      /* Padding augmenté pour laisser respirer le logo plus grand */
       padding: 1rem 0; 
     }
 
@@ -72,17 +71,13 @@
       text-decoration: none;
     }
     
-    /* Style pour l'image du logo - TAILLE AUGMENTÉE */
     nav .logo img {
-      height: 90px; /* Augmenté de 60px à 90px pour meilleure lisibilité */
+      height: 90px;
       width: auto;
       object-fit: contain;
       transition: transform 0.3s ease;
     }
-    /* Petit effet au survol du logo */
-    nav .logo img:hover {
-        transform: scale(1.03);
-    }
+    nav .logo img:hover { transform: scale(1.03); }
 
     .nav-menu {
       display: flex;
@@ -171,7 +166,6 @@
     }
     .slide-bg.active { opacity: 1; }
     
-    /* Overlay pour lisibilité */
     .hero-overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -230,15 +224,12 @@
       margin-top: 2rem;
     }
     
-    /* Galerie Interactive */
-    .gallery-container {
-      margin: 3rem 0;
-    }
+    .gallery-container { margin: 3rem 0; }
     .gallery-title { text-align: center; margin-bottom: 1.5rem; font-size: 1.5rem; color: var(--bleu-profond); }
     
     .gallery-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr; /* 2 colonnes */
+      grid-template-columns: 1fr 1fr;
       grid-template-rows: auto auto;
       gap: 1.5rem;
     }
@@ -259,11 +250,7 @@
     }
     .gallery-item:hover img { transform: scale(1.05); }
 
-    /* Layout spécifique : Cover à gauche (prend 2 lignes), P1 et P2 à droite */
-    .item-cover {
-      grid-column: 1 / 2;
-      grid-row: 1 / 3;
-    }
+    .item-cover { grid-column: 1 / 2; grid-row: 1 / 3; }
     .item-p1 { grid-column: 2 / 3; grid-row: 1 / 2; }
     .item-p2 { grid-column: 2 / 3; grid-row: 2 / 3; }
 
@@ -311,16 +298,14 @@
     }
     .author-photo {
       width: 150px; height: 150px;
-      background: #ddd; /* Placeholder */
-      border-radius: 15px; /* Carré arrondi */
+      background: #ddd;
+      border-radius: 15px;
       margin: 0 auto 1.5rem;
       object-fit: cover;
       border: 3px solid #fff;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
-    .edition-info {
-      padding: 1rem;
-    }
+    .edition-info { padding: 1rem; }
 
     /* --- PAGE CONTACT / COMMANDE --- */
     .contact-container {
@@ -348,7 +333,6 @@
     }
     .contact-item { display: flex; align-items: center; gap: 0.5rem; }
 
-    /* Formulaire styles (gardés du précédent mais ajustés) */
     .form-section-title {
       font-family: 'Fredoka', sans-serif;
       margin-top: 1.5rem; margin-bottom: 0.8rem;
@@ -369,6 +353,21 @@
     }
     .hidden { display: none; }
 
+    /* --- MODAL MENTIONS LEGALES --- */
+    .modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5); z-index: 2000; display: none;
+        align-items: center; justify-content: center;
+    }
+    .modal-content {
+        background: #fff; width: 90%; max-width: 600px; max-height: 80vh;
+        overflow-y: auto; padding: 2rem; border-radius: 15px; position: relative;
+    }
+    .close-modal {
+        position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem;
+        cursor: pointer; color: #999;
+    }
+
     /* --- FOOTER --- */
     footer {
       background: var(--bleu-profond);
@@ -386,6 +385,10 @@
       border-radius: 30px;
       margin-top: 1rem;
       font-size: 0.9rem;
+    }
+    .footer-link {
+        color: rgba(255,255,255,0.7); font-size: 0.85rem; text-decoration: underline; cursor: pointer;
+        margin-left: 1rem;
     }
 
     /* --- RESPONSIVE --- */
@@ -455,12 +458,20 @@
     <div id="catalogue-section" style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #eee;">
         <h3 style="color: var(--bleu-profond); font-size: 2rem; margin-bottom: 2rem;">Nos Livres</h3>
         
-        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem;">
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 3rem;">
             <div onclick="showPage('histoire')" style="cursor: pointer; max-width: 250px; text-align: center; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 <img src="ImageNubi.png" alt="Le Petit Nuage Qui Avait Peur de Pleuvoir" style="width: 100%; border-radius: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.15);">
-                
                 <h4 style="margin-top: 1rem; color: var(--texte); font-size: 1.1rem; line-height: 1.4;">
                     Le Petit Nuage Qui Avait Peur de Pleuvoir
+                </h4>
+            </div>
+
+            <div style="max-width: 250px; text-align: center; opacity: 0.6; cursor: default;">
+                <div style="width: 250px; height: 320px; background: #eee; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #ccc; border: 2px dashed #bbb;">
+                    ?
+                </div>
+                <h4 style="margin-top: 1rem; color: #999; font-size: 1.1rem; font-style: italic;">
+                    Prochainement...<br><span style="font-size: 0.9rem;">(En cours de création)</span>
                 </h4>
             </div>
         </div>
@@ -498,15 +509,9 @@
       <div>
         <div class="gallery-title">Aperçu du livre</div>
         <div class="gallery-grid">
-            <div class="gallery-item item-cover">
-                <img src="Cover.png" alt="Couverture Livre Nubi">
-            </div>
-            <div class="gallery-item item-p1">
-                <img src="P1.png" alt="Page Intérieure 1">
-            </div>
-            <div class="gallery-item item-p2">
-                <img src="P2.png" alt="Page Intérieure 2">
-            </div>
+            <div class="gallery-item item-cover"><img src="Cover.png" alt="Couverture Livre Nubi"></div>
+            <div class="gallery-item item-p1"><img src="P1.png" alt="Page Intérieure 1"></div>
+            <div class="gallery-item item-p2"><img src="P2.png" alt="Page Intérieure 2"></div>
         </div>
         
         <div style="text-align: center; margin-top: 2rem;">
@@ -543,26 +548,11 @@
     </div>
     
     <div style="margin-top: 3rem; background: var(--bleu-profond); color: #fff; padding: 2rem; border-radius: 15px; display: flex; justify-content: center; flex-wrap: wrap; gap: 2.5rem; text-align: center;">
-        <div>
-            <div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Format</div>
-            <div style="font-size: 1.2rem; font-weight: 700;">21 x 27 cm</div>
-        </div>
-        <div>
-            <div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Pages</div>
-            <div style="font-size: 1.2rem; font-weight: 700;">40 pages couleur</div>
-        </div>
-        <div>
-            <div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Style</div>
-            <div style="font-size: 1.2rem; font-weight: 700;">Disney / Pixar</div>
-        </div>
-        <div>
-            <div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Couverture</div>
-            <div style="font-size: 1.2rem; font-weight: 700;">Cartonnée Soft Touch</div>
-        </div>
-        <div>
-            <div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Âge</div>
-            <div style="font-size: 1.2rem; font-weight: 700;">Dès 3 ans</div>
-        </div>
+        <div><div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Format</div><div style="font-size: 1.2rem; font-weight: 700;">21 x 27 cm</div></div>
+        <div><div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Pages</div><div style="font-size: 1.2rem; font-weight: 700;">40 pages couleur</div></div>
+        <div><div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Style</div><div style="font-size: 1.2rem; font-weight: 700;">Disney / Pixar</div></div>
+        <div><div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Couverture</div><div style="font-size: 1.2rem; font-weight: 700;">Cartonnée Soft Touch</div></div>
+        <div><div style="font-size: 0.9rem; opacity: 0.8; text-transform: uppercase;">Âge</div><div style="font-size: 1.2rem; font-weight: 700;">Dès 3 ans</div></div>
     </div>
   </div>
 </div>
@@ -577,41 +567,23 @@
         <div class="author-card">
             <h3>L'Auteur</h3>
             <img src="https://placehold.co/300x300/eee/999?text=Photo+Auteur" alt="Photo Auteur" class="author-photo">
-            <p style="font-style: italic; color: #555;">
-                "Créer des histoires, c'est semer des graines de courage dans le cœur des enfants."
-            </p>
-            <p style="margin-top: 1rem; text-align: left;">
-                Passionné par l'imaginaire et la pédagogie, l'auteur s'inspire des défis quotidiens des enfants pour créer des contes bienveillants. Son écriture rythmée et douce invite à la lecture à voix haute.
-            </p>
+            <p style="font-style: italic; color: #555;">"Créer des histoires, c'est semer des graines de courage dans le cœur des enfants."</p>
+            <p style="margin-top: 1rem; text-align: left;">Passionné par l'imaginaire et la pédagogie, l'auteur s'inspire des défis quotidiens des enfants pour créer des contes bienveillants. Son écriture rythmée et douce invite à la lecture à voix haute.</p>
         </div>
 
         <div class="edition-info">
             <h3 style="color: var(--bleu-profond); margin-bottom: 1rem;">🌥️ Éditions Nubi – La magie des émotions en livres jeunesse 🌈</h3>
-            
             <p style="margin-bottom: 1rem;"><strong>Éditions Nubi</strong> est une maison d’édition jeunesse indépendante dédiée à créer des histoires qui apaisent, émerveillent et accompagnent les enfants dans la découverte de leurs émotions.</p>
-            
             <p><strong>Notre mission :</strong> offrir des albums illustrés qui parlent au cœur, nourrissent l’imagination et transmettent des valeurs essentielles comme le courage, la confiance en soi, la bienveillance et l’acceptation de soi.</p>
 
             <h4 style="color: var(--bleu-profond); margin-top: 1.5rem; margin-bottom: 0.5rem;">🎨 Un univers doux & lumineux</h4>
-            <p>Nos ouvrages sont entièrement conçus dans un style visuel inspiré de Disney·Pixar : des couleurs chaleureuses, des personnages expressifs, un trait tendre et une atmosphère magique qui capte l’attention des petits comme des parents.<br>Chaque illustration est créée pour transporter l’enfant dans une expérience sensorielle douce, rassurante et poétique.</p>
+            <p>Nos ouvrages sont entièrement conçus dans un style visuel inspiré de Disney·Pixar...<br>Chaque illustration est créée pour transporter l’enfant dans une expérience sensorielle douce, rassurante et poétique.</p>
 
             <h4 style="color: var(--bleu-profond); margin-top: 1.5rem; margin-bottom: 0.5rem;">📚 Des histoires qui font grandir</h4>
-            <p>Les livres Éditions Nubi s’adressent aux enfants de 3 à 7 ans et abordent les émotions avec subtilité :</p>
-            <ul style="margin: 0.5rem 0 1rem 1.5rem; list-style-type: none;">
-                <li>– la peur → transformée en force</li>
-                <li>– la différence → révélée comme un trésor</li>
-                <li>– la sensibilité → célébrée comme un super-pouvoir</li>
-                <li>– la confiance → cultivée au fil des pages</li>
-            </ul>
+            <p>Les livres Éditions Nubi s’adressent aux enfants de 3 à 7 ans et abordent les émotions avec subtilité.</p>
 
             <h4 style="color: var(--bleu-profond); margin-top: 1.5rem; margin-bottom: 0.5rem;">✨ Notre vision</h4>
-            <p>Nous croyons que chaque enfant porte en lui une lumière unique. À travers nos récits, nous voulons l’aider à reconnaître cette lumière et à la faire briller.</p>
-            <p style="margin-top: 0.5rem;">Nos albums sont pensés pour devenir :</p>
-             <ul style="margin: 0.5rem 0 1rem 1.5rem; list-style-type: none;">
-                <li>– des moments précieux en famille</li>
-                <li>– des outils pédagogiques pour les enseignants</li>
-                <li>– des supports d’échanges émotionnels pour les parents et éducateurs</li>
-            </ul>
+            <p>Nous croyons que chaque enfant porte en lui une lumière unique.</p>
 
             <h4 style="color: var(--bleu-profond); margin-top: 1.5rem; margin-bottom: 0.5rem;">🎁 Éditions Nubi, c’est aussi…</h4>
             <ul style="margin: 0.5rem 0 1rem 1.5rem; list-style-type: none;">
@@ -621,13 +593,10 @@
                  <li>– Des cadeaux parfaits pour anniversaires, fêtes et naissances</li>
             </ul>
 
-            <p style="font-weight: bold; color: var(--accent); margin-top: 1.5rem; text-align: center;">
-                🌈 Éditions Nubi — Là où les nuages apprennent à briller.
-            </p>
+            <p style="font-weight: bold; color: var(--accent); margin-top: 1.5rem; text-align: center;">🌈 Éditions Nubi — Là où les nuages apprennent à briller.</p>
             
             <div style="margin-top: 2rem; padding: 1rem; background: #fff5f8; border-radius: 10px;">
-                <strong>📍 Notre Adresse :</strong><br>
-                375 Rue David Zouzoua,<br>Bingerville, Côte d'Ivoire.
+                <strong>📍 Notre Adresse :</strong><br>375 Rue David Zouzoua,<br>Bingerville, Côte d'Ivoire.
             </div>
         </div>
     </div>
@@ -644,17 +613,20 @@
     <div class="contact-container">
         <div class="contact-details">
             <div class="contact-row">
-                <div class="contact-item">
-                    📍 <strong>Adresse :</strong> 375 Rue David Zouzoua, Bingerville
-                </div>
-                <div class="contact-item">
-                    📞 <strong>Tél :</strong> +225 07 09 85 07 76
-                </div>
+                <div class="contact-item">📍 <strong>Adresse :</strong> 375 Rue David Zouzoua, Bingerville</div>
+                <div class="contact-item">📞 <strong>Tél :</strong> +225 07 09 85 07 76</div>
             </div>
             <div class="contact-row">
-                 <div class="contact-item">
-                    📧 <strong>Email :</strong> contact@editionsnubi.com
-                </div>
+                 <div class="contact-item">📧 <strong>Email :</strong> contact@editionsnubi.com</div>
+            </div>
+            
+            <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px dashed #ddd; text-align: left; font-size: 0.95rem; color: #666;">
+                <h4 style="color: var(--bleu-profond); display: flex; align-items: center; gap: 0.5rem;">🚚 Infos Livraison & Commandes</h4>
+                <ul style="margin-top: 0.5rem; margin-left: 1.5rem; list-style-type: circle;">
+                    <li><strong>Abidjan & Banlieue :</strong> Livraison rapide sous 24h à 48h.</li>
+                    <li><strong>Intérieur & International :</strong> Expédition possible (frais selon destination).</li>
+                    <li>Pour toute commande de plus de 10 exemplaires (Écoles, Librairies), contactez-nous directement.</li>
+                </ul>
             </div>
         </div>
         
@@ -697,12 +669,9 @@
                <div style="flex:2"><label>Nom</label><input type="text" id="nomFamille"></div>
            </div>
            <label>Prénoms</label><input type="text" id="prenoms">
-           
            <label id="lbl-adresse">Adresse</label><input type="text" id="adresse">
-           
            <label>Téléphone</label>
            <div style="display:flex; gap:0.5rem;"><span id="indicatif" style="padding:0.7rem; background:#eee; border-radius:8px;">+225</span><input type="tel" id="contactTel"></div>
-           
            <label>Email</label><input type="email" id="emailContact">
         </div>
 
@@ -733,10 +702,41 @@
 
 <footer>
   <div class="wrapper">
-    <p>© <span id="year"></span> Éditions Nubi — Tous droits réservés.</p>
+    <p>© <span id="year"></span> Éditions Nubi — Tous droits réservés. 
+       <span class="footer-link" onclick="el('modal-mentions').style.display='flex'">Mentions Légales</span>
+    </p>
     <div class="footer-address">📍 375 Rue David Zouzoua, Bingerville, Côte d'Ivoire</div>
   </div>
 </footer>
+
+<div id="modal-mentions" class="modal-overlay" onclick="if(event.target === this) this.style.display='none'">
+    <div class="modal-content">
+        <span class="close-modal" onclick="el('modal-mentions').style.display='none'">&times;</span>
+        <h3 style="color: var(--bleu-profond); margin-bottom: 1rem;">Mentions Légales</h3>
+        
+        <p><strong>Éditeur du site :</strong><br>
+        Éditions Nubi<br>
+        375 Rue David Zouzoua, Quartier Adjamé-Bingerville<br>
+        Bingerville, Côte d'Ivoire<br>
+        Email : contact@editionsnubi.com<br>
+        Téléphone : +225 07 09 85 07 76</p>
+        
+        <hr style="margin: 1rem 0; border: 0; border-top: 1px solid #eee;">
+        
+        <p><strong>Hébergement :</strong><br>
+        Ce site est hébergé via GitHub Pages et le domaine est géré par Hostinger.</p>
+        
+        <hr style="margin: 1rem 0; border: 0; border-top: 1px solid #eee;">
+        
+        <p><strong>Propriété Intellectuelle :</strong><br>
+        L'ensemble de ce site (textes, illustrations, logo) relève de la législation sur le droit d'auteur et la propriété intellectuelle. Toute reproduction est interdite sans autorisation expresse.</p>
+        
+        <hr style="margin: 1rem 0; border: 0; border-top: 1px solid #eee;">
+        
+        <p><strong>Données Personnelles :</strong><br>
+        Les informations recueillies via le formulaire de commande ne sont utilisées que pour le traitement de votre commande et la livraison. Elles ne sont jamais revendues à des tiers.</p>
+    </div>
+</div>
 
 <script>
 // --- GESTION NAVIGATION (SPA) ---
@@ -748,8 +748,6 @@ function showPage(pageId) {
     const link = document.getElementById('link-' + pageId);
     if(link) link.classList.add('active-link');
 }
-
-// Fonction Scroll vers Catalogue sur la Home
 function scrollToCatalogue() {
     const el = document.getElementById('catalogue-section');
     if(el) el.scrollIntoView({behavior: 'smooth'});
@@ -765,7 +763,7 @@ function nextSlide() {
 }
 if(slides.length > 0) setInterval(nextSlide, 5000);
 
-// --- ANIMATION PRIX (PAGE HISTOIRE) ---
+// --- ANIMATION PRIX ---
 const pricesList = ["10 000 FCFA", "14,49 €", "16,99 $"];
 let priceIndex = 0;
 setInterval(() => {
@@ -774,47 +772,38 @@ setInterval(() => {
         priceIndex = (priceIndex + 1) % pricesList.length;
         el.textContent = pricesList[priceIndex];
     }
-}, 2500); // Change toutes les 2.5 secondes
+}, 2500);
 
-// --- LOGIQUE FORMULAIRE OPTIMISÉE ---
+// --- FORMULAIRE ---
 document.addEventListener('DOMContentLoaded', function() {
     el('year').textContent = new Date().getFullYear();
-    
-    // Config pays/tel
     const paysData = { "afrique": ["Côte d'Ivoire", "Sénégal", "Mali", "Maroc"], "europe": ["France", "Belgique"], "amerique": ["Canada", "USA"] };
     const telData = { "Côte d'Ivoire": "+225", "Sénégal": "+221", "Mali": "+223", "France": "+33", "Canada": "+1" };
     
     const reg = el('region'), pay = el('pays'), stat = el('statut');
-    
     if(reg) reg.addEventListener('change', () => {
         pay.innerHTML = '<option value="">Pays...</option>';
         if(paysData[reg.value]) paysData[reg.value].forEach(p => { let o=document.createElement('option'); o.text=p; o.value=p; pay.add(o); });
         hide('zone-ci-block');
     });
-
     if(pay) pay.addEventListener('change', () => {
         if(pay.value === "Côte d'Ivoire") show('zone-ci-block'); else hide('zone-ci-block');
         if(el('indicatif')) el('indicatif').textContent = telData[pay.value] || "+";
     });
-
     if(stat) stat.addEventListener('change', () => {
         if(stat.value) show('identite-block'); else hide('identite-block');
         if(['librairie','ecole'].includes(stat.value)) show('structure-block'); else hide('structure-block');
-        if(stat.value === 'ecole') el('lbl-structure').textContent = "Nom de l'école";
-        else el('lbl-structure').textContent = "Nom Structure";
+        if(stat.value === 'ecole') el('lbl-structure').textContent = "Nom de l'école"; else el('lbl-structure').textContent = "Nom Structure";
         updateQuantites();
     });
-    
     el('zoneCI').addEventListener('change', (e) => { if(e.target.value==='Interieur') show('ville-interieur-block'); else hide('ville-interieur-block'); });
     el('quantite').addEventListener('change', (e) => { if(e.target.value==='perso') show('quantite-pers-block'); else hide('quantite-pers-block'); calcTotal(); });
     el('quantitePerso').addEventListener('input', calcTotal);
     el('devise').addEventListener('change', calcTotal);
-    
     el('btnWhatsapp').addEventListener('click', () => send('wa'));
     el('btnEmail').addEventListener('click', () => send('mail'));
 });
 
-// Helpers
 function el(id) { return document.getElementById(id); }
 function show(id) { let e=el(id); if(e) e.classList.remove('hidden'); }
 function hide(id) { let e=el(id); if(e) e.classList.add('hidden'); }
@@ -827,95 +816,34 @@ function updateQuantites() {
     let op=document.createElement('option'); op.value='perso'; op.text='Autre...'; q.add(op);
     calcTotal();
 }
-
 function calcTotal() {
     let q = el('quantite').value === 'perso' ? (el('quantitePerso').value||0) : el('quantite').value;
-    let d = el('devise').value;
-    
-    // Nouveaux Prix unitaires
-    let u = 10000; // Par défaut XOF
-    if(d === 'EUR') u = 14.49;
-    else if (d === 'USD') u = 16.99;
-    
+    let d = el('devise').value, u = 10000;
+    if(d === 'EUR') u = 14.49; else if (d === 'USD') u = 16.99;
     let total = (q * u);
-    
-    // Formatage avec virgule pour devises étrangères
-    if(d !== 'XOF') {
-        total = total.toFixed(2).replace('.', ',');
-    }
-    
+    if(d !== 'XOF') total = total.toFixed(2).replace('.', ',');
     el('total').value = total + " " + d;
 }
-
-// Fonction Spéciale "Force Copy" (Fonctionne partout)
 function copierContenu(texte) {
-    // Crée une zone de texte temporaire invisible mais sélectionnable
     var textArea = document.createElement("textarea");
-    textArea.style.position = 'fixed';
-    textArea.style.top = '0';
-    textArea.style.left = '0';
-    textArea.style.width = '2em';
-    textArea.style.height = '2em';
-    textArea.style.padding = '0';
-    textArea.style.border = 'none';
-    textArea.style.outline = 'none';
-    textArea.style.boxShadow = 'none';
-    textArea.style.background = 'transparent';
-    textArea.value = texte;
-    
-    document.body.appendChild(textArea);
-    textArea.select();
-    
+    textArea.style.position = 'fixed'; textArea.style.top = '0'; textArea.style.left = '0';
+    textArea.style.width = '2em'; textArea.style.height = '2em'; textArea.style.padding = '0';
+    textArea.style.border = 'none'; textArea.style.outline = 'none'; textArea.style.boxShadow = 'none';
+    textArea.style.background = 'transparent'; textArea.value = texte;
+    document.body.appendChild(textArea); textArea.select();
     try {
-        var successful = document.execCommand('copy');
-        if(successful) {
-            alert("✅ Résumé copié !\n\nOuvrez votre boîte mail et faites 'Coller'.");
-        } else {
-            prompt("Copie automatique impossible. Copiez ce texte manuellement :", texte);
-        }
-    } catch (err) {
-        prompt("Copie automatique impossible. Copiez ce texte manuellement :", texte);
-    }
-    
+        if(document.execCommand('copy')) alert("✅ Résumé copié !\n\nOuvrez votre boîte mail et faites 'Coller'.");
+        else prompt("Copie auto impossible. Copiez ce texte :", texte);
+    } catch (err) { prompt("Copie auto impossible. Copiez ce texte :", texte); }
     document.body.removeChild(textArea);
 }
-
 function send(type) {
-    const nom = el('nomFamille').value || "Client Inconnu";
-    const prenom = el('prenoms').value || "";
-    const tel = el('contactTel').value || "";
-    const adresse = el('adresse').value || "";
-    const livre = el('livre').value;
-    const qte = el('quantite').value === 'perso' ? el('quantitePerso').value : el('quantite').value;
-    const total = el('total').value;
-    const pays = el('pays').value;
-
-    let msg = `*Nouvelle Commande Nubi*\n`;
-    msg += `--------------------------------\n`;
-    msg += `👤 Client : ${nom} ${prenom}\n`;
-    msg += `📞 Tel : ${tel}\n`;
-    msg += `📍 Adresse : ${adresse} (${pays})\n`;
-    msg += `📖 Livre : ${livre}\n`;
-    msg += `📦 Quantité : ${qte}\n`;
-    msg += `💰 TOTAL HT : ${total}\n`;
-    msg += `--------------------------------`;
-
-    if(type === 'wa') {
-        const url = `https://wa.me/2250709850776?text=${encodeURIComponent(msg)}`;
-        window.open(url, '_blank');
-    } else {
-        const subject = encodeURIComponent("Commande Livre - Éditions Nubi");
-        const body = encodeURIComponent(msg + "\n\n(Merci de valider ma commande)");
-        
-        // Tentative d'ouverture mail
-        window.location.href = `mailto:contact@editionsnubi.com?subject=${subject}&body=${body}`;
-        
-        // Solution de secours immédiate
-        setTimeout(() => {
-            if(confirm("Si l'application mail ne s'est pas ouverte, cliquez sur OK pour copier le texte et l'envoyer manuellement.")) {
-                copierContenu(msg);
-            }
-        }, 1000);
+    const nom = el('nomFamille').value || "Client Inconnu", prenom = el('prenoms').value || "", tel = el('contactTel').value || "", adresse = el('adresse').value || "", livre = el('livre').value, qte = el('quantite').value === 'perso' ? el('quantitePerso').value : el('quantite').value, total = el('total').value, pays = el('pays').value;
+    let msg = `*Nouvelle Commande Nubi*\n--------------------------------\n👤 Client : ${nom} ${prenom}\n📞 Tel : ${tel}\n📍 Adresse : ${adresse} (${pays})\n📖 Livre : ${livre}\n📦 Quantité : ${qte}\n💰 TOTAL HT : ${total}\n--------------------------------`;
+    if(type === 'wa') { window.open(`https://wa.me/2250709850776?text=${encodeURIComponent(msg)}`, '_blank'); }
+    else {
+        window.location.href = `mailto:contact@editionsnubi.com?subject=${encodeURIComponent("Commande Livre - Éditions Nubi")}&body=${encodeURIComponent(msg + "\n\n(Merci de valider ma commande)")}`;
+        setTimeout(() => { if(confirm("Si l'application mail ne s'est pas ouverte, cliquez sur OK pour copier le texte.")) copierContenu(msg); }, 1000);
     }
 }
 </script>
