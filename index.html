@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Découvrez Nubi, le petit nuage. Éditions Nubi, livres jeunesse illustrés.">
   
+  <link rel="icon" type="image/png" href="Favicon.png">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -48,7 +50,7 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      padding: 0.8rem 0;
+      padding: 0.5rem 0; /* Légèrement réduit pour accomoder le logo */
     }
 
     .wrapper {
@@ -64,13 +66,16 @@
     }
 
     nav .logo {
-      font-weight: 700;
-      font-size: 1.6rem;
-      color: var(--bleu-profond);
-      text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      text-decoration: none;
+    }
+    
+    /* Style pour l'image du logo */
+    nav .logo img {
+      height: 60px; /* Taille ajustée pour la barre de menu */
+      width: auto;
+      object-fit: contain;
     }
 
     .nav-menu {
@@ -400,7 +405,7 @@
   <div class="wrapper">
     <nav>
       <a href="#" onclick="showPage('home')" class="logo">
-        ☁️ Éditions Nubi
+        <img src="Logo.png" alt="Éditions Nubi">
       </a>
       <ul class="nav-menu">
         <li><a onclick="showPage('home')" class="nav-link active-link" id="link-home">Accueil</a></li>
@@ -497,14 +502,14 @@
                 <img src="P2.png" alt="Page Intérieure 2">
             </div>
         </div>
-      </div>
-    </div>
-    
-    <div style="text-align: center; margin-top: 3rem;">
-        <div id="anim-price" style="font-size: 1.8rem; font-weight: 700; color: var(--bleu-profond); margin-bottom: 1rem; min-height: 40px;">
-            10 000 FCFA
+        
+        <div style="text-align: center; margin-top: 2rem;">
+            <div id="anim-price" style="font-size: 1.8rem; font-weight: 700; color: var(--bleu-profond); margin-bottom: 1rem; min-height: 40px;">
+                10 000 FCFA
+            </div>
+            <button onclick="showPage('commande')" class="btn-order" style="padding: 1rem 2rem; font-size: 1.2rem;">Commander ce livre</button>
         </div>
-        <button onclick="showPage('commande')" class="btn-order" style="padding: 1rem 2rem; font-size: 1.2rem;">Commander ce livre</button>
+      </div>
     </div>
   </div>
 </div>
