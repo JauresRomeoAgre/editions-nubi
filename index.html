@@ -50,7 +50,8 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      padding: 0.5rem 0; /* Légèrement réduit pour accomoder le logo */
+      /* Padding augmenté pour laisser respirer le logo plus grand */
+      padding: 1rem 0; 
     }
 
     .wrapper {
@@ -71,11 +72,16 @@
       text-decoration: none;
     }
     
-    /* Style pour l'image du logo */
+    /* Style pour l'image du logo - TAILLE AUGMENTÉE */
     nav .logo img {
-      height: 60px; /* Taille ajustée pour la barre de menu */
+      height: 90px; /* Augmenté de 60px à 90px pour meilleure lisibilité */
       width: auto;
       object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+    /* Petit effet au survol du logo */
+    nav .logo img:hover {
+        transform: scale(1.03);
     }
 
     .nav-menu {
