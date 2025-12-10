@@ -43,6 +43,43 @@
       font-family: 'Fredoka', sans-serif;
     }
 
+    /* --- TOP BARRE COORDONNÉES ET FAQ --- */
+    .top-bar {
+        background: var(--bleu-profond);
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.9rem;
+        padding: 0.4rem 0;
+        text-align: right;
+    }
+    .top-bar .wrapper {
+        display: flex;
+        justify-content: flex-end; /* Aligner à droite */
+        align-items: center;
+        gap: 1.5rem;
+    }
+    .top-bar-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .top-faq-btn {
+        background: var(--accent);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+    .top-faq-btn:hover {
+        background: #e65c5c;
+    }
+
+
     /* --- HEADER & NAV --- */
     header {
       background: #fff;
@@ -71,9 +108,9 @@
       text-decoration: none;
     }
     
-    /* Style pour l'image du logo - TAILLE RÉAJUSTÉE */
+    /* Style pour l'image du logo */
     nav .logo img {
-      height: 110px; /* Taille réajustée pour moins de bulk */
+      height: 110px; 
       width: auto;
       object-fit: contain;
       transition: transform 0.3s ease;
@@ -439,6 +476,16 @@
 </head>
 <body>
 
+<div class="top-bar">
+    <div class="wrapper">
+        <div class="top-bar-item">📧 contact@editionsnubi.com</div>
+        <div class="top-bar-item">📞 +225 07 09 85 07 76</div>
+        <a class="top-faq-btn" onclick="showPageAndScroll('propos', 'faq-container')">
+            💬 FAQ
+        </a>
+    </div>
+</div>
+
 <header>
   <div class="wrapper">
     <nav>
@@ -631,7 +678,7 @@
         </div>
     </div>
 
-    <div class="faq-container">
+    <div id="faq-container" class="faq-container">
         <h2 style="color: var(--bleu-profond); text-align: center;">🌟 FAQ – Éditions Nubi</h2>
         <div style="margin-top: 2rem;">
             
@@ -849,6 +896,29 @@
 
 <script>
 // --- GESTION NAVIGATION (SPA) ---
+
+/**
+ * Affiche la page souhaitée et, optionnellement, scroll vers une ancre.
+ * @param {string} pageId - ID de la page à afficher (ex: 'propos').
+ * @param {string} [anchorId] - ID de l'élément vers lequel scroller (ex: 'faq-container').
+ */
+function showPageAndScroll(pageId, anchorId) {
+    // 1. Changer la page (utilise la fonction existante)
+    showPage(pageId);
+    
+    // 2. Si une ancre est fournie, scroller vers elle après un court délai
+    if (anchorId) {
+        // Délai nécessaire pour laisser le temps au navigateur d'afficher la nouvelle page (fadeIn)
+        setTimeout(() => {
+            const anchorElement = document.getElementById(anchorId);
+            if (anchorElement) {
+                // Fait défiler jusqu'à l'élément avec un comportement doux
+                anchorElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 100); 
+    }
+}
+
 function showPage(pageId) {
     document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-link'));
